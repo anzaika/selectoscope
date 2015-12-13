@@ -1,0 +1,4 @@
+---
+BUNDLE_JOBS: '6'
+BUNDLE_CACHE_ALL: true
+BUNDLE_NO_INSTALL: true

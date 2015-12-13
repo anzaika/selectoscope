@@ -1,0 +1,22 @@
+development: &default
+  adapter: mysql2
+  encoding: utf8
+  port: 3306
+  # database: app
+  # pool: 20
+  # username: root
+  # password: 1234
+  # host: db
+  # port: 3306
+
+# test:
+#   <<: *default
+#   database: app_test
+
+production:
+  <<: *default
+  host: 10.0.10.102
+  username: selectoscope
+  password: 1234
+  database: selectoscope_production
+  pool: 4

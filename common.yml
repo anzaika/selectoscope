@@ -1,0 +1,19 @@
+db:
+  image: "mysql:5.6"
+  ports:
+    - "3306"
+
+web:
+  build: ./rails
+  command: bundle exec unicorn -p 80 -c config/unicorn.rb
+  ports:
+    - "3009:80"
+
+sidekiq:
+  build: ./rails
+  command: bundle exec sidekiq
+
+redis:
+  image: "redis:2.8"
+  ports:
+    - "6379:6379"

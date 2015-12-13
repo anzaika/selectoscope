@@ -1,0 +1,63 @@
+columns do
+  column span: 1 do
+    panel "Basic info" do
+      attributes_table_for group do
+        row :sequences_count
+        row :avg_sequence_length do |group|
+          group.avg_sequence_length.to_i
+        end
+      end
+    end
+
+    panel "Actions" do
+      render(partial: "groups/actions", locals: {group: group})
+    end
+  end
+
+  column span: 3 do
+    panel "Tree", "data-panel" => :open do
+      if group.tree
+        render(partial: "groups/tnt_tree",
+                locals:  {tree:    group.decorate.tree_for_group_show_view,
+                          width:   600,
+                          compact: false})
+      end
+    end
+  end
+
+  column span: 1 do
+    panel "Fast positive report", "data-panel" => :open do
+      if group.fast_result
+        render(partial: "groups/positive_report", locals: {report: group.fast_result.positive_report})
+      end
+    end
+    panel "Codeml" do
+      if group.codeml_result
+        attributes_table_for group.codeml_result do
+          row :w0
+          row :w1
+          row :k
+          row :p0
+          row :p1
+        end
+      end
+    end
+  end
+end
+
+panel "Alignments", id: "alignments" do
+  render group.orig_align if group.orig_align
+  render group.gblocks_align if group.gblocks_align
+end
+panel "Codeml output", "data-panel" => :collapsed do
+  if group.codeml_result
+    render(partial: "groups/codeml_output",
+            locals:  {report: group.codeml_result})
+  end
+end
+panel "Fast output", "data-panel" => :collapsed do
+  if group.fast_result
+    render(partial: "groups/fast_output",
+            locals:  {report: group.fast_result})
+  end
+end

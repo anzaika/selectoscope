@@ -1,0 +1,1 @@
+DataImport::Lopatina.new.import

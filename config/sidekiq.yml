@@ -1,0 +1,24 @@
+---
+:pidfile: tmp/sidekiq.pid
+development:
+  :concurrency: 1
+  :queues:
+    - one
+    - parallel_four
+    - many
+  :limits:
+    one: 1
+    parallel_four: 1
+    many: 4
+production:
+  :concurrency: 8
+  :queues:
+    - one
+    - parallel_four
+    - many
+  :limits:
+    one: 1
+    parallel_four: 2
+    many: 8
+:blocking:
+  - one

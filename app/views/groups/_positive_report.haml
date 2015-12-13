@@ -1,0 +1,6 @@
+%ul
+  - if report
+    - report.each_with_index do |v,i|
+      %li
+        = "Branch #{i}:"
+        = v ? 'yes!' : 'no'

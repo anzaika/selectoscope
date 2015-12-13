@@ -1,0 +1,8 @@
+= semantic_form_for @batch, builder: ActiveAdmin::FormBuilder do |f|
+  .columns
+    .column{style: "width: 49%; margin-right: 2%"}
+      = f.inputs "General" do
+        = f.input :name
+        = f.input :description
+        = f.file_field :fasta_file, multiple: true, name: 'batch[fasta_files][]'
+      = f.submit

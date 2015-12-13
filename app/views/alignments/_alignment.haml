@@ -1,0 +1,9 @@
+- root = "alignment#{rand(100_000)}"
+.alignment-wrap
+  %h3
+    Type:
+    = alignment.meta
+  %div{ id: root }
+
+:javascript
+  window.AlignmentViewer.build(#{alignment.id}, "#{root}");

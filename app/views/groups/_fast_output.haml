@@ -1,0 +1,24 @@
+%h3
+  Result file
+%p
+  - if report.output
+    - report.output.split("\n").each do |l|
+      = l
+      %br/
+  - else
+    No report =(
+%hr/
+%h3
+  Stdout
+%hr/
+%p
+  - if report.stdout
+    - report.stdout.split("\n").each do |l|
+      = l
+      %br/
+  - else
+    \---
+%h3
+  Stderr
+%p
+  = report.stderr

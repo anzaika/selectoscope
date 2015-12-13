@@ -1,0 +1,4 @@
+- root = "tnt#{rand(100_000)}"
+%div{id: root}
+:javascript
+  window.TreeBuilder.build("#{tree}", "#{root}", "#{width}")

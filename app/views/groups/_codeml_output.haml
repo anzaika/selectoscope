@@ -1,0 +1,18 @@
+%h3
+  Result file:
+%p
+  - if report.output
+    - Identifier.tr(report.output).split("\n").each do |l|
+      = l
+      %br/
+%h3
+  Stdout:
+%p
+  - if report.stdout
+    = Identifier.tr(report.stdout).split("\n").each do |l|
+      = l
+      %br/
+%h3
+  Stderr:
+%p
+  = report.stderr
