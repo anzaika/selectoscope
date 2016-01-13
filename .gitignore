@@ -6,3 +6,4 @@ rails/log/*
 rails/warnings
 tags
 *.tgz
+warnings
