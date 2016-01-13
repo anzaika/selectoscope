@@ -25,7 +25,7 @@ class Group < ActiveRecord::Base
   after_create :parse_fasta_file_for_processing, :set_has_paralogs
 
   def name
-    "Group: " + id.to_s
+    "Group " + id.to_s
   end
 
   def molphy

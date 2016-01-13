@@ -1,0 +1,11 @@
+sidekiq:
+  extends:
+    file: common.yml
+    service: sidekiq
+  volumes:
+    - ".:/opt/app"
+    - "./production_data/fasta_files:/opt/app/public/fasta_file"
+    - "./production_data/tmp:/opt/app/tmp"
+    - "./production_data/log:/opt/app/log"
+  env_file:
+    - 'production.env'

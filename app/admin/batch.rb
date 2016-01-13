@@ -8,10 +8,18 @@ ActiveAdmin.register Batch do
   index download_links: false do
     selectable_column
     column :name
-    column "description" do |batch|
+    column "Description" do |batch|
       truncate(batch.description, length: 70)
     end
-    column "count_groups", sortable: "groups_count"
+    column "Groups", sortable: "groups_count" do |batch|
+      batch.count_groups
+    end
+    column "Groups with positive (cnt)" do |batch|
+      batch.count_groups_with_positive
+    end
+    column "Groups with positive (%)" do |batch|
+      batch.percent_of_groups_with_positive
+    end
     actions
   end
 
@@ -33,14 +41,29 @@ ActiveAdmin.register Batch do
       end
       column span: 1 do
         panel "Groups" do
+          a href: "/groups?utf8=✓&q%5Bbatch_id_eq%5D=#{batch.id}&commit=Filter&order=id_desc" do
+            div "Open in Groups view"
+          end
           table_for batch.groups do
-            column "sequences" do |group|
+            column "Link" do |group|
               a href: group_path(group) do
-                div group.sequences.count
+                div group.name
               end
             end
-            column "sequences" do |group|
+            column "Seq count" do |group|
               group.sequences.count
+            end
+            column :avg_sequence_length do |group|
+              group.avg_sequence_length.to_i
+            end
+            column :positive_selection do |group|
+              if group.fast_result && group.fast_result.has_positive
+                status_tag "yes"
+              elsif group.fast_result && !group.fast_result.has_positive
+                status_tag "no"
+              else
+                "---"
+              end
             end
           end
         end
@@ -77,6 +100,11 @@ ActiveAdmin.register Batch do
     redirect_to collection_path
   end
 
+  batch_action 'Run full stack on' do |ids|
+    Batch.find(ids).each{|b| FullStackForAllGroupsOfBatchJob.perform_async(b.id) }
+    redirect_to collection_path
+  end
+
   controller do
     def create
       @batch = Batch.new(
@@ -96,12 +124,7 @@ ActiveAdmin.register Batch do
     end
 
     def run_full_stack
-      ids = Batch.find(params[:id]).groups.pluck(:id)
-      ids.each {|id| AlignmentForGroupJob.perform_async(id) }
-      ids.each {|id| GblocksForGroupJob.perform_later(id) }
-      ids.each {|id| PhymlForGroupJob.perform_later(id) }
-      ids.each {|id| CodemlForGroupJob.perform_later(id) }
-      ids.each {|id| FastForGroupJob.perform_later(id) }
+      FullStackForAllGroupsOfBatchJob.perform_async(params[:id])
       redirect_to resource_path(resource.id)
     end
   end

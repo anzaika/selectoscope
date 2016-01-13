@@ -1,23 +1,13 @@
-db:
-  extends:
-    file: common.yml
-    service: db
-  volumes:
-    - "./development_data/database:/var/lib/mysql"
-  env_file:
-    - 'development.env'
-
 web:
   extends:
     file: common.yml
     service: web
   volumes:
-    - "./rails:/opt/app"
+    - ".:/opt/app"
     - "./development_data/fasta_files:/opt/app/public/fasta_file"
     - "./development_data/log:/opt/app/log"
     - "./development_data/tmp:/opt/app/tmp"
   links:
-    - db
     - redis
   env_file:
     - 'development.env'
@@ -27,12 +17,11 @@ sidekiq:
     file: common.yml
     service: sidekiq
   volumes:
-    - "./rails:/opt/app"
+    - ".:/opt/app"
     - "./development_data/fasta_files:/opt/app/public/fasta_file"
     - "./development_data/tmp:/opt/app/tmp"
     - "./development_data/log:/opt/app/log"
   links:
-    - db
     - redis
   env_file:
     - 'development.env'

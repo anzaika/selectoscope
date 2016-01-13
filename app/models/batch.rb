@@ -5,4 +5,12 @@ class Batch < ActiveRecord::Base
   def count_groups
     self.groups.count
   end
+
+  def count_groups_with_positive
+    groups.with_positive.count
+  end
+
+  def percent_of_groups_with_positive
+    ((count_groups_with_positive / groups.count.to_f) * 100).to_i
+  end
 end

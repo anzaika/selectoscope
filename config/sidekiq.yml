@@ -11,14 +11,14 @@ development:
     parallel_four: 1
     many: 4
 production:
-  :concurrency: 8
+  :concurrency: 16
   :queues:
     - one
     - parallel_four
     - many
   :limits:
     one: 1
-    parallel_four: 2
-    many: 8
+    parallel_four: 4
+    many: 16
 :blocking:
   - one

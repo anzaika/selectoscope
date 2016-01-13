@@ -1,0 +1,18 @@
+web:
+  extends:
+    file: common.yml
+    service: web
+  links:
+    - redis
+  volumes:
+      - "./production_data/fasta_files:/opt/app/public/fasta_file"
+      - "./production_data/log:/opt/app/log"
+      - "./production_data/tmp:/opt/app/tmp"
+  restart: always
+  env_file:
+    - 'production.env'
+
+redis:
+  extends:
+    file: common.yml
+    service: redis
