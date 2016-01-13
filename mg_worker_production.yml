@@ -1,7 +1,8 @@
 sidekiq:
   extends:
     file: common.yml
-    service: sidekiq
+    service: sidekiq -L log/sidekiq_$HOSTNAME.log
+  image: "anzaika/selectoscope"
   volumes:
     - ".:/opt/app"
     - "./production_data/fasta_files:/opt/app/public/fasta_file"
