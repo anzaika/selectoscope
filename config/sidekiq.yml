@@ -11,6 +11,7 @@ development:
     parallel_four: 1
     many: 4
 production:
+  :logfile: ./log/sidekiq.log
   :concurrency: 16
   :queues:
     - one
