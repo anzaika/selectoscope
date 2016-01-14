@@ -61,6 +61,16 @@ RUN mkdir -p /usr/src/pagan \
   && rm -rf /usr/src/pagan
 
 #####################
+#     Muscle        #
+#####################
+RUN mkdir -p /usr/src/muscle \
+  && curl -SL "http://www.drive5.com/muscle/downloads3.8.31/muscle3.8.31_i86linux64.tar.gz" \
+  | tar xvzC /usr/src/muscle \
+  && cd /usr/src/muscle \
+  && mv muscle3.8.31_i86linux64 /usr/local/bin/muscle \
+  && rm -rf /usr/src/muscle
+
+#####################
 #      Gblocks      #
 #####################
 
