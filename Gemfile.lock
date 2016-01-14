@@ -385,6 +385,8 @@ GEM
       sidekiq (>= 2.16.0)
     sidekiq-limit_fetch (3.0.1)
       sidekiq (>= 4)
+    sidekiq-status (0.6.0)
+      sidekiq (>= 2.7)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -489,6 +491,7 @@ DEPENDENCIES
   sidekiq
   sidekiq-failures
   sidekiq-limit_fetch
+  sidekiq-status
   sinatra
   spring
   spring-commands-rspec

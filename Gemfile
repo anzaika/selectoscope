@@ -14,6 +14,7 @@ gem "sidekiq"
 gem "sidekiq-failures"
 gem "sinatra", require: nil
 gem "sidekiq-limit_fetch"
+gem "sidekiq-status"
 gem "draper"
 gem "transaction_retry"
 gem "responsive_active_admin"
