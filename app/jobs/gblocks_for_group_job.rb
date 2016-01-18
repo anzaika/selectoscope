@@ -1,5 +1,10 @@
-class GblocksForGroupJob < ActiveJob::Base
-  queue_as :one
+class GblocksForGroupJob
+  include Sidekiq::Worker
+  include Sidekiq::Status::Worker
+  sidekiq_options queue: :many,
+                  retry: false,
+                  timeout: 10.minutes,
+                  backtrace: true
 
   def perform(group_id)
     group = Group.find(group_id).decorate
