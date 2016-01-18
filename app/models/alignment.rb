@@ -3,7 +3,7 @@ class Alignment < ActiveRecord::Base
   has_one :run
 
   default_scope -> { order("created_at DESC") }
-  scope :original, -> { where(meta: "pagan") }
+  scope :original, -> { where(meta: "raw") }
   scope :gblocks, -> { where(meta: "gblocks") }
 
   # before_save :set_alignment_params
