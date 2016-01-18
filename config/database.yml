@@ -9,11 +9,11 @@ common: &common
 production:
   <<: *common
   host: hpc02
-  pool: 16
+  pool: 24
   database: selectoscope_production
 
 development:
   <<: *common
   host: dev
-  pool: 4
+  pool: 15
   database: selectoscope_development
