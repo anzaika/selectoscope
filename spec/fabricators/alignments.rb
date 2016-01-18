@@ -1,0 +1,2 @@
+Fabricator(:alignment) do
+end
