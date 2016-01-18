@@ -20,7 +20,8 @@ module Wrap::Codeml
     def execute
       stdout = ""
       stderr = ""
-      Open3.popen3("dir=`mktemp -d` && cd $dir && #{EXEC} #{@spec.arguments}") do |_i, o, e, _t|
+      Open3.popen3("dir=`mktemp -d` && cd $dir && #{EXEC} #{@spec.arguments}") do |i, o, e, _t|
+        i.puts "y\r\n"
         stdout = o.read
         stderr = e.read
         # Rails.logger.debug("Codeml execution stdout:\n"+o.read)
