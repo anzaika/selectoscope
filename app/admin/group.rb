@@ -86,6 +86,9 @@ ActiveAdmin.register Group do
     render "group"
   end
 
+  member_action :run_full_stack, method: :get do
+  end
+
   member_action :compute_alignment, method: :get do
     resource.compute_alignment
   end
@@ -138,7 +141,7 @@ ActiveAdmin.register Group do
     end
 
     def compute_codeml
-      CodemlForGroupJob.perform_later(params[:id])
+      CodemlForGroupJob.perform_async(params[:id])
       flash[:notice] = "Codeml Job has been sent for execution"
       redirect_to resource_path(resource.id)
     end
@@ -166,12 +169,8 @@ ActiveAdmin.register Group do
   end
 
   batch_action "run full-stack for" do |ids|
-    ids.each {|id| AlignmentForGroupJob.perform_async(id) }
-    ids.each {|id| GblocksForGroupJob.perform_later(id) }
-    ids.each {|id| PhymlForGroupJob.perform_later(id) }
-    ids.each {|id| CodemlForGroupJob.perform_later(id) }
-    ids.each {|id| FastForGroupJob.perform_later(id) }
-    redirect_to request.referrer, notice: "Full stack submitted"
+    ids.each {|id| RunFullStackJob.perform_async(id) }
+    redirect_to request.referrer, notice: "Full stack job submitted."
   end
 
   controller do
