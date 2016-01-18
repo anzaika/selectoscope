@@ -15,6 +15,7 @@ gem "sidekiq-failures"
 gem "sinatra", require: nil
 gem "sidekiq-limit_fetch"
 gem "sidekiq-status"
+gem "sidekiq-statistic"
 gem "draper"
 gem "transaction_retry"
 gem "responsive_active_admin"
@@ -60,7 +61,7 @@ group :development do
 end
 
 group :test do
-  gem "factory_girl_rails"
+  gem "fabrication", require: false
   gem "faker"
   gem "pry-rails"
   gem "pry-rescue"
