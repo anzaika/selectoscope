@@ -6,7 +6,7 @@ development:
     - four
     - many
     - control
-  :limits:
+  :process_limits:
     four: 1
     many: 4
 production:
@@ -16,7 +16,7 @@ production:
     - four
     - many
     - control
-  :limits:
+  :process_limits:
     four: 4
     many: 16
 :blocking:
