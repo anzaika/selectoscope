@@ -26,7 +26,7 @@ module Wrap::Fast
     end
 
     def arguments
-      " -nt 4"          +
+      " -nt 1"          +
       " --debug 2"      +
       " -p w0=#{@w0}"   +
       " -p k=#{@k}"     +
