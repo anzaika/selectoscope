@@ -1,0 +1,34 @@
+web:
+  extends:
+    file: common.yml
+    service: web
+  image: "anzaika/selectoscope"
+  links:
+    - redis
+  volumes:
+      - "./production_data/fasta_files:/opt/app/public/fasta_file"
+      - "./production_data/log:/opt/app/log"
+      - "./production_data/tmp:/opt/app/tmp"
+  restart: always
+  env_file:
+    - 'production.env'
+
+redis:
+  extends:
+    file: common.yml
+    service: redis
+
+sidekiq:
+  extends:
+    file: common.yml
+    service: sidekiq
+  image: "anzaika/selectoscope"
+  links:
+    - redis
+  volumes:
+    - ".:/opt/app"
+    - "./production_data/fasta_files:/opt/app/public/fasta_file"
+    - "./production_data/tmp:/opt/app/tmp"
+    - "./production_data/log:/opt/app/log"
+  env_file:
+    - 'production.env'
