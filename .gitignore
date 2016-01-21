@@ -7,3 +7,4 @@ rails/warnings
 tags
 *.tgz
 warnings
+config/database.yml
