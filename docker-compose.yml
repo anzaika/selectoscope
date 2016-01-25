@@ -5,6 +5,7 @@ web:
   volumes:
     - ".:/opt/app"
     - "./development_data/fasta_files:/opt/app/public/fasta_file"
+    - "./development_data/text_files:/opt/app/public/text_file"
     - "./development_data/log:/opt/app/log"
     - "./development_data/tmp:/opt/app/tmp"
   links:
@@ -19,6 +20,7 @@ sidekiq:
   volumes:
     - ".:/opt/app"
     - "./development_data/fasta_files:/opt/app/public/fasta_file"
+    - "./development_data/text_files:/opt/app/public/text_file"
     - "./development_data/tmp:/opt/app/tmp"
     - "./development_data/log:/opt/app/log"
   links:
