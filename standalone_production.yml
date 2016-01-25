@@ -14,7 +14,9 @@ web:
   image: "anzaika/selectoscope"
   links:
     - redis
+    - db
   volumes:
+      - "./config:/opt/app/config"
       - "./production_data/fasta_files:/opt/app/public/fasta_file"
       - "./production_data/log:/opt/app/log"
       - "./production_data/tmp:/opt/app/tmp"
@@ -33,10 +35,11 @@ sidekiq:
   image: "anzaika/selectoscope"
   links:
     - redis
+    - db
   volumes:
-    - ".:/opt/app"
-    - "./production_data/fasta_files:/opt/app/public/fasta_file"
-    - "./production_data/tmp:/opt/app/tmp"
-    - "./production_data/log:/opt/app/log"
+      - "./config:/opt/app/config"
+      - "./production_data/fasta_files:/opt/app/public/fasta_file"
+      - "./production_data/tmp:/opt/app/tmp"
+      - "./production_data/log:/opt/app/log"
   env_file:
     - 'production.env'
