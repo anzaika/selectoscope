@@ -3,7 +3,6 @@ working_directory root
 pid "#{root}/tmp/unicorn.pid"
 stderr_path "#{root}/log/unicorn.log"
 stdout_path "#{root}/log/unicorn.log"
-# listen '/tmp/unicorn.app.sock'
 
 if ENV["RAILS_ENV"] == "development"
   worker_processes 1

@@ -2,12 +2,9 @@ web:
   extends:
     file: common.yml
     service: web
+  user: 'dev_user'
   volumes:
     - ".:/opt/app"
-    - "./development_data/fasta_files:/opt/app/public/fasta_file"
-    - "./development_data/text_files:/opt/app/public/text_file"
-    - "./development_data/log:/opt/app/log"
-    - "./development_data/tmp:/opt/app/tmp"
   links:
     - redis
   env_file:
@@ -17,12 +14,9 @@ sidekiq:
   extends:
     file: common.yml
     service: sidekiq
+  user: 'dev_user'
   volumes:
     - ".:/opt/app"
-    - "./development_data/fasta_files:/opt/app/public/fasta_file"
-    - "./development_data/text_files:/opt/app/public/text_file"
-    - "./development_data/tmp:/opt/app/tmp"
-    - "./development_data/log:/opt/app/log"
   links:
     - redis
   env_file:
