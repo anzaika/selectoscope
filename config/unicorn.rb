@@ -10,7 +10,7 @@ else
   worker_processes 4
 end
 preload_app true
-timeout 600
+timeout 1000
 
 before_fork do |server, _worker|
   defined?(ActiveRecord::Base) &&
