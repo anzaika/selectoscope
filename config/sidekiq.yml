@@ -11,7 +11,7 @@ development:
     many: 4
 production:
   :logfile: ./log/sidekiq.log
-  :concurrency: 32
+  :concurrency: 30
   :queues:
     - four
     - many
@@ -19,5 +19,6 @@ production:
   :process_limits:
     four: 4
     many: 16
+    control: 14
 :blocking:
   - one
