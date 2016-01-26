@@ -4,7 +4,7 @@ sidekiq:
     service: sidekiq
   volumes:
     - "./production_data/fasta_files:/opt/app/public/fasta_file"
-      - "./production_data/text_files:/opt/app/public/text_file"
+    - "./production_data/text_files:/opt/app/public/text_file"
     - "./production_data/tmp:/opt/app/tmp"
     - "./production_data/log:/opt/app/log"
   env_file:
