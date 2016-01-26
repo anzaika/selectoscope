@@ -44,21 +44,21 @@ RUN mkdir -p /usr/src/mafft \
   && make install \
   && rm -rf /usr/src/mafft
 
-#####################
-#      Pagan        #
-#####################
-
-RUN mkdir -p /usr/src/pagan \
-  && curl -SL "http://wasabiapp.org/download/pagan/pagan.linux64.20150723.tgz" \
-  | tar xvzC /usr/src/pagan \
-  && cd /usr/src/pagan/pagan/bin \
-  && mv pagan /usr/local/bin \
-  && mv bppancestor /usr/local/bin \
-  && mv bppdist /usr/local/bin \
-  && mv bppphysamp /usr/local/bin \
-  && mv exonerate /usr/local/bin \
-  && mv raxml /usr/local/bin \
-  && rm -rf /usr/src/pagan
+# #####################
+# #      Pagan        #
+# #####################
+#
+# RUN mkdir -p /usr/src/pagan \
+#   && curl -SL "http://wasabiapp.org/download/pagan/pagan.linux64.20150723.tgz" \
+#   | tar xvzC /usr/src/pagan \
+#   && cd /usr/src/pagan/pagan/bin \
+#   && mv pagan /usr/local/bin \
+#   && mv bppancestor /usr/local/bin \
+#   && mv bppdist /usr/local/bin \
+#   && mv bppphysamp /usr/local/bin \
+#   && mv exonerate /usr/local/bin \
+#   && mv raxml /usr/local/bin \
+#   && rm -rf /usr/src/pagan
 
 #####################
 #     Muscle        #
