@@ -1,11 +1,15 @@
 class AlignmentForGroupJob
   include Sidekiq::Worker
-  sidekiq_options queue: :one, retry: 2, timeout: 10.minutes
+  include Sidekiq::Status::Worker
+  sidekiq_options queue: :many,
+                  retry: false,
+                  timeout: 60.minutes,
+                  backtrace: true
 
   def perform(group_id)
     group = Group.find(group_id)
-    spec = Wrap::Pagan::Spec.new(fasta: group.to_fasta)
-    return nil unless spec && (alignment = Wrap::Pagan::Run.new(spec).run)
+    spec = Wrap::Muscle::Spec.new(fasta: group.to_fasta)
+    return nil unless spec && (alignment = Wrap::Muscle::Run.new(spec).run)
 
     # run       = Run.create(report.for_run)
     # alignment = Alignment.create(fasta: fasta, meta: 'original')

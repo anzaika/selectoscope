@@ -2,6 +2,7 @@ sidekiq:
   extends:
     file: common.yml
     service: sidekiq
+  image: "anzaika/selectoscope"
   volumes:
     - ".:/opt/app"
     - "./production_data/fasta_files:/opt/app/public/fasta_file"
