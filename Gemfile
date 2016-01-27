@@ -44,7 +44,6 @@ gem "ruby-progressbar"
 gem "paperclip"
 
 group :development do
-  gem "spring"
   gem "capistrano"
   gem "capistrano-rails"
   gem "capistrano-bundler"
@@ -69,7 +68,6 @@ group :test do
   gem "shoulda"
   gem "guard-rails"
   gem "guard-rspec", require: false
-  gem "spring-commands-rspec"
   gem "capybara"
   gem "database_cleaner"
   gem "launchy"
