@@ -11,6 +11,7 @@ class Batch < ActiveRecord::Base
   end
 
   def percent_of_groups_with_positive
+    return nil if groups.count == 0
     ((count_groups_with_positive / groups.count.to_f) * 100).to_i
   end
 end
