@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["BioRuby project"]
-  s.date = "2015-12-13"
+  s.date = "2016-02-20"
   s.description = "BioRuby is a library for bioinformatics (biology + information science)."
   s.email = "staff@bioruby.org"
   s.executables = ["bioruby", "br_biofetch.rb", "br_bioflat.rb", "br_biogetseq.rb", "br_pmfetch.rb"]
@@ -17,6 +17,6 @@ Gem::Specification.new do |s|
   s.homepage = "http://bioruby.org/"
   s.rdoc_options = ["--main", "README.rdoc", "--title", "BioRuby API documentation", "--exclude", "\\.yaml\\z", "--line-numbers", "--inline-source"]
   s.rubyforge_project = "bioruby"
-  s.rubygems_version = "2.4.8"
+  s.rubygems_version = "2.5.1"
   s.summary = "Bioinformatics library"
 end

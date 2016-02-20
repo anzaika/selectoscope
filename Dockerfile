@@ -108,9 +108,11 @@ RUN mkdir -p /usr/src/phyml \
 
 ENV DEV_USER dev_user
 ENV PROD_USER prod_user
+ENV GROUP runners
 
-RUN useradd $DEV_USER -u 1000 -ms /bin/bash -U
-RUN useradd $PROD_USER -u 1013 -ms /bin/bash -U
+RUN groupadd $GROUP
+RUN useradd $DEV_USER -G $GROUP -u 1000 -ms /bin/bash -U
+RUN useradd $PROD_USER -G $GROUP -u 1013 -ms /bin/bash -U
 
 RUN mkdir -p /opt/bundle
 RUN mkdir -p /opt/bundle-cache
@@ -127,6 +129,11 @@ ENV APP_HOME /opt/app
 WORKDIR $APP_HOME
 ADD . $APP_HOME
 
-RUN chown -R $PROD_USER:$PROD_USER /opt/app
+RUN chown -R $PROD_USER:$GROUP /opt \
+ && chmod g+rwx -R /opt \
+ && chown -R $PROD_USER:$GROUP /usr/local/lib/ruby \
+ && chmod g+rwx -R /usr/local/lib/ruby \
+ && chown -R $PROD_USER:$GROUP /usr/local/bundle \
+ && chmod g+rwx -R /usr/local/bundle
 
 USER $PROD_USER

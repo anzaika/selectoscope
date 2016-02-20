@@ -60,6 +60,7 @@ group :development do
 end
 
 group :test do
+  gem "spring"
   gem "fabrication", require: false
   gem "faker"
   gem "pry-rails"
@@ -67,7 +68,7 @@ group :test do
   gem "rspec-rails"
   gem "shoulda"
   gem "guard-rails"
-  gem "guard-rspec", require: false
+  gem "guard-rspec"
   gem "capybara"
   gem "database_cleaner"
   gem "launchy"
