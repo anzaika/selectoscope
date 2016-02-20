@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://activeadmin.info"
   s.licenses = ["MIT"]
   s.required_ruby_version = Gem::Requirement.new(">= 1.9.3")
-  s.rubygems_version = "2.5.1"
+  s.rubygems_version = "2.4.8"
   s.summary = "The administration framework for Ruby on Rails."
 
   if s.respond_to? :specification_version then

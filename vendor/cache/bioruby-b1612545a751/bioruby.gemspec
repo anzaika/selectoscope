@@ -17,6 +17,6 @@ Gem::Specification.new do |s|
   s.homepage = "http://bioruby.org/"
   s.rdoc_options = ["--main", "README.rdoc", "--title", "BioRuby API documentation", "--exclude", "\\.yaml\\z", "--line-numbers", "--inline-source"]
   s.rubyforge_project = "bioruby"
-  s.rubygems_version = "2.5.1"
+  s.rubygems_version = "2.4.8"
   s.summary = "Bioinformatics library"
 end

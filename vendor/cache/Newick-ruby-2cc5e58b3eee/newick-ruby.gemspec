@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.executables = ["newickAlphabetize", "newickCompare", "newickDist", "newickDraw", "newickReorder", "newickReroot", "newickTaxa"]
   s.files = ["README", "bin/newickAlphabetize", "bin/newickCompare", "bin/newickDist", "bin/newickDraw", "bin/newickReorder", "bin/newickReroot", "bin/newickTaxa", "example/jgi_19094_1366.m000227-Phatr2.tree", "lib/Newick.rb", "test/tc_Newick.rb"]
   s.homepage = "http://github.com/jhbadger/Newick-ruby"
-  s.rubygems_version = "2.5.1"
+  s.rubygems_version = "2.4.8"
   s.summary = "newick-ruby provides routines for parsing newick-format phylogenetic trees."
   s.test_files = ["test/tc_Newick.rb"]
 
