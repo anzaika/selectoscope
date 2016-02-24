@@ -100,6 +100,7 @@ RUN mkdir -p /usr/src/phyml \
   && cd /usr/src \
   && git clone https://github.com/stephaneguindon/phyml.git\
   && cd phyml \
+  && git checkout tags/v3.2.0 \
   && libtoolize \
   && ./configure \
   && make \
