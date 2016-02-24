@@ -1,5 +1,4 @@
-Burkh
+Selectoscope
 ================
 
-Приложение для исследования режимов отбора в ортологических рядах генома
-бактерии Burkholderia.
+A web application for people searching for positive selection in their genomic data.
