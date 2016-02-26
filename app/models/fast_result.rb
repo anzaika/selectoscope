@@ -17,7 +17,7 @@ class FastResult < ActiveRecord::Base
   end
 
   def tree_with_positive_info
-    return nil unless group.tree
+    return nil unless group.tree && rep
     rep = positive_report_for_branches
     group.tree
       .newick_without_inner_node_names
@@ -26,14 +26,14 @@ class FastResult < ActiveRecord::Base
 
   def positive_report_for_branches
     rep = positive_report
-    branch_nums.map {|i| rep[i] ? "-" : "" }
+    branch_nums&.map {|i| rep[i] ? "-" : "" }
   end
 
   def branch_nums
     tree_row = stdout.split("\n")
                .index("Annotated Newick tree (*N mark the internal branch N)")
+    return nil unless tree_row
     tree = stdout.split("\n")[tree_row + 1]
-
     tree.scan(/\*\d+/).map {|s| s.split("*").last.to_i }
   end
 

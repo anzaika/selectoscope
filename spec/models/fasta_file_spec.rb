@@ -7,7 +7,7 @@ RSpec.describe FastaFile, type: :model do
 
 
   describe "#to_array_of_two_element_arrays_with_desc_and_seq" do
-    it "shoud return what it says =)", focus: true do
+    it "shoud return what it says =)" do
       run_result = ff.to_array_of_two_element_arrays_with_desc_and_seq
       expect(run_result).to eq( [['seq1','atgc'],['seq2','atgt']] )
     end

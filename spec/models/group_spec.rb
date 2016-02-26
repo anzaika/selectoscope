@@ -5,22 +5,22 @@ RSpec.describe Group, type: :model do
   it { is_expected.to respond_to(:fasta_file)}
 
   context "--> with 'simple' fasta file uploaded" do
-    let (:group) {create(:group_with_simple_fasta)}
+    let (:group) { Fabricate(:group_with_simple_fasta) }
 
     describe "#create" do
-      it "is expected to create two organisms after it is created" do
-        expect{group}.to change{Organism.count}.from(0).to(2)
+      it "is expected to create two organisms after it is created", focus: true do
+        expect{group}.to change{Identifier.count}.from(0).to(2)
       end
       it "is expected to create two genes after it is created" do
-        expect{group}.to change{Gene.count}.from(0).to(2)
+        expect{group}.to change{Sequence.count}.from(0).to(2)
       end
       it "is expected to create just one organism with name 'seq1'" do
         group
-        expect(Organism.where(name: 'seq1').count).to eq(1)
+        expect(Identifier.where(name: 'seq1').count).to eq(1)
       end
       it "is expected to create just one gene with sequence 'atgc'" do
         group
-        expect(Gene.where(sequence: 'atgc').count).to eq(1)
+        expect(Sequence.where(sequence: 'atgc').count).to eq(1)
       end
     end
 
@@ -30,7 +30,7 @@ RSpec.describe Group, type: :model do
       end
       it "is expected to return sequences with codenames" do
         returned = group.to_bio_alignment_object.keys.to_set
-        all_codenames = Organism.all.map(&:codename).to_set
+        all_codenames = Identifier.all.map(&:codename).to_set
         expect(returned).to eq(all_codenames)
       end
     end
@@ -41,14 +41,14 @@ RSpec.describe Group, type: :model do
     describe "#create" do
       let (:comp_group) {create(:group_with_complicated_fasta)}
       it "is expected to create seven organisms after it is created" do
-        expect{comp_group}.to change{Organism.count}.from(0).to(7)
+        expect{comp_group}.to change{Identifier.count}.from(0).to(7)
       end
       it "is expected to create seven genes after it is created" do
-        expect{comp_group}.to change{Gene.count}.from(0).to(7)
+        expect{comp_group}.to change{Sequence.count}.from(0).to(7)
       end
       it "is expected to create just one organism with name 'Burkholderia cenocepacia J231'" do
         comp_group
-        expect(Organism.where(name: 'Burkholderia cenocepacia J2315').count).to eq(1)
+        expect(Identifier.where(name: 'Burkholderia cenocepacia J2315').count).to eq(1)
       end
     end
   end

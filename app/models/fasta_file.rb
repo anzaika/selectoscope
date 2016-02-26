@@ -1,8 +1,8 @@
 class RepeatingIdentifiersValidator < ActiveModel::Validator
-  def validate(record)
-    content = File.open(record.file.queued_for_write[:original].path).read
-    record.errors.add(:file, "repeating identifiers") if count(content) > 0
-  end
+  # def validate(record)
+  #   content = File.open(record.file.queued_for_write[:original].path).read
+  #   record.errors.add(:file, "repeating identifiers") if count(content) > 0
+  # end
 
   def count(content)
     Bio::Alignment::MultiFastaFormat
@@ -22,7 +22,7 @@ class FastaFile < ActiveRecord::Base
   validates_attachment :file,
                        content_type: {content_type: ["application/octet-stream", "text/plain"]}
 
-  validates_with RepeatingIdentifiersValidator
+  # validates_with RepeatingIdentifiersValidator
 
   def to_bioruby_alignment_object
     Bio::Alignment::MultiFastaFormat

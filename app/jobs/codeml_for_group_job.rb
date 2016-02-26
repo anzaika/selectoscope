@@ -11,9 +11,10 @@ class CodemlForGroupJob
     alignment = group.gblocks_align
     tree = group.simple_tree(short: false)
     spec = Wrap::Codeml::Spec.new(molphy: alignment.molphy, tree: tree)
-    report = Wrap::Codeml::Run.new(spec).run
-    if report
-      result = CodemlResult.create(report.to_h)
+    output = Wrap::Codeml::Run.new(spec).run
+    if output
+      result = CodemlResult.create(output.report.to_h)
+      # result && output.files.each { |f| result.files << f }
       group.codeml_result.destroy if group.codeml_result
       group.codeml_result = result
     end
