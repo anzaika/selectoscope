@@ -102,7 +102,7 @@ ActiveAdmin.register Batch do
 
   batch_action 'Run full stack on' do |ids|
     Batch.find(ids).each{|b| FullStackForAllGroupsOfBatchJob.perform_async(b.id) }
-    redirect_to collection_path
+    redirect_to request.referrer
   end
 
   controller do
@@ -116,7 +116,7 @@ ActiveAdmin.register Batch do
         if permitted_params["batch"]["fasta_files"]
           permitted_params["batch"]["fasta_files"].each do |f|
             fasta = FastaFile.new(file: f.tempfile)
-            @batch.groups.create(fasta_file: fasta)
+            @batch.groups.create(fasta_file: fasta, user_id: current_user.id)
           end
         end
       end
