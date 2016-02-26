@@ -30,10 +30,8 @@ ActiveAdmin.register User do
       if current_user.admin?
         f.input :role, as: :select, collection: User::ROLES
       end
-      unless f.object.new_record?
-        f.input :password
-        f.input :password_confirmation
-      end
+      f.input :password
+      f.input :password_confirmation
     end
     f.actions
   end
@@ -55,20 +53,27 @@ ActiveAdmin.register User do
   end
 
   controller do
-    def create
-      @pass = User.generate_password
-      params[:user][:password] = @pass
-      params[:user][:password_confirmation] = @pass
-      @user = User.new(permitted_params[:user])
-      respond_to do |format|
-        if @user.save
-          # UserMailer.welcome_mail(@user, @pass).deliver
-          format.html { redirect_to(@user, notice: 'Пользователь успешно создан') }
-        else
-          format.html { render action: 'new' }
-        end
-      end
-    end
+    # def create
+    #   @pass = User.generate_password
+    #   params[:user][:password] = @pass
+    #   params[:user][:password_confirmation] = @pass
+    #   @user = User.new(permitted_params[:user])
+    #   respond_to do |format|
+    #     if @user.save
+    #       # UserMailer.welcome_mail(@user, @pass).deliver
+    #       format.html { redirect_to(@user, notice: 'Пользователь успешно создан') }
+    #     else
+    #       format.html { render action: 'new' }
+    #     end
+    #   end
+    # end
+    # def update
+    #   if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+    #     params[:user].delete("password")
+    #     params[:user].delete("password_confirmation")
+    #   end
+    #   super
+    # end
     def update
       if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
         params[:user].delete("password")
