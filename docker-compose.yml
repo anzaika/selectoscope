@@ -2,25 +2,23 @@ web:
   extends:
     file: common.yml
     service: web
-  user: 'dev_user'
+  environment:
+    - PASSENGER_APP_ENV=development
   volumes:
-    - ".:/opt/app"
+    - ".:/home/app/webapp"
   links:
     - redis
-  env_file:
-    - 'development.env'
 
 sidekiq:
   extends:
     file: common.yml
     service: sidekiq
-  user: 'dev_user'
+  environment:
+    - PASSENGER_APP_ENV=development
   volumes:
-    - ".:/opt/app"
+    - ".:/home/app/webapp"
   links:
     - redis
-  env_file:
-    - 'development.env'
 
 redis:
   extends:
