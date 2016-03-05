@@ -1,5 +1,6 @@
 class Group < ActiveRecord::Base
   has_many :sequences, dependent: :destroy
+
   has_many :identifiers, through: :sequences
   has_many :alignments, dependent: :destroy
   has_one :codeml_result, dependent: :destroy

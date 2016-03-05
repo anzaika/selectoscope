@@ -39,7 +39,7 @@ RSpec.describe Group, type: :model do
 
   context "--> with 'complicated' fasta file uploaded" do
     describe "#create" do
-      let (:comp_group) {create(:group_with_complicated_fasta)}
+      let (:comp_group) {Fabricate(:group_with_complicated_fasta)}
       it "is expected to create seven organisms after it is created" do
         expect{comp_group}.to change{Identifier.count}.from(0).to(7)
       end

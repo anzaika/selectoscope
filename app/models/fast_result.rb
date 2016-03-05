@@ -26,7 +26,7 @@ class FastResult < ActiveRecord::Base
 
   def positive_report_for_branches
     rep = positive_report
-    branch_nums&.map {|i| rep[i] ? "-" : "" }
+    branch_nums && branch_nums.map {|i| rep[i] ? "-" : "" }
   end
 
   def branch_nums
