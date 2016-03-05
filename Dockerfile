@@ -1,4 +1,14 @@
-FROM anzaika/ruby
+FROM phusion/passenger-ruby22
+
+# Set correct environment variables.
+ENV HOME /root
+
+# Use baseimage-docker's init process.
+CMD ["/sbin/my_init"]
+
+# Additional packages
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends mysql-client-core-5.5 vim-nox build-essential autoconf curl git wget automake libtool mysql-client gengetopt
 
 #####################
 #       PAML        #
@@ -37,32 +47,16 @@ RUN mkdir -p /usr/src/dndstools \
 #####################
 
 RUN mkdir -p /usr/src/mafft \
-  && curl -SL "http://mafft.cbrc.jp/alignment/software/mafft-7.245-with-extensions-src.tgz" \
+  && curl -SL "http://mafft.cbrc.jp/alignment/software/mafft-7.273-with-extensions-src.tgz" \
   | tar xvzC /usr/src/mafft \
-  && cd /usr/src/mafft/mafft-7.245-with-extensions/core \
+  && cd /usr/src/mafft/mafft-7.273-with-extensions/core \
   && make -j"$(nproc)" \
   && make install \
   && rm -rf /usr/src/mafft
 
-# #####################
-# #      Pagan        #
-# #####################
-#
-# RUN mkdir -p /usr/src/pagan \
-#   && curl -SL "http://wasabiapp.org/download/pagan/pagan.linux64.20150723.tgz" \
-#   | tar xvzC /usr/src/pagan \
-#   && cd /usr/src/pagan/pagan/bin \
-#   && mv pagan /usr/local/bin \
-#   && mv bppancestor /usr/local/bin \
-#   && mv bppdist /usr/local/bin \
-#   && mv bppphysamp /usr/local/bin \
-#   && mv exonerate /usr/local/bin \
-#   && mv raxml /usr/local/bin \
-#   && rm -rf /usr/src/pagan
-
-#####################
-#     Muscle        #
-#####################
+####################
+#    Muscle        #
+####################
 RUN mkdir -p /usr/src/muscle \
   && curl -SL "http://www.drive5.com/muscle/downloads3.8.31/muscle3.8.31_i86linux64.tar.gz" \
   | tar xvzC /usr/src/muscle \
@@ -74,11 +68,28 @@ RUN mkdir -p /usr/src/muscle \
 #      Gblocks      #
 #####################
 
-RUN mkdir -p /usr/src/gblocks \
-  && curl -SL "http://molevol.cmima.csic.es/castresana/Gblocks/Gblocks_Linux64_0.91b.tar.Z" \
-  | tar xvzC /usr/src/gblocks \
-  && cd /usr/src/gblocks/Gblocks_0.91b \
-  && cp Gblocks /usr/local/bin \
+# RUN mkdir -p /usr/src/gblocks \
+#   && curl -SL "http://molevol.cmima.csic.es/castresana/Gblocks/Gblocks_Linux64_0.91b.tar.Z" \
+#   | tar xvzC /usr/src/gblocks \
+#   && cd /usr/src/gblocks/Gblocks_0.91b \
+#   && cp Gblocks /usr/local/bin \
+#   && rm -rf /usr/src/gblocks
+#
+
+#####################
+#      BioPerl      #
+#####################
+
+RUN PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install BioPerl'
+
+#####################
+#      Guidance     #
+#####################
+RUN mkdir -p /usr/src/guidance \
+  && curl -SL "http://guidance.tau.ac.il/ver2/guidance.v2.01.tar.gz" \
+  | tar xvzC /usr/src/guidance/ \
+  && cd /usr/src/guidance/guidance.v2.01 \
+  && make -j"$(nproc)" \
   && rm -rf /usr/src/gblocks
 
 #####################
@@ -103,38 +114,46 @@ RUN mkdir -p /usr/src/phyml \
   && git checkout tags/v3.2.0 \
   && libtoolize \
   && ./configure \
-  && make \
+  && make -j"$(nproc)" \
   && mv src/phyml /usr/local/bin \
   && rm -rf /usr/src/phyml
 
-ENV DEV_USER dev_user
-ENV PROD_USER prod_user
-ENV GROUP runners
+# Activate nginx
+RUN rm -f /etc/service/nginx/down
 
-RUN groupadd $GROUP
-RUN useradd $DEV_USER -G $GROUP -u 1000 -ms /bin/bash -U
-RUN useradd $PROD_USER -G $GROUP -u 1013 -ms /bin/bash -U
+# Install heavy gems for adding an extra caching layer
+RUN gem install nokogiri:1.6.7.2 oj:2.14.6
 
-RUN mkdir -p /opt/bundle
+# Install bundle of gems
 RUN mkdir -p /opt/bundle-cache
-RUN mkdir -p /opt/app
 
 COPY vendor/cache /opt/bundle-cache/vendor/cache
 COPY Gemfile /opt/bundle-cache/Gemfile
 COPY Gemfile.lock /opt/bundle-cache/Gemfile.lock
 
 RUN cd /opt/bundle-cache \
-  && bundle install -j6 --path /opt/bundle
+  && bundle install -j6
 
-ENV APP_HOME /opt/app
+# Copy the nginx template for configuration and preserve environment variables
+RUN rm /etc/nginx/sites-enabled/default
+
+# Add the nginx site and config
+ADD webapp.conf /etc/nginx/sites-enabled/webapp.conf
+
+# # Add the rails-env configuration file
+# ADD rails-env.conf /etc/nginx/main.d/rails-env.conf
+
+RUN mkdir /home/app/webapp
+
+RUN usermod -u 1000 app
+
+ENV APP_HOME /home/app/webapp
 WORKDIR $APP_HOME
 ADD . $APP_HOME
+RUN chmod go+x /home/app/webapp
 
-RUN chown -R $PROD_USER:$GROUP /opt \
- && chmod g+rwx -R /opt \
- && chown -R $PROD_USER:$GROUP /usr/local/lib/ruby \
- && chmod g+rwx -R /usr/local/lib/ruby \
- && chown -R $PROD_USER:$GROUP /usr/local/bundle \
- && chmod g+rwx -R /usr/local/bundle
+# RUN mkdir -p /etc/my_init.d
+# ADD deploy/start.sh /etc/my_init.d/start.sh
 
-USER $PROD_USER
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
