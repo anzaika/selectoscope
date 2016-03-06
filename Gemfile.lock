@@ -31,6 +31,13 @@ GIT
     newick-ruby (1.0.4)
       fpdf (>= 1.5.3)
 
+GIT
+  remote: git://github.com/makandra/active_type.git
+  revision: e7a4f96269bef79132c75dd3162aaa86b93a0ba9
+  specs:
+    active_type (0.4.5)
+      activerecord (>= 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -388,6 +395,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_type!
   activeadmin!
   better_errors
   binding_of_caller

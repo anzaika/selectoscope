@@ -20,6 +20,7 @@ gem "draper"
 gem "transaction_retry"
 gem "responsive_active_admin"
 gem "paper_trail"
+gem "active_type", github: "makandra/active_type"
 
 gem "rollbar"
 gem "oj"
