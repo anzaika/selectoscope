@@ -11,3 +11,4 @@ log
 tmp
 config/database.yml
 public/*
+spec/examples.txt
