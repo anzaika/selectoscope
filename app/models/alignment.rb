@@ -1,12 +1,19 @@
 class Alignment < ActiveRecord::Base
   belongs_to :group
-  has_one :run
+  has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
+
+  has_one :runnable_run_report_association, dependent: :destroy
+  has_one :run_report, through: :runnable_run_report_association
 
   default_scope -> { order("created_at DESC") }
   scope :original, -> { where(meta: "raw") }
-  scope :gblocks, -> { where(meta: "gblocks") }
+  scope :clean, -> { where(meta: "clean") }
 
   # before_save :set_alignment_params
+
+  def fasta
+    File.open(fasta_file.file.path).read
+  end
 
   def alignment
     Bio::Alignment::MultiFastaFormat.new(fasta).alignment

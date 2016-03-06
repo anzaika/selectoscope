@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160306171230) do
+ActiveRecord::Schema.define(version: 20160306190350) do
 
   create_table "alignments", force: :cascade do |t|
     t.binary   "fasta",      limit: 4294967295
@@ -97,6 +97,14 @@ ActiveRecord::Schema.define(version: 20160306171230) do
     t.boolean  "successful"
   end
 
+  create_table "runnable_run_report_associations", force: :cascade do |t|
+    t.string   "runnable_type", limit: 255
+    t.integer  "runnable_id",   limit: 4
+    t.integer  "run_report_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
   create_table "sequences", force: :cascade do |t|
     t.binary  "sequence",      limit: 4294967295
     t.integer "identifier_id", limit: 4
@@ -107,19 +115,19 @@ ActiveRecord::Schema.define(version: 20160306171230) do
   add_index "sequences", ["identifier_id", "group_id"], name: "index_sequences_on_identifier_id_and_group_id", using: :btree
 
   create_table "text_files", force: :cascade do |t|
-    t.string   "has_text_files_type", limit: 255
-    t.integer  "has_text_files_id",   limit: 4
-    t.string   "type",                limit: 255
-    t.string   "file_file_name",      limit: 255
-    t.string   "file_content_type",   limit: 255
-    t.integer  "file_file_size",      limit: 4
+    t.string   "has_files_type",    limit: 255
+    t.integer  "has_files_id",      limit: 4
+    t.string   "type",              limit: 255
+    t.string   "file_file_name",    limit: 255
+    t.string   "file_content_type", limit: 255
+    t.integer  "file_file_size",    limit: 4
     t.datetime "file_updated_at"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
-  add_index "text_files", ["has_text_files_type", "has_text_files_id"], name: "index_text_files_one", using: :btree
-  add_index "text_files", ["has_text_files_type", "type", "has_text_files_id"], name: "index_text_files_two", using: :btree
+  add_index "text_files", ["has_files_type", "has_files_id"], name: "index_text_files_on_has_files_type_and_has_files_id", using: :btree
+  add_index "text_files", ["has_files_type", "type", "has_files_id"], name: "index_text_files_on_has_files_type_and_type_and_has_files_id", using: :btree
 
   create_table "trees", force: :cascade do |t|
     t.string   "name",       limit: 255

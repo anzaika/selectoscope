@@ -7,8 +7,13 @@ class Group < ActiveRecord::Base
   has_one :fast_result, dependent: :destroy
   has_one :tree, dependent: :destroy
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
+
+  has_many :runnable_run_report_associations, dependent: :destroy
+  has_many :run_reports, through: :runnable_run_report_associations
+
   validates_associated :fasta_file
   accepts_nested_attributes_for :fasta_file, allow_destroy: true
+
   belongs_to :batch, counter_cache: "groups_count"
   belongs_to :user
 

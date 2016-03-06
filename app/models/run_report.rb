@@ -1,3 +1,3 @@
 class RunReport < ActiveRecord::Base
-  belongs_to :runnable, polymorphic: true
+  has_many :runnable_run_report_associations, dependent: :destroy
 end
