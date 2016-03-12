@@ -6,9 +6,13 @@ ENV HOME /root
 # Use baseimage-docker's init process.
 CMD ["/sbin/my_init"]
 
+ENV TIMESTAMP 13-03-2016
+
 # Additional packages
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends mysql-client-core-5.5 vim-nox build-essential autoconf curl git wget automake libtool mysql-client gengetopt
+  && apt-get upgrade -y \
+  && apt-get install -y --no-install-recommends mysql-client-core-5.5 vim-nox build-essential autoconf curl git wget automake libtool mysql-client gengetopt \
+  && gem update
 
 #####################
 #       PAML        #
