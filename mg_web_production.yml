@@ -2,13 +2,16 @@ web:
   extends:
     file: common.yml
     service: web
+  environment:
+    - PASSENGER_APP_ENV=production
   links:
     - redis
   volumes:
-      - "./production_data/fasta_files:/opt/app/public/fasta_file"
-      - "./production_data/text_files:/opt/app/public/text_file"
-      - "./production_data/log:/opt/app/log"
-      - "./production_data/tmp:/opt/app/tmp"
+      - "./config/sites_enabled:/etc/nginx/sites-enabled/"
+      - "./production_data/fasta_files:/home/app/webapp/public/fasta_file"
+      - "./production_data/text_files:/home/app/webapp/public/text_file"
+      - "./production_data/log:/home/app/webapp/log"
+      - "./production_data/tmp:/home/app/webapp/tmp"
   restart: always
   env_file:
     - 'production.env'
