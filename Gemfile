@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 #------> Core
-gem "rails", "~> 4.2.5"
+gem "rails", "~> 4.2.6"
 gem "activeadmin", github: "activeadmin"
 gem "cancancan", "~> 1.13.1"
 gem "mysql2", "~> 0.3.20"
