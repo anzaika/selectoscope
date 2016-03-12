@@ -17,7 +17,7 @@ RUN apt-get update \
 RUN mkdir -p /usr/src/paml \
   && curl -SL "http://abacus.gene.ucl.ac.uk/software/paml4.9a.tgz" \
   | tar zxC /usr/src/paml \
-  && cd /usr/src/paml/paml4.9/src \
+  && cd /usr/src/paml/paml4.9a/src \
   && make -j"$(nproc)" \
   && mv codeml /usr/bin/ \
   && mv baseml /usr/bin/ \
