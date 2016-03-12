@@ -25,6 +25,10 @@ class Vault
     end
   end
 
+  def file_list
+    Dir.entries(@dir).select {|f| !File.directory? f}
+  end
+
   def destroy
     FileUtils.remove_entry(@dir)
   end
