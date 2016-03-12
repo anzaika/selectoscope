@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160312192638) do
+ActiveRecord::Schema.define(version: 20160312210227) do
 
   create_table "alignments", force: :cascade do |t|
     t.binary   "fasta",      limit: 4294967295
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20160312192638) do
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.boolean  "successful"
+    t.integer  "user_id",            limit: 4
   end
 
   create_table "runnable_run_report_associations", force: :cascade do |t|
