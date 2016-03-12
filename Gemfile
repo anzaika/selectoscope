@@ -3,31 +3,29 @@ source "https://rubygems.org"
 #------> Core
 gem "rails", "~> 4.2.5"
 gem "activeadmin", github: "activeadmin"
-gem "cancancan"
+gem "cancancan", "~> 1.13.1"
 gem "mysql2", "~> 0.3.20"
-gem "unicorn"
-gem "unicorn-rails"
-gem "jbuilder"
-gem "uglifier"
-gem "devise"
-gem "sidekiq"
-gem "sidekiq-failures"
-gem "sinatra", require: nil
-gem "sidekiq-limit_fetch"
-gem "sidekiq-status"
-gem "sidekiq-statistic"
-gem "draper"
+gem "jbuilder", "~> 2.4.1"
+gem "uglifier", "~> 2.7.2"
+gem "devise", "~> 3.5.6"
+gem "sidekiq", "~> 4.1.1"
+gem "sidekiq-failures", "~> 0.4.5"
+gem "sinatra", "~> 1.4.7", require: nil
+gem "sidekiq-limit_fetch", "~> 3.1.0"
+gem "sidekiq-status", "~> 0.6.0"
+gem "sidekiq-statistic", "~> 1.2.0"
+gem "draper", "~> 2.1.0"
 gem "transaction_retry"
 gem "responsive_active_admin"
-gem "paper_trail"
-gem "active_type", github: "makandra/active_type"
+gem "paper_trail", "~> 4.1.0"
+gem "active_type", "~> 0.4.5"
 
-gem "rollbar"
-gem "oj"
-gem 'oj_mimic_json'
+gem "rollbar", "~> 2.8.2"
+gem "oj", "~> 2.14.6"
+gem 'oj_mimic_json', "~> 1.0.1"
 
 #------> Interface
-gem "jquery-rails"
+gem "jquery-rails", "~> 4.1.0"
 gem "coffee-rails"
 gem "haml-rails"
 gem "sass-rails"
@@ -40,9 +38,9 @@ gem "newick-ruby", github: "jhbadger/Newick-ruby"
 gem "bio", github: "anzaika/bioruby", branch: "master"
 
 #------> Helpers
-gem "parallel"
+gem "parallel", "~> 1.6.2"
 gem "ruby-progressbar"
-gem "paperclip"
+gem "paperclip", "~> 4.3.5"
 
 group :development, :test do
   gem "guard-rspec", require: false
