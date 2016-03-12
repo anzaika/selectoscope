@@ -80,7 +80,11 @@ RUN mkdir -p /usr/src/muscle \
 #      BioPerl      #
 #####################
 
-RUN PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install BioPerl'
+RUN apt-get install -y --no-install-recommends libexpat-dev libcgi-session-perl libclass-base-perl libgd-gd2-perl \
+  && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Bundle::CPAN;quit' \
+  && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Text::Shellwords' \
+  && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Bundle::LWP' \
+  && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Bio::SeqIO'
 
 #####################
 #      Guidance     #
@@ -89,8 +93,7 @@ RUN mkdir -p /usr/src/guidance \
   && curl -SL "http://guidance.tau.ac.il/ver2/guidance.v2.01.tar.gz" \
   | tar xvzC /usr/src/guidance/ \
   && cd /usr/src/guidance/guidance.v2.01 \
-  && make -j"$(nproc)" \
-  && rm -rf /usr/src/gblocks
+  && make -j"$(nproc)"
 
 #####################
 #    fastcodeml     #
