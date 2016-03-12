@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160306190350) do
+ActiveRecord::Schema.define(version: 20160312192638) do
 
   create_table "alignments", force: :cascade do |t|
     t.binary   "fasta",      limit: 4294967295
@@ -115,9 +115,9 @@ ActiveRecord::Schema.define(version: 20160306190350) do
   add_index "sequences", ["identifier_id", "group_id"], name: "index_sequences_on_identifier_id_and_group_id", using: :btree
 
   create_table "text_files", force: :cascade do |t|
-    t.string   "has_files_type",    limit: 255
-    t.integer  "has_files_id",      limit: 4
-    t.string   "type",              limit: 255
+    t.string   "textifilable_type", limit: 255
+    t.integer  "textifilable_id",   limit: 4
+    t.string   "meta",              limit: 255
     t.string   "file_file_name",    limit: 255
     t.string   "file_content_type", limit: 255
     t.integer  "file_file_size",    limit: 4
@@ -126,8 +126,8 @@ ActiveRecord::Schema.define(version: 20160306190350) do
     t.datetime "updated_at",                    null: false
   end
 
-  add_index "text_files", ["has_files_type", "has_files_id"], name: "index_text_files_on_has_files_type_and_has_files_id", using: :btree
-  add_index "text_files", ["has_files_type", "type", "has_files_id"], name: "index_text_files_on_has_files_type_and_type_and_has_files_id", using: :btree
+  add_index "text_files", ["textifilable_type", "meta", "textifilable_id"], name: "index_text_files_on_has_files_type_and_type_and_has_files_id", using: :btree
+  add_index "text_files", ["textifilable_type", "textifilable_id"], name: "index_text_files_on_textifilable_type_and_textifilable_id", using: :btree
 
   create_table "trees", force: :cascade do |t|
     t.string   "name",       limit: 255
