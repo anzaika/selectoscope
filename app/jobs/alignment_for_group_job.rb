@@ -8,12 +8,14 @@ class AlignmentForGroupJob
 
   def perform(group_id)
     group = Group.find(group_id)
-    spec = Wrap::Muscle::Spec.new(fasta: group.to_fasta)
-    return nil unless spec && (alignment = Wrap::Muscle::Run.new(spec).run)
+    vault = Vault.new
+    run = Wrap::Mafft::Run.new(vault, group.fasta_file)
+    run.execute
+    report = Wrap::Mafft::Report.new(vault, run)
+    report.save
 
-    # run       = Run.create(report.for_run)
-    # alignment = Alignment.create(fasta: fasta, meta: 'original')
-    # alignment.run = run
-    group.alignments << alignment
+    report.run_report.update_attribute(:user_id, group.user_id)
+    group.run_reports << report.run_report
+    group.alignments << report.alignment
   end
 end
