@@ -1,11 +1,12 @@
 class Identifier < ActiveRecord::Base
   has_many :sequences, dependent: :destroy
+  belongs_to :group
 
   validates_uniqueness_of :name
   after_create :set_codename
 
   ALPHABET = ("A".."Z").to_a + (0..9).to_a
-  
+
   # Replaces all the codenames to names in the passed string
   def self.tr(string, short=false)
     Identifier.all
