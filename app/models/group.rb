@@ -8,7 +8,7 @@ class Group < ActiveRecord::Base
   has_one :tree, dependent: :destroy
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
 
-  has_many :runnable_run_report_associations, dependent: :destroy
+  has_many :runnable_run_report_associations, as: :runnable, dependent: :destroy
   has_many :run_reports, through: :runnable_run_report_associations
 
   validates_associated :fasta_file
