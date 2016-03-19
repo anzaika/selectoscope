@@ -1,8 +1,8 @@
 class TextFile < ActiveRecord::Base
   has_attached_file :file,
-                    path: ":rails_root/public/text_file/:id/:filename",
+                    path: ":rails_root/storage/text_files/:id/:basename.:extension",
                     url:  "/text_file/:id/:filename"
 
-  validates_attachment :file,
-                       content_type: {content_type: ["application/octet-stream", "text/plain"]}
+  do_not_validate_attachment_file_type :file
+  belongs_to :textifileable
 end

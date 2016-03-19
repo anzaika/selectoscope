@@ -16,7 +16,7 @@ end
 class FastaFile < ActiveRecord::Base
   belongs_to :representable_as_fasta, polymorphic: true
   has_attached_file :file,
-                    path: ":rails_root/public/fasta_file/:id/:filename",
+                    path: ":rails_root/storage/fasta_files/:id/:basename.:extension",
                     url:  "/fasta_file/:id/:filename"
 
   validates_attachment :file,
