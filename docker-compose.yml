@@ -6,6 +6,7 @@ web:
     - PASSENGER_APP_ENV=development
   volumes:
     - ".:/home/app/webapp"
+    - "./config/sites_enabled:/etc/nginx/sites-enabled/"
   links:
     - redis
 
