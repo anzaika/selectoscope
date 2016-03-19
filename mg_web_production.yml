@@ -2,8 +2,6 @@ web:
   extends:
     file: common.yml
     service: web
-  environment:
-    - PASSENGER_APP_ENV=production
   links:
     - redis
   volumes:
