@@ -79,27 +79,6 @@ ActiveAdmin.register Batch do
     resource.run_full_stack
   end
 
-  batch_action 'Generate alignments for' do |ids|
-    Batch.find(ids).each{|b| b.groups.each{|g| AlignmentForGroupJob.perform_later(g.id)}}
-    Batch.find(ids).each{|b| b.groups.each{|g| GblocksForGroupJob.perform_later(g.id)}}
-    redirect_to collection_path
-  end
-
-  batch_action 'Generate trees for' do |ids|
-    Batch.find(ids).each{|b| b.groups.each{|g| PhymlForGroupJob.perform_later(g.id)}}
-    redirect_to collection_path
-  end
-
-  batch_action 'Run codeml on' do |ids|
-    Batch.find(ids).each{|b| b.groups.each{|g| CodemlForGroupJob.perform_later(g.id)}}
-    redirect_to collection_path
-  end
-
-  batch_action 'Run fastcodeml on' do |ids|
-    Batch.find(ids).each{|b| b.groups.each{|g| FastForGroupJob.perform_later(g.id)}}
-    redirect_to collection_path
-  end
-
   batch_action 'Run full stack on' do |ids|
     Batch.find(ids).each{|b| FullStackForAllGroupsOfBatchJob.perform_async(b.id) }
     redirect_to request.referrer

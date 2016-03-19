@@ -89,67 +89,13 @@ ActiveAdmin.register Group do
   member_action :run_full_stack, method: :get do
   end
 
-  member_action :compute_alignment, method: :get do
-    resource.compute_alignment
-  end
-
-  member_action :compute_gblocks, method: :get do
-    resource.compute_gblocks
-  end
-
-  member_action :compute_phyml, method: :get do
-    resource.compute_phyml
-  end
-
-  member_action :compute_codeml, method: :get do
-    resource.compute_codeml
-  end
-
-  member_action :compute_fast, method: :get do
-    resource.compute_fast
-  end
-
   member_action :download_tree, method: :get do
     resource.download_tree
-  end
-
-  collection_action :compute_alignments, method: :get do
-    collection.compute_alignments
   end
 
   controller do
     def show
       @group = Group.find(params[:id]).decorate
-    end
-
-    def compute_alignment
-      AlignmentForGroupJob.perform_async(params[:id])
-      flash[:notice] = "Alignment Job has been sent for execution"
-      redirect_to resource_path(resource.id)
-    end
-
-    def compute_gblocks
-      GblocksForGroupJob.perform_later(params[:id])
-      flash[:notice] = "Gblocks Job has been sent for execution"
-      redirect_to resource_path(resource.id)
-    end
-
-    def compute_phyml
-      PhymlForGroupJob.perform_later(params[:id])
-      flash[:notice] = "Phyml Job has been sent for execution"
-      redirect_to resource_path(resource.id)
-    end
-
-    def compute_codeml
-      CodemlForGroupJob.perform_async(params[:id])
-      flash[:notice] = "Codeml Job has been sent for execution"
-      redirect_to resource_path(resource.id)
-    end
-
-    def compute_fast
-      FastForGroupJob.perform_later(params[:id])
-      flash[:notice] = "Fast Job has been sent for execution"
-      redirect_to resource_path(resource.id)
     end
 
     def download_tree
@@ -161,11 +107,6 @@ ActiveAdmin.register Group do
         send_data(newick, type: "application/text", filename: filename)
       end
     end
-  end
-
-  batch_action "generate alignment for" do |ids|
-    ids.each {|id| AlignmentForGroupJob.perform_async(id) }
-    redirect_to request.referrer, notice: "Alignments submitted"
   end
 
   batch_action "run full-stack for" do |ids|
