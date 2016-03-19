@@ -145,7 +145,9 @@ RUN rm /etc/nginx/sites-enabled/default
 
 RUN mkdir /home/app/webapp
 
-RUN usermod -u 1000 app
+RUN groupadd --gid 9998 webappgroup \
+  && usermod -a -G webappgroup app \
+  && usermod -u 9999 app && chown -R app:webappgroup /home/app/webapp
 
 ENV APP_HOME /home/app/webapp
 WORKDIR $APP_HOME
