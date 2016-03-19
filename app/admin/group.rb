@@ -175,12 +175,14 @@ ActiveAdmin.register Group do
 
   controller do
     def create
-      if Rails.env.development?
-        puts "*" * 20
-        puts params.inspect
-        puts "*" * 20
+      @group = Group.new(permitted_params['group'])
+      @group.user_id = current_user.id
+      if @group.save
+        redirect_to @group
+      else
+        flash[:errors] = @group.errors.messages
+        render('new')
       end
-      super
     end
   end
 end
