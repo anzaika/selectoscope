@@ -7,6 +7,7 @@ web:
   volumes:
     - ".:/home/app/webapp"
     - "./config/sites_enabled:/etc/nginx/sites-enabled/"
+    - "./development_data/storage:/home/app/webapp/storage"
   links:
     - redis
 
@@ -14,10 +15,12 @@ sidekiq:
   extends:
     file: common.yml
     service: sidekiq
+  user: app
   environment:
     - PASSENGER_APP_ENV=development
   volumes:
     - ".:/home/app/webapp"
+    - "./development_data/storage:/home/app/webapp/storage"
   links:
     - redis
 
