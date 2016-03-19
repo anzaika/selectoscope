@@ -2,12 +2,12 @@ class Alignment < ActiveRecord::Base
   belongs_to :group
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
 
-  has_one :runnable_run_report_association, dependent: :destroy
-  has_one :run_report, through: :runnable_run_report_association
+  has_many :runnable_run_report_associations, as: :runnable, dependent: :destroy
+  has_many :run_reports, through: :runnable_run_report_associations
 
   default_scope -> { order("created_at DESC") }
-  scope :original, -> { where(meta: "raw") }
-  scope :clean, -> { where(meta: "clean") }
+  scope :original, -> { where(meta: "original") }
+  scope :processed, -> { where(meta: "processed") }
 
   # before_save :set_alignment_params
 
