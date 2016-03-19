@@ -143,12 +143,6 @@ RUN cd /opt/bundle-cache \
 # Copy the nginx template for configuration and preserve environment variables
 RUN rm /etc/nginx/sites-enabled/default
 
-# Add the nginx site and config
-ADD webapp.conf /etc/nginx/sites-enabled/webapp.conf
-
-# # Add the rails-env configuration file
-# ADD rails-env.conf /etc/nginx/main.d/rails-env.conf
-
 RUN mkdir /home/app/webapp
 
 RUN usermod -u 1000 app
@@ -158,8 +152,5 @@ WORKDIR $APP_HOME
 ADD . $APP_HOME
 RUN chmod go+x /home/app/webapp
 
-# RUN mkdir -p /etc/my_init.d
-# ADD deploy/start.sh /etc/my_init.d/start.sh
-
-# Clean up APT when done.
+# Clean up APT when done to make the image lighter.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
