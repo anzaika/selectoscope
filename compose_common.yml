@@ -12,6 +12,7 @@ web:
 
 sidekiq:
   build: .
+  container_name: sidekiq
   working_dir: /home/app/webapp
   command: bundle exec sidekiq
 

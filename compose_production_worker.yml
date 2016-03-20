@@ -1,0 +1,8 @@
+sidekiq:
+  extends:
+    file: compose_common.yml
+    service: sidekiq
+  volumes:
+    - "./production_data/storage:/home/app/webapp/storage"
+  env_file:
+    - 'production.env'

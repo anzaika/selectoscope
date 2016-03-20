@@ -1,6 +1,6 @@
 web:
   extends:
-    file: common.yml
+    file: compose_common.yml
     service: web
   links:
     - redis
@@ -13,5 +13,5 @@ web:
 
 redis:
   extends:
-    file: common.yml
+    file: compose_common.yml
     service: redis

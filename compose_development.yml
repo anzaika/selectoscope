@@ -1,6 +1,6 @@
 web:
   extends:
-    file: common.yml
+    file: compose_common.yml
     service: web
   environment:
     - PASSENGER_APP_ENV=development
@@ -10,10 +10,12 @@ web:
     - "./development_data/storage:/home/app/webapp/storage"
   links:
     - redis
+  env_file:
+    - development.env
 
 sidekiq:
   extends:
-    file: common.yml
+    file: compose_common.yml
     service: sidekiq
   user: app
   environment:
@@ -23,8 +25,10 @@ sidekiq:
     - "./development_data/storage:/home/app/webapp/storage"
   links:
     - redis
+  env_file:
+    - development.env
 
 redis:
   extends:
-    file: common.yml
+    file: compose_common.yml
     service: redis
