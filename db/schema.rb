@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160312210227) do
+ActiveRecord::Schema.define(version: 20160320152812) do
 
   create_table "alignments", force: :cascade do |t|
     t.binary   "fasta",      limit: 4294967295
@@ -70,6 +70,11 @@ ActiveRecord::Schema.define(version: 20160312210227) do
     t.integer "avg_sequence_length", limit: 4
     t.integer "batch_id",            limit: 4
     t.integer "user_id",             limit: 4
+  end
+
+  create_table "groups_identifiers", force: :cascade do |t|
+    t.integer "group_id",      limit: 4
+    t.integer "identifier_id", limit: 4
   end
 
   create_table "identifiers", force: :cascade do |t|
