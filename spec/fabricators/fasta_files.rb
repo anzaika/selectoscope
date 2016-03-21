@@ -1,6 +1,12 @@
 Fabricator(:fasta_file) do
 end
 
+Fabricator(:fasta_file_with_spaces, from: :fasta_file) do
+  file do
+    File.open(File.join(Rails.root, 'spec', 'fixtures', 'fasta_files', 'with_spaces.fasta'))
+  end
+end
+
 Fabricator(:simple_fasta_file, from: :fasta_file) do
   file do
     File.open(File.join(Rails.root, 'spec', 'fixtures', 'fasta_files', 'simple.fasta'))
