@@ -1,29 +1,23 @@
-require 'open3'
+module Wrap
+class Phyml::Run < Run
 
-module Wrap::Phyml
-  class Run
-    EXEC = 'phyml'
+  EXEC = 'phyml'
+  ALIGNMENT = "aligned.phylip"
+  OUTPUT = "aligned.phylip_phyml_tree"
 
-    def initialize(spec)
-      @spec = spec
-    end
-
-    def run
-      @spec.create_files
-      execute
-      Output.new(@spec).parse
-      # ensure
-      #   @spec.unlink
-    end
-
-    private
-
-    def execute
-      command = "dir=`mktemp -d` && cd $dir && #{EXEC} #{@spec.arguments}"
-      Open3.popen3(command) do |_i, o, e, _t|
-        Rails.logger.debug("Phyml execution stdout:\n" + o.read)
-        Rails.logger.debug("Phyml execution stderr:\n" + e.read)
-      end
-    end
+  def args
+    @args ||= "-q -i #{@v.path_to(ALIGNMENT)}"
   end
+
+  def setup_files
+    copy_encoded_alignment
+  end
+
+  def copy_encoded_alignment
+    fasta = @g.alignment.to_molphy_string
+    encoded = Identifier.encode_string(@g.id, fasta)
+    @v.write_to_file(encoded, ALIGNMENT)
+  end
+
+end
 end

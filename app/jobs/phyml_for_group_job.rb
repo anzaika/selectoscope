@@ -7,15 +7,10 @@ class PhymlForGroupJob
                   backtrace: true
 
   def perform(group_id)
-    group = Group.find(group_id).decorate
-    alignment = group.gblocks_align.molphy
-    spec = Wrap::Phyml::Spec.new(phylip: alignment)
-    tree = Wrap::Phyml::Run.new(spec).run
-    if tree
-      t = Tree.create(newick: tree)
-      group.tree.destroy if group.tree
-      group.tree = t
-    end
+    run = Wrap::Phyml::Run.new(group_id)
+    run.execute
+    report = Wrap::Phyml::Report.new(run)
+    report.save
   end
 
 end
