@@ -11,10 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320152812) do
+ActiveRecord::Schema.define(version: 20160320191317) do
 
   create_table "alignments", force: :cascade do |t|
-    t.binary   "fasta",      limit: 4294967295
     t.integer  "group_id",   limit: 4
     t.string   "meta",       limit: 255
     t.datetime "created_at"
@@ -36,19 +35,13 @@ ActiveRecord::Schema.define(version: 20160320152812) do
     t.float   "w1",       limit: 24
     t.float   "p0",       limit: 24
     t.float   "p1",       limit: 24
-    t.text    "tree",     limit: 65535
     t.integer "group_id", limit: 4
-    t.binary  "stdout",   limit: 4294967295
-    t.binary  "stderr",   limit: 4294967295
-    t.binary  "output",   limit: 4294967295
   end
 
   create_table "fast_results", force: :cascade do |t|
     t.integer  "group_id",     limit: 4
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.binary   "stdout",       limit: 4294967295
-    t.binary   "stderr",       limit: 4294967295
     t.binary   "output",       limit: 4294967295
     t.boolean  "has_positive"
   end
@@ -72,24 +65,23 @@ ActiveRecord::Schema.define(version: 20160320152812) do
     t.integer "user_id",             limit: 4
   end
 
-  create_table "groups_identifiers", force: :cascade do |t|
+  create_table "groups_identifiers", id: false, force: :cascade do |t|
     t.integer "group_id",      limit: 4
     t.integer "identifier_id", limit: 4
   end
 
+  add_index "groups_identifiers", ["group_id", "identifier_id"], name: "index_groups_identifiers_on_group_id_and_identifier_id", unique: true, using: :btree
+  add_index "groups_identifiers", ["identifier_id"], name: "index_groups_identifiers_on_identifier_id", using: :btree
+
   create_table "identifiers", force: :cascade do |t|
-    t.string  "name",            limit: 255
-    t.integer "sequences_count", limit: 4
-    t.string  "short_name",      limit: 255
-    t.string  "codename",        limit: 255
+    t.string "name",     limit: 255
+    t.string "codename", limit: 255
   end
 
   create_table "run_reports", force: :cascade do |t|
     t.string   "program",            limit: 255
     t.string   "version",            limit: 255
     t.string   "params",             limit: 255
-    t.binary   "stdout",             limit: 4294967295
-    t.binary   "stderr",             limit: 4294967295
     t.binary   "result",             limit: 4294967295
     t.date     "start"
     t.date     "finish"
@@ -111,15 +103,6 @@ ActiveRecord::Schema.define(version: 20160320152812) do
     t.datetime "updated_at",                null: false
   end
 
-  create_table "sequences", force: :cascade do |t|
-    t.binary  "sequence",      limit: 4294967295
-    t.integer "identifier_id", limit: 4
-    t.integer "group_id",      limit: 4
-  end
-
-  add_index "sequences", ["group_id"], name: "index_sequences_on_group_id", using: :btree
-  add_index "sequences", ["identifier_id", "group_id"], name: "index_sequences_on_identifier_id_and_group_id", using: :btree
-
   create_table "text_files", force: :cascade do |t|
     t.string   "textifilable_type", limit: 255
     t.integer  "textifilable_id",   limit: 4
@@ -136,7 +119,6 @@ ActiveRecord::Schema.define(version: 20160320152812) do
   add_index "text_files", ["textifilable_type", "textifilable_id"], name: "index_text_files_on_textifilable_type_and_textifilable_id", using: :btree
 
   create_table "trees", force: :cascade do |t|
-    t.string   "name",       limit: 255
     t.binary   "newick",     limit: 4294967295
     t.datetime "created_at"
     t.datetime "updated_at"
