@@ -8,47 +8,42 @@ RSpec.describe Group, type: :model do
     let (:group) { Fabricate(:group_with_simple_fasta) }
 
     describe "#create" do
-      it "is expected to create two organisms after it is created", focus: true do
+      it "is expected to create two idetifiers", focus: true do
         expect{group}.to change{Identifier.count}.from(0).to(2)
       end
-      it "is expected to create two genes after it is created" do
-        expect{group}.to change{Sequence.count}.from(0).to(2)
-      end
-      it "is expected to create just one organism with name 'seq1'" do
+      it "...and link them to the group" do
         group
-        expect(Identifier.where(name: 'seq1').count).to eq(1)
-      end
-      it "is expected to create just one gene with sequence 'atgc'" do
-        group
-        expect(Sequence.where(sequence: 'atgc').count).to eq(1)
+        expect(group.identifiers.count).to eq(2)
       end
     end
+  end
 
-    describe "#to_bio_alignment_object" do
-      it "is expected to return a Bio::Alignment::OriginalAlignment object" do
-        expect(group.to_bio_alignment_object.class).to eq(Bio::Alignment::OriginalAlignment)
-      end
-      it "is expected to return sequences with codenames" do
-        returned = group.to_bio_alignment_object.keys.to_set
-        all_codenames = Identifier.all.map(&:codename).to_set
-        expect(returned).to eq(all_codenames)
+  context "--> when created with a fasta file that has spaces in identifiers" do
+    describe "#create" do
+      it "rewrites the fasta_file replacing spaces in identifiers with underlines" do
+        ff = Fabricate(:fasta_file_with_spaces)
+        ids_before =
+          ff.to_bioruby_alignment_object
+            .keys
+            .map { |id| id.split(" ").join("_") }
+
+        g = Group.create(fasta_file: ff)
+        ids_after = g.fasta_file.to_bioruby_alignment_object.keys
+
+        expect(ids_before).to eq(ids_after)
       end
     end
-
   end
 
   context "--> with 'complicated' fasta file uploaded" do
+    let (:comp_group) {Fabricate(:group_with_complicated_fasta)}
     describe "#create" do
-      let (:comp_group) {Fabricate(:group_with_complicated_fasta)}
-      it "is expected to create seven organisms after it is created" do
+      it "is expected to create seven identifiers" do
         expect{comp_group}.to change{Identifier.count}.from(0).to(7)
       end
-      it "is expected to create seven genes after it is created" do
-        expect{comp_group}.to change{Sequence.count}.from(0).to(7)
-      end
-      it "is expected to create just one organism with name 'Burkholderia cenocepacia J231'" do
+      it "...and link them to the group" do
         comp_group
-        expect(Identifier.where(name: 'Burkholderia cenocepacia J2315').count).to eq(1)
+        expect(comp_group.identifiers.count).to eq(7)
       end
     end
   end

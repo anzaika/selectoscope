@@ -23,7 +23,7 @@ class Group < ActiveRecord::Base
 
   validates_presence_of :fasta_file
 
-  after_create :process_sequence_identifiers
+  after_create :process_identifiers
 
   def name
     "Group " + id.to_s
@@ -39,10 +39,20 @@ class Group < ActiveRecord::Base
 
   private
 
-  def process_sequence_identifiers
+  def process_identifiers
+    transform_identifiers_in_fasta_file
+    save_identifiers
+  end
+
+  def save_identifiers
     fasta_file.each_seq_with_description do |desc, seq|
       identifier = Identifier.find_or_create_by(name: desc)
       self.identifiers << identifier
     end
   end
+
+  def transform_identifiers_in_fasta_file
+    TransformIdentifiers.new(self.id).transform
+  end
+
 end

@@ -7,6 +7,11 @@ class Identifier < ActiveRecord::Base
 
   ALPHABET = ("A".."Z").to_a + (0..9).to_a
 
+  # Make sure we have no bad chars in identifiers
+  def self.transform(identifier)
+    identifier.split(" ").join("_")
+  end
+
   def self.decode_string(group_id, string)
     Group.find(group_id)
          .identifiers
