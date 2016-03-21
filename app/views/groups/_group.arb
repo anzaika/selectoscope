@@ -18,7 +18,7 @@ columns do
     panel "Tree", "data-panel" => :open do
       if group.tree
         render(partial: "groups/tnt_tree",
-                locals:  {tree:    group.decorate.tree_for_group_show_view,
+                locals:  {tree:    group.tree.newick,
                           width:   600,
                           compact: false})
       end
@@ -46,8 +46,8 @@ columns do
 end
 
 panel "Alignments", id: "alignments" do
-  render group.orig_align if group.orig_align
-  render group.gblocks_align if group.gblocks_align
+  render group.original_alignment if group.original_alignment
+  # render group.proc_align if group.proc_align
 end
 panel "Codeml output", "data-panel" => :collapsed do
   if group.codeml_result

@@ -26,7 +26,7 @@ class FastaFile < ActiveRecord::Base
 
   def to_bioruby_alignment_object
     Bio::Alignment::MultiFastaFormat
-      .new(read_file)
+      .new(to_fasta_string)
       .alignment
   end
 
@@ -58,9 +58,8 @@ class FastaFile < ActiveRecord::Base
       end
   end
 
-  private
-
-  def read_file
+  def to_fasta_string
     File.open(file.path).read
   end
+
 end
