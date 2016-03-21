@@ -6,8 +6,12 @@ class Vault
 
   def initialize
     @dir = Dir.mktmpdir
-    @o = File.join(@dir, 'stdout')
-    @e = File.join(@dir, 'stderr')
+    @o = File.join(@dir, 'stdout.out')
+    @e = File.join(@dir, 'stderr.out')
+  end
+
+  def write_to_file(content, filename)
+    File.open(path_to(filename), 'w') { |f| f << content }
   end
 
   def add(file, name)
@@ -19,7 +23,8 @@ class Vault
   end
 
   def run(exec, arguments)
-    Open3.popen3("#{exec} #{arguments}") do |_i, o, e, _t|
+    Open3.popen3("cd #{@dir} && #{exec} #{arguments}") do |i, o, e, _t|
+      i.puts "y\r\n"
       File.open(@o, 'w') { |f| f << o.read }
       File.open(@e, 'w') { |f| f << e.read }
     end
