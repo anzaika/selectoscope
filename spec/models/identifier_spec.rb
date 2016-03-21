@@ -7,6 +7,11 @@ RSpec.describe Identifier, type: :model do
       i.save
       expect(i.codename.class).to eq(String)
     end
+    it "replaces whitespaces in names to underscores" do
+      i = Identifier.new(name: 'one two')
+      i.save
+      expect(i.name).to eq("one_two")
+    end
   end
 
   describe "::decode_string" do

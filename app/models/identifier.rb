@@ -3,6 +3,7 @@ class Identifier < ActiveRecord::Base
 
   validates_uniqueness_of :name
   after_create :set_codename
+  after_create :remove_whitespaces_from_names
 
   ALPHABET = ("A".."Z").to_a + (0..9).to_a
 
@@ -33,6 +34,11 @@ class Identifier < ActiveRecord::Base
       code = generate_code
     end
     update_attribute(:codename, generate_code)
+  end
+
+  def remove_whitespaces_from_names
+    new_name = name.split(" ").join("_")
+    self.update_attribute(:name, new_name)
   end
 
 end
