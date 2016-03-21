@@ -17,8 +17,8 @@ class Mafft::Report
   def run_successful?
     @run_successful ||=
       FileTest.exist?(@run.path_to_alignment) &&
-      FileTest.exist?(@v.path_to('stdout')) &&
-      FileTest.exist?(@v.path_to('stderr'))
+      FileTest.exist?(@v.path_to('stdout.out')) &&
+      FileTest.exist?(@v.path_to('stderr.out'))
   end
 
   private
@@ -31,8 +31,8 @@ class Mafft::Report
   end
 
   def save_out_files
-    @stdout = TextFile.create(file: File.open(@v.path_to('stdout')))
-    @stderr = TextFile.create(file: File.open(@v.path_to('stderr')))
+    @stdout = TextFile.create(file: File.open(@v.path_to('stdout.out')))
+    @stderr = TextFile.create(file: File.open(@v.path_to('stderr.out')))
   end
 
   def save_run_report
