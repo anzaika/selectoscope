@@ -7,28 +7,18 @@ ActiveAdmin.register Group do
                 fasta_file_attributes: [:file]
 
   scope :all
-  scope :with_codeml
-  scope :with_fast
-  scope :with_tree
   scope :with_positive
   scope :without_positive
 
   index download_links: false do
     selectable_column
     column "tree" do |group|
-      if group.decorate.tree
+      if group.tree
         render(partial: "groups/tnt_tree",
-               locals:  {tree:    group.decorate.tree_for_group_index_view,
+               locals:  {tree:    group.tree.newick,
                          width:   "400",
                          compact: true})
       end
-    end
-    column :sequences_count, sortable: :sequences_count do |group|
-      group.sequences.count
-    end
-
-    column :avg_sequence_length do |group|
-      group.avg_sequence_length.to_i
     end
 
     column :positive_selection do |group|
@@ -67,12 +57,10 @@ ActiveAdmin.register Group do
   end
 
   filter :batch, collection: -> { Batch.all }
-  filter :sequences_count
   filter :has_paralogs
   filter :codeml_result_w0, as: :numeric, label: "codeml W0"
   filter :codeml_result_p1, as: :numeric, label: "codeml P1"
   filter :fast_result_has_positive, as: :select, values: ["true", "false"]
-  filter :avg_sequence_length
 
   form html: {multipart: true} do |f|
     f.semantic_errors
@@ -93,9 +81,14 @@ ActiveAdmin.register Group do
     resource.download_tree
   end
 
+  batch_action "run full-stack for" do |ids|
+    ids.each {|id| RunFullStackJob.perform_async(id) }
+    redirect_to request.referrer, notice: "Full stack job submitted."
+  end
+
   controller do
     def show
-      @group = Group.find(params[:id]).decorate
+      @group = Group::ForShow.find(params[:id])
     end
 
     def download_tree
@@ -107,14 +100,7 @@ ActiveAdmin.register Group do
         send_data(newick, type: "application/text", filename: filename)
       end
     end
-  end
 
-  batch_action "run full-stack for" do |ids|
-    ids.each {|id| RunFullStackJob.perform_async(id) }
-    redirect_to request.referrer, notice: "Full stack job submitted."
-  end
-
-  controller do
     def create
       @group = Group.new(permitted_params['group'])
       @group.user_id = current_user.id
@@ -125,5 +111,6 @@ ActiveAdmin.register Group do
         render('new')
       end
     end
+
   end
 end
