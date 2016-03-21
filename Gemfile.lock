@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: 2635bdb2bc37f3eb103d5ba6dee16b2c7e4da2a6
+  revision: 18fd1c23fc60d3a96f8a31dffb13329c7d0595db
   specs:
     activeadmin (1.0.0.pre2)
       arbre (~> 1.0, >= 1.0.2)
@@ -121,7 +121,7 @@ GEM
       request_store (~> 1.0)
     erubis (2.7.0)
     execjs (2.6.0)
-    fabrication (2.14.1)
+    fabrication (2.15.0)
     ffi (1.9.10)
     formatador (0.2.5)
     formtastic (3.1.3)
@@ -210,7 +210,7 @@ GEM
       activerecord (>= 3.0, < 6.0)
       activesupport (>= 3.0, < 6.0)
       request_store (~> 1.1)
-    paperclip (4.3.5)
+    paperclip (4.3.6)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       cocaine (~> 0.5.5)
@@ -263,7 +263,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
-    rake (11.1.0)
+    rake (11.1.1)
     ransack (1.7.0)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
@@ -276,7 +276,7 @@ GEM
     redis (3.2.2)
     ref (2.0.0)
     request_store (1.3.0)
-    responders (2.1.1)
+    responders (2.1.2)
       railties (>= 4.2.0, < 5.1)
     responsive_active_admin (0.0.5)
       activeadmin

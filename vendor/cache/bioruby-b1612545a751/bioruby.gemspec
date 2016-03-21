@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["BioRuby project"]
-  s.date = "2016-03-12"
+  s.date = "2016-03-21"
   s.description = "BioRuby is a library for bioinformatics (biology + information science)."
   s.email = "staff@bioruby.org"
   s.executables = ["bioruby", "br_biofetch.rb", "br_bioflat.rb", "br_biogetseq.rb", "br_pmfetch.rb"]
