@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Wrap::Codeml::Report, type: :model do
+RSpec.describe Wrap::Codeml::Report do
   let(:ff) { Fabricate(:simple_fasta_file) }
   let(:g)  { Fabricate(:group_with_tree_and_alignment) }
   let(:codeml) { Wrap::Codeml::Run.new(g.id)}
