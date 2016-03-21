@@ -20,8 +20,4 @@ class Tree < ActiveRecord::Base
   def fast_inn_node_names
     newick.scan(/\*\d+/).map {|s| s.split("*").last.to_i }
   end
-
-  def with_translated_name
-    Identifier.tr(newick)
-  end
 end
