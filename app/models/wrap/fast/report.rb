@@ -7,7 +7,7 @@ class Fast::Report < Wrap::Report
     fast_result = FastResult.create
 
     output =
-      TextFile::AsCodemlOutput.create(
+      TextFile.create(
         file: File.open(@run.path_to_output),
         meta: 'fast_output',
         textifilable: fast_result)

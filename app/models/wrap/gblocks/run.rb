@@ -1,9 +1,14 @@
 module Wrap
 class Gblocks::Run < Wrap::Run
 
+  PROGRAM = "Gblocks"
   EXEC = "Gblocks"
   ALIGNMENT = "sequences.fa"
   OUTPUT = "sequences.fa-gb"
+
+  def version
+    ''
+  end
 
   def args
     @args ||= "#{@v.path_to(ALIGNMENT)} -t=c"

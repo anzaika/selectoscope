@@ -1,9 +1,14 @@
 module Wrap
 class Mafft::Run < Wrap::Run
 
+  PROGRAM = "MAFFT"
   EXEC = "mafft-linsi"
   FASTA = "fasta.fasta"
   OUTPUT = "output.out"
+
+  def version
+    ''
+  end
 
   def args
     @args ||= "#{@v.path_to(FASTA)} > #{@v.path_to(OUTPUT)}"

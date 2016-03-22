@@ -1,6 +1,7 @@
 module Wrap
 class Codeml::Run < Wrap::Run
 
+  PROGRAM = "PAML-codeml"
   EXEC = "cdmw.py"
   ALIGNMENT = "aligned.fasta"
   TREE = "tree.nwk"
@@ -8,6 +9,10 @@ class Codeml::Run < Wrap::Run
 
   def args
     @args ||= "--preset M1 #{@v.path_to(ALIGNMENT)} #{@v.path_to(TREE)} #{@v.path_to(OUTPUT)}"
+  end
+
+  def version
+    ''
   end
 
   def setup_files

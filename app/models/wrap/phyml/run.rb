@@ -1,9 +1,14 @@
 module Wrap
 class Phyml::Run < Wrap::Run
 
+  PROGRAM = "PhyML"
   EXEC = 'phyml'
   ALIGNMENT = "aligned.phylip"
   OUTPUT = "aligned.phylip_phyml_tree"
+
+  def version
+    ''
+  end
 
   def args
     @args ||= "-q -i #{@v.path_to(ALIGNMENT)}"

@@ -13,6 +13,8 @@ ActiveAdmin.register RunReport do
     panel "General info" do
       attributes_table_for report do
         row :program
+        row :exec
+        row :version
         row :successful do |resource|
           resource.successful ? status_tag("Yes", :yellow) : status_tag("No", :red)
         end

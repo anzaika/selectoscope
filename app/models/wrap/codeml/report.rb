@@ -7,7 +7,7 @@ class Codeml::Report < Wrap::Report
     codeml_result = CodemlResult.create
 
     output =
-      TextFile.create(
+      TextFile::AsCodemlOutput.create(
         file: File.open(@run.path_to_output),
         meta: 'codeml_output',
         textifilable: codeml_result)

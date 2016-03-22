@@ -1,10 +1,15 @@
 module Wrap
 class Fast::Run < Wrap::Run
-  EXEC = 'fast'
 
+  PROGRAM = 'Fastcodeml'
+  EXEC = 'fast'
   ALIGNMENT = "aligned.phy"
   TREE = "tree.nwk"
   OUTPUT = "output.out"
+
+  def version
+    ''
+  end
 
   def args
     @args ||=

@@ -48,7 +48,9 @@ class Report
     @run_report =
       RunReport.create(
         directory_snapshot: @v.file_list,
-        program: @run.class::EXEC,
+        program: @run.class::PROGRAM,
+        exec: @run.class::EXEC,
+        version: @run.version,
         params: @run.args,
         successful: run_successful?)
     @g.run_reports << @run_report
