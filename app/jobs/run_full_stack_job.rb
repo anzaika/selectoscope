@@ -9,7 +9,7 @@ class RunFullStackJob
     jid = AlignmentForGroupJob.perform_async(group_id)
     job_status(interval: 2, jid: jid) &&
       jid = GblocksForGroupJob.perform_async(group_id)
-    job_status(interval: 1, jid: jid) &&
+    job_status(interval: 5, jid: jid) &&
       jid = PhymlForGroupJob.perform_async(group_id)
     job_status(interval: 10, jid: jid) &&
       jid = CodemlForGroupJob.perform_async(group_id)
