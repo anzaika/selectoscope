@@ -2,12 +2,10 @@ web:
   extends:
     file: compose_common.yml
     service: web
-  environment:
-    - PASSENGER_APP_ENV=development
+  user: 'dev_user'
   volumes:
-    - ".:/home/app/webapp"
-    - "./config/sites_enabled:/etc/nginx/sites-enabled/"
-    - "./development_data/storage:/home/app/webapp/storage"
+    - ".:/opt/app"
+    - "./development_data/storage:/opt/app/storage"
   links:
     - redis
   env_file:
@@ -17,12 +15,10 @@ sidekiq:
   extends:
     file: compose_common.yml
     service: sidekiq
-  user: app
-  environment:
-    - PASSENGER_APP_ENV=development
+  user: 'dev_user'
   volumes:
-    - ".:/home/app/webapp"
-    - "./development_data/storage:/home/app/webapp/storage"
+    - ".:/opt/app"
+    - "./development_data/storage:/opt/app/storage"
   links:
     - redis
   env_file:

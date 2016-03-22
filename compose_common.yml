@@ -5,15 +5,12 @@ db:
 
 web:
   build: .
-  container_name: web
-  working_dir: /home/app/webapp
+  command: bundle exec unicorn -p 8080 -c config/unicorn.rb
   ports:
-    - "8080:80"
+    - "3009:8080"
 
 sidekiq:
   build: .
-  container_name: sidekiq
-  working_dir: /home/app/webapp
   command: bundle exec sidekiq
 
 redis:
