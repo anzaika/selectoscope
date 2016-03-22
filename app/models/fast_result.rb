@@ -1,7 +1,6 @@
 class FastResult < ActiveRecord::Base
   belongs_to :group
-  has_one :text_file, as: :textifilable
-
+  has_one :text_file, as: :textifilable, dependent: :destroy
   after_create :set_has_positive
 
   THRESHOLD = 3.841459

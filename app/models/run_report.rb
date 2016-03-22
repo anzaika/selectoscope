@@ -1,6 +1,6 @@
 class RunReport < ActiveRecord::Base
   belongs_to :group
-  has_many :text_files, as: :textifilable
+  has_many :text_files, as: :textifilable, dependent: :destroy
 
   def stdout
     f = text_files.where(meta: 'stdout').first

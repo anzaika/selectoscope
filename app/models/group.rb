@@ -8,7 +8,7 @@ class Group < ActiveRecord::Base
   has_one :codeml_result, dependent: :destroy
   has_one :fast_result, dependent: :destroy
 
-  has_many :run_reports
+  has_many :run_reports, dependent: :destroy
 
   validates_associated :fasta_file
   accepts_nested_attributes_for :fasta_file, allow_destroy: true
