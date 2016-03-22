@@ -47,7 +47,7 @@ end
 
 panel "Alignments", id: "alignments" do
   render group.original_alignment if group.original_alignment
-  # render group.proc_align if group.proc_align
+  render group.processed_alignment if group.processed_alignment
 end
 panel "Codeml output", "data-panel" => :collapsed do
   if group.codeml_result
