@@ -4,7 +4,7 @@ class Codeml::Run < Wrap::Run
   EXEC = "cdmw.py"
   ALIGNMENT = "aligned.fasta"
   TREE = "tree.nwk"
-  OUTPUT = "output"
+  OUTPUT = "output.out"
 
   def args
     @args ||= "--preset M1 #{@v.path_to(ALIGNMENT)} #{@v.path_to(TREE)} #{@v.path_to(OUTPUT)}"
