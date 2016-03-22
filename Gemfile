@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 #------> Core
 gem "rails", "~> 4.2.6"
+gem "unicorn"
 gem "activeadmin", github: "activeadmin"
 gem "cancancan", "~> 1.13.1"
 gem "mysql2", "~> 0.3.20"
@@ -14,7 +15,6 @@ gem "sinatra", "~> 1.4.7", require: nil
 gem "sidekiq-limit_fetch", "~> 3.1.0"
 gem "sidekiq-status", "~> 0.6.0"
 gem "sidekiq-statistic", "~> 1.2.0"
-gem "draper", "~> 2.1.0"
 gem "transaction_retry"
 gem "responsive_active_admin"
 gem "paper_trail", "~> 4.1.0"
