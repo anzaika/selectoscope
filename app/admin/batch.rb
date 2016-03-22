@@ -50,12 +50,6 @@ ActiveAdmin.register Batch do
                 div group.name
               end
             end
-            column "Seq count" do |group|
-              group.sequences.count
-            end
-            column :avg_sequence_length do |group|
-              group.avg_sequence_length.to_i
-            end
             column :positive_selection do |group|
               if group.fast_result && group.fast_result.has_positive
                 status_tag "yes"
@@ -77,11 +71,12 @@ ActiveAdmin.register Batch do
 
   member_action :run_full_stack, method: :get do
     resource.run_full_stack
+    redirect_to request.referrer, notice: "Job has been successfuly submited"
   end
 
   batch_action 'Run full stack on' do |ids|
     Batch.find(ids).each{|b| FullStackForAllGroupsOfBatchJob.perform_async(b.id) }
-    redirect_to request.referrer
+    redirect_to request.referrer, notice: "Job has been successfuly submited"
   end
 
   controller do
