@@ -1,34 +1,44 @@
-require 'open3'
+module Wrap
+class Fast::Run < Wrap::Run
+  EXEC = 'fast'
 
-# @author anzaika@gmail.com
-module Wrap::Fast
-  # @author anzaika@gmail.com
-  class Run
-    EXEC = 'fast'
+  ALIGNMENT = "aligned.phy"
+  TREE = "tree.nwk"
+  OUTPUT = "output.out"
 
-    def initialize(spec)
-      @spec = spec
-    end
-
-    def run
-      @spec.create_files
-      Output.new(@spec, execute).report
-    ensure
-      @spec.unlink
-    end
-
-    private
-
-    def execute
-      stdout = ''
-      stderr = ''
-      Open3.popen3("#{EXEC} #{@spec.arguments}") do |_, o, e, _|
-        stdout = o.read
-        stderr = e.read
-        Rails.logger.info("Fast stdout:\n" + o.read)
-        Rails.logger.info("Fast sterr:\n" + e.read)
-      end
-      OpenStruct.new(stdout: stdout, stderr: stderr)
-    end
+  def args
+    @args ||=
+      " -nt 1"                       +
+      " --debug 2"                   +
+      " -p w0=#{codeml.w0}"          +
+      " -p k=#{codeml.k}"            +
+      " -p p0=#{codeml.p0}"          +
+      " -p p1=#{codeml.p1}"          +
+      " -p w2=#{codeml.w1}"          +
+      " -ou #{@v.path_to(OUTPUT)}"   +
+      " #{@v.path_to(TREE)}"         +
+      " #{@v.path_to(ALIGNMENT)}"
   end
+
+  def setup_files
+    copy_encoded_alignment
+    copy_encoded_tree
+  end
+
+  def codeml
+    @codeml ||= @g.codeml_result
+  end
+
+  def copy_encoded_alignment
+    fasta = @g.alignment.to_molphy_string
+    encoded = Identifier::Enigma.new(@g.id).encode_string(fasta)
+    @v.write_to_file(encoded, ALIGNMENT)
+  end
+
+  def copy_encoded_tree
+    tree = codeml.tree.newick
+    encoded = Identifier::Enigma.new(@g.id).encode_string(tree)
+    @v.write_to_file(encoded, TREE)
+  end
+end
 end
