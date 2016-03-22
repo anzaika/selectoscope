@@ -6,11 +6,12 @@ class Codeml::Report < Wrap::Report
 
     codeml_result = CodemlResult.create
 
-    output =
-      TextFile::AsCodemlOutput.create(
-        file: File.open(@run.path_to_output),
-        meta: 'codeml_output',
-        textifilable: codeml_result)
+    TextFile.create(
+      file: File.open(@run.path_to_output),
+      meta: 'codeml_output',
+      textifilable: codeml_result)
+
+    codeml_result.process_output
 
     @g.codeml_result.destroy if @g.codeml_result
     @g.codeml_result = codeml_result
