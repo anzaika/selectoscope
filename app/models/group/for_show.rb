@@ -6,4 +6,17 @@ class Group::ForShow < ActiveType::Record[Group]
   def processed_alignment
     alignments.processed.first
   end
+
+  def alignment
+    original  = alignments.original
+    processed = alignments.processed
+
+    if processed.count > 0
+      return processed.first
+    elsif original.count > 0
+      return original.first
+    else
+      nil
+    end
+  end
 end

@@ -27,6 +27,7 @@ class Alignment < ActiveRecord::Base
   end
 
   def to_hash
-    alignment.alignment_collect {|seq| seq }
+    to_bioruby_alignment_object.alignment.to_hash
+    # alignment.alignment_collect {|seq| seq }
   end
 end
