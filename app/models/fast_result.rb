@@ -1,5 +1,6 @@
 class FastResult < ActiveRecord::Base
   belongs_to :group
+  has_one :text_file, as: :textifilable
 
   after_create :set_has_positive
 
