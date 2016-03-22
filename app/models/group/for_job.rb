@@ -4,9 +4,9 @@ class Group::ForJob < ActiveType::Record[Group]
     original  = alignments.original
     processed = alignments.processed
 
-    if processed.count == 1
+    if processed.count > 0
       return processed.first
-    elsif original.count == 1
+    elsif original.count > 0
       return original.first
     else
       nil
