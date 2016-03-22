@@ -1,5 +1,5 @@
 module Wrap
-class Phyml::Run < Run
+class Phyml::Run < Wrap::Run
 
   EXEC = 'phyml'
   ALIGNMENT = "aligned.phylip"

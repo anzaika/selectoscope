@@ -1,5 +1,5 @@
 module Wrap
-class Codeml::Run < Run
+class Codeml::Run < Wrap::Run
 
   EXEC = "cdmw.py"
   ALIGNMENT = "aligned.fasta"

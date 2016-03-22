@@ -1,5 +1,5 @@
 module Wrap
-class Phyml::Report < Report
+class Phyml::Report < Wrap::Report
 
   def save_output
     newick = File.open(@run.path_to_output).read

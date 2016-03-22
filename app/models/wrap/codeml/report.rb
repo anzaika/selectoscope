@@ -1,5 +1,5 @@
 module Wrap
-class Codeml::Report < Report
+class Codeml::Report < Wrap::Report
 
   def save_output
     output = TextFile.create(file: File.open(@run.path_to_output))
