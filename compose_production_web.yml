@@ -5,8 +5,8 @@ web:
   links:
     - redis
   volumes:
-      - "./config/sites_enabled:/etc/nginx/sites-enabled/"
-      - "./production_data/storage:/home/app/webapp/storage"
+      - ".:/opt/app"
+      - "./production_data/storage:/opt/app/storage"
   restart: always
   env_file:
     - 'production.env'
