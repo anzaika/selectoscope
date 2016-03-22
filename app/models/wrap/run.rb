@@ -3,7 +3,7 @@ class Run
   attr_reader :args, :path_to_output, :v, :g
 
   def initialize(group_id)
-    @v = Vault.new
+    @v = Wrap::Vault.new
     @g = Group::ForJob.find(group_id)
   end
 

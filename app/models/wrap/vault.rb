@@ -1,6 +1,6 @@
 require 'open3'
 
-class Vault
+class Wrap::Vault
 
   attr_reader :dir
 
@@ -25,8 +25,9 @@ class Vault
     File.open(path_to(filename), 'w') { |f| f << content }
   end
 
-  def add(file, name)
-    FileUtils.cp(file.path, File.join(@dir, name))
+  # Copy path from file into vault with desired name
+  def add(path_to_file, name)
+    FileUtils.cp(path_to_file, File.join(@dir, name))
   end
 
   def path_to(filename)

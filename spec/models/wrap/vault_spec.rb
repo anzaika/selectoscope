@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe Vault do
+RSpec.describe Wrap::Vault do
   describe "#new" do
     it "creates a temporary directory" do
-      v = Vault.new
-      expect{Vault.new}.to change{Dir['/tmp/*'].count}.by(1)
+      v = Wrap::Vault.new
+      expect{Wrap::Vault.new}.to change{Dir['/tmp/*'].count}.by(1)
     end
   end
 
   describe "#add" do
     it "copies the file to the directory with desired name" do
-      v = Vault.new
+      v = Wrap::Vault.new
       ff = Fabricate(:simple_fasta_file)
       v.add(ff.file, 'fasta.fasta')
       files = Dir[File.join(v.dir, "/*")]
@@ -21,7 +21,7 @@ RSpec.describe Vault do
 
   describe "#run" do
     it "should run a block of code inside the temp directory" do
-      v = Vault.new
+      v = Wrap::Vault.new
       file = File.join(v.dir, "hello.txt")
       v.run('touch', file)
       files = Dir[File.join(v.dir, "/*")]
@@ -31,7 +31,7 @@ RSpec.describe Vault do
 
   describe "#destroy" do
     it "removes a temporary directory" do
-      v = Vault.new
+      v = Wrap::Vault.new
       expect{v.destroy}.to change{Dir['/tmp/*'].count}.by(-1)
     end
   end
