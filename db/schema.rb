@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322145614) do
+ActiveRecord::Schema.define(version: 20160322164710) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "group_id",   limit: 4
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20160322145614) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "alignments", ["group_id"], name: "index_alignments_on_group_id", using: :btree
 
   create_table "batches", force: :cascade do |t|
     t.string   "name",         limit: 255
@@ -29,6 +31,8 @@ ActiveRecord::Schema.define(version: 20160322145614) do
     t.integer  "user_id",      limit: 4
   end
 
+  add_index "batches", ["user_id"], name: "index_batches_on_user_id", using: :btree
+
   create_table "codeml_results", force: :cascade do |t|
     t.float   "k",        limit: 24
     t.float   "w0",       limit: 24
@@ -38,12 +42,16 @@ ActiveRecord::Schema.define(version: 20160322145614) do
     t.integer "group_id", limit: 4
   end
 
+  add_index "codeml_results", ["group_id"], name: "index_codeml_results_on_group_id", using: :btree
+
   create_table "fast_results", force: :cascade do |t|
     t.integer  "group_id",     limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.boolean  "has_positive"
   end
+
+  add_index "fast_results", ["group_id"], name: "index_fast_results_on_group_id", using: :btree
 
   create_table "fasta_files", force: :cascade do |t|
     t.string   "representable_as_fasta_type", limit: 255
@@ -56,11 +64,16 @@ ActiveRecord::Schema.define(version: 20160322145614) do
     t.datetime "file_updated_at"
   end
 
+  add_index "fasta_files", ["representable_as_fasta_id", "representable_as_fasta_type"], name: "fasta_filex_polymorphic", using: :btree
+
   create_table "groups", force: :cascade do |t|
     t.integer "avg_sequence_length", limit: 4
     t.integer "batch_id",            limit: 4
     t.integer "user_id",             limit: 4
   end
+
+  add_index "groups", ["batch_id"], name: "index_groups_on_batch_id", using: :btree
+  add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
 
   create_table "groups_identifiers", id: false, force: :cascade do |t|
     t.integer "group_id",      limit: 4
@@ -89,6 +102,8 @@ ActiveRecord::Schema.define(version: 20160322145614) do
     t.integer  "group_id",           limit: 4
     t.string   "exec",               limit: 255
   end
+
+  add_index "run_reports", ["group_id"], name: "index_run_reports_on_group_id", using: :btree
 
   create_table "text_files", force: :cascade do |t|
     t.string   "textifilable_type", limit: 20,  null: false
