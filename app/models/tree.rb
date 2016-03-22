@@ -1,5 +1,5 @@
 class Tree < ActiveRecord::Base
-  belongs_to :group
+  belongs_to :treeable, polymorphic: true
 
   # @param identifiers [Array]
   # @return [String] trimmed tree in newick format

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320191317) do
+ActiveRecord::Schema.define(version: 20160322111500) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "group_id",   limit: 4
@@ -119,11 +119,12 @@ ActiveRecord::Schema.define(version: 20160320191317) do
   add_index "text_files", ["textifilable_type", "textifilable_id"], name: "index_text_files_on_textifilable_type_and_textifilable_id", using: :btree
 
   create_table "trees", force: :cascade do |t|
-    t.binary   "newick",     limit: 4294967295
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "group_id",   limit: 4
+    t.binary  "newick",        limit: 65535
+    t.integer "treeable_id",   limit: 4,     null: false
+    t.string  "treeable_type", limit: 20,    null: false
   end
+
+  add_index "trees", ["treeable_id", "treeable_type"], name: "index_trees_on_treeable_id_and_treeable_type", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
