@@ -4,7 +4,7 @@ class Group < ActiveRecord::Base
   has_and_belongs_to_many :identifiers
 
   has_many :alignments, dependent: :destroy
-  has_one :tree, dependent: :destroy
+  has_one :tree, as: :treeable, dependent: :destroy
   has_one :codeml_result, dependent: :destroy
   has_one :fast_result, dependent: :destroy
 
