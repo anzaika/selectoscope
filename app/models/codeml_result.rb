@@ -1,12 +1,32 @@
 class CodemlResult < ActiveRecord::Base
   belongs_to :group
   has_one :text_file, as: :textifilable
+  has_one :tree, as: :treeable, dependent: :destroy
 
-  def process(l)
+  after_create :process_output
+
+  def output
+    File.open(text_file.file.path).read
+  end
+
+  def process_output
+    process
+    save_processed_params
+  end
+
+  private
+
+  def process
+    File.open(text_file.file.path) do |f|
+      f.readlines.each { |l| parse_line(l) }
+    end
+  end
+
+  def parse_line(l)
     if l =~ /^kappa \(ts\/tv\) =/
       @k = l.split('=').last.to_f
     elsif l =~ /^\(.+: ([0-9]*\.[0-9]+|[0-9]), \(.+:/
-      @tree = l.chomp
+      @tree = l.chomp.squish
     elsif l =~ /^p:\s+ ([0-9]*\.[0-9]+|[0-9])\s+([0-9]*\.[0-9]+|[0-9])$/
       @p0 = l.split(' ')[1].to_f
       @p1 = l.split(' ')[2].to_f
@@ -14,5 +34,10 @@ class CodemlResult < ActiveRecord::Base
       @w0 = l.split(' ')[1].to_f
       @w1 = l.split(' ')[2].to_f
     end
+  end
+
+  def save_processed_params
+    self.update_attributes(k: @k, p0: @p0, p1: @p1, w0: @w1, w1: @w1)
+    Tree.create(newick: @tree, treeable: self)
   end
 end
