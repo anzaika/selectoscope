@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Identifier, type: :model do
+
   describe "::create" do
     it "sets the codename after save" do
       i = Identifier.new(name: 'name')
