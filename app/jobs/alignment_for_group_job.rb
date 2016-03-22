@@ -7,15 +7,9 @@ class AlignmentForGroupJob
                   backtrace: true
 
   def perform(group_id)
-    group = Group.find(group_id)
-    vault = Vault.new
-    run = Wrap::Mafft::Run.new(vault, group.fasta_file)
+    run = Wrap::Mafft::Run.new(group_id)
     run.execute
-    report = Wrap::Mafft::Report.new(vault, run)
+    report = Wrap::Mafft::Report.new(run)
     report.save
-
-    report.run_report.update_attribute(:user_id, group.user_id)
-    group.run_reports << report.run_report
-    group.alignments << report.alignment
   end
 end
