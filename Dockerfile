@@ -1,10 +1,4 @@
-FROM phusion/passenger-ruby22
-
-# Set correct environment variables.
-ENV HOME /root
-
-# Use baseimage-docker's init process.
-CMD ["/sbin/my_init"]
+FROM anzaika/ruby
 
 ENV TIMESTAMP 13-03-2016
 
@@ -124,35 +118,39 @@ RUN mkdir -p /usr/src/mafft \
   && make install \
   && rm -rf /usr/src/mafft
 
-# Activate nginx
-RUN rm -f /etc/service/nginx/down
+# Clean up APT when done to make the image lighter.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ENV DEV_USER dev_user
+ENV PROD_USER prod_user
+ENV GROUP runners
+
+RUN groupadd $GROUP
+RUN useradd $DEV_USER -G $GROUP -u 1000 -ms /bin/bash -U
+RUN useradd $PROD_USER -G $GROUP -u 1013 -ms /bin/bash -U
 
 # Install heavy gems for adding an extra caching layer
 RUN gem install nokogiri:1.6.7.2 oj:2.14.6
 
-# Install bundle of gems
+RUN mkdir -p /opt/bundle
 RUN mkdir -p /opt/bundle-cache
+RUN mkdir -p /opt/app
 
 COPY vendor/cache /opt/bundle-cache/vendor/cache
 COPY Gemfile /opt/bundle-cache/Gemfile
 COPY Gemfile.lock /opt/bundle-cache/Gemfile.lock
 
-RUN cd /opt/bundle-cache \
-  && bundle install -j6
+RUN cd /opt/bundle-cache && bundle install -j6
 
-# Copy the nginx template for configuration and preserve environment variables
-RUN rm /etc/nginx/sites-enabled/default
-
-RUN mkdir /home/app/webapp
-
-RUN groupadd --gid 9998 webappgroup \
-  && usermod -a -G webappgroup app \
-  && usermod -u 9999 app && chown -R app:webappgroup /home/app/webapp
-
-ENV APP_HOME /home/app/webapp
+ENV APP_HOME /opt/app
 WORKDIR $APP_HOME
 ADD . $APP_HOME
-RUN chmod go+x /home/app/webapp
 
-# Clean up APT when done to make the image lighter.
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN chown -R $PROD_USER:$GROUP /opt \
+  && chmod g+rwx -R /opt \
+  && chown -R $PROD_USER:$GROUP /usr/local/lib/ruby \
+  && chmod g+rwx -R /usr/local/lib/ruby \
+  && chown -R $PROD_USER:$GROUP /usr/local/bundle \
+  && chmod g+rwx -R /usr/local/bundle
+
+USER $PROD_USER
