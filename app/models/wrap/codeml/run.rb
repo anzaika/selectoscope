@@ -17,13 +17,13 @@ class Codeml::Run < Wrap::Run
 
   def copy_encoded_alignment
     fasta = @g.alignment.to_molphy_string
-    encoded = Identifier.encode_string(@g.id, fasta)
+    encoded = Identifier::Enigma.new(@g.id).encode_string(fasta)
     @v.write_to_file(encoded, ALIGNMENT)
   end
 
   def copy_encoded_tree
     tree = @g.tree.newick_without_inner_node_names
-    encoded = Identifier.encode_string(@g.id, tree)
+    encoded = Identifier::Enigma.new(@g.id).encode_string(tree)
     @v.write_to_file(encoded, TREE)
   end
 
