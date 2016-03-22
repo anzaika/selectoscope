@@ -12,20 +12,6 @@ class Identifier < ActiveRecord::Base
     identifier.split(" ").join("_")
   end
 
-  def self.decode_string(group_id, string)
-    Group.find(group_id)
-         .identifiers
-         .map {|o| [o.codename, o.name] }
-         .inject(string) {|a, e| a.gsub(e.first, e.last) }
-  end
-
-  def self.encode_string(group_id, string)
-    Group.find(group_id)
-         .identifiers
-         .map {|o| [o.codename, o.name] }
-         .inject(string) {|a, e| a.gsub(e.last, e.first) }
-  end
-
   private
 
   def generate_code
