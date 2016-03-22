@@ -1,28 +1,16 @@
-require 'open3'
+module Wrap
+class Gblocks::Run < Wrap::Run
 
-module Wrap::Gblocks
-class Run
-  EXEC="Gblocks"
+  EXEC = "Gblocks"
+  ALIGNMENT = "sequences.fa"
+  OUTPUT = "sequences.fa-gb"
 
-  def initialize(spec)
-    @spec = spec
+  def args
+    @args ||= "#{@v.path_to(ALIGNMENT)} -t=c"
   end
 
-  def run
-    @spec.create_files
-    execute
-    Output.new(@spec).parse
-  ensure
-    @spec.unlink
-  end
-
-  private
-
-  def execute
-    Open3.popen3("#{EXEC} #{@spec.arguments}") do |i,o,e,t|
-      Rails.logger.debug("Gblocks execution stdout:\n"+o.read)
-      Rails.logger.debug("Gblocks execution stderr:\n"+e.read)
-    end
+  def setup_files
+    @v.add(@g.alignments.original.first.fasta_file.file.path, ALIGNMENT)
   end
 
 end

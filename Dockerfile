@@ -49,17 +49,6 @@ RUN mkdir -p /usr/src/muscle \
   && rm -rf /usr/src/muscle
 
 #####################
-#      Gblocks      #
-#####################
-
-# RUN mkdir -p /usr/src/gblocks \
-#   && curl -SL "http://molevol.cmima.csic.es/castresana/Gblocks/Gblocks_Linux64_0.91b.tar.Z" \
-#   | tar xvzC /usr/src/gblocks \
-#   && cd /usr/src/gblocks/Gblocks_0.91b \
-#   && cp Gblocks /usr/local/bin \
-#   && rm -rf /usr/src/gblocks
-
-#####################
 #      Guidance     #
 #####################
 RUN mkdir -p /usr/src/guidance \
@@ -117,6 +106,17 @@ RUN mkdir -p /usr/src/mafft \
   && make -j"$(nproc)" \
   && make install \
   && rm -rf /usr/src/mafft
+
+#####################
+#      Gblocks      #
+#####################
+
+RUN mkdir -p /usr/src/gblocks \
+  && curl -SL "http://molevol.cmima.csic.es/castresana/Gblocks/Gblocks_Linux64_0.91b.tar.Z" \
+  | tar xvzC /usr/src/gblocks \
+  && cd /usr/src/gblocks/Gblocks_0.91b \
+  && cp Gblocks /usr/local/bin \
+  && rm -rf /usr/src/gblocks
 
 # Clean up APT when done to make the image lighter.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
