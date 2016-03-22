@@ -4,11 +4,11 @@ class RunReport < ActiveRecord::Base
 
   def stdout
     f = text_files.where(meta: 'stdout').first
-    f ? File.open(f.path).read : nil
+    (f ? File.open(f.file.path).read : nil).split("\n").join("</br>").html_safe
   end
 
   def stderr
     f = text_files.where(meta: 'stderr').first
-    f ? File.open(f.path).read : nil
+    f ? File.open(f.file.path).read : nil
   end
 end

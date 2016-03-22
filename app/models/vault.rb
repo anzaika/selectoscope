@@ -4,10 +4,21 @@ class Vault
 
   attr_reader :dir
 
+  STDOUT = "stdout.out"
+  STDERR = "stderr.out"
+
   def initialize
     @dir = Dir.mktmpdir
-    @o = File.join(@dir, 'stdout.out')
-    @e = File.join(@dir, 'stderr.out')
+    @o = File.join(@dir, STDOUT)
+    @e = File.join(@dir, STDERR)
+  end
+
+  def path_to_stdout
+    @o
+  end
+
+  def path_to_stderr
+    @e
   end
 
   def write_to_file(content, filename)
@@ -31,7 +42,7 @@ class Vault
   end
 
   def file_list
-    Dir.entries(@dir).select {|f| !File.directory? f}
+    Dir.entries(@dir).select {|f| !File.directory? f}.join(", ")
   end
 
   def destroy

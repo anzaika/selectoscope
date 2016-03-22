@@ -16,8 +16,8 @@ class Report
   def run_successful?
     @run_successful ||=
       FileTest.exist?(@run.path_to_output) &&
-      FileTest.exist?(@v.path_to('stdout.out')) &&
-      FileTest.exist?(@v.path_to('stderr.out'))
+      FileTest.exist?(@v.path_to_stdout) &&
+      FileTest.exist?(@v.path_to_stderr)
   end
 
   private
@@ -30,8 +30,8 @@ class Report
   end
 
   def save_out_files
-    @stdout = TextFile.create(file: File.open(@v.path_to('stdout.out')))
-    @stderr = TextFile.create(file: File.open(@v.path_to('stderr.out')))
+    @stdout = TextFile.create(file: File.open(@v.path_to_stdout), meta: 'stdout')
+    @stderr = TextFile.create(file: File.open(@v.path_to_stderr), meta: 'stderr')
   end
 
   def save_run_report

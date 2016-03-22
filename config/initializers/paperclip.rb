@@ -1,4 +1,6 @@
 Paperclip.options[:content_type_mappings] = {
   fasta: "text/plain",
-  fa: "text/plain"
+  fst: "text/plain",
+  fa: "text/plain",
+  out: "text/plain"
 }
