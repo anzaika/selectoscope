@@ -23,10 +23,17 @@ class Report
   private
 
   def create_run_report
+    decode_out_files
     save_out_files
     save_run_report
     @run_report.text_files << @stdout
     @run_report.text_files << @stderr
+  end
+
+  def decode_out_files
+    enigma = Identifier::Enigma.new(@g.id)
+    enigma.decode_file(@v.path_to_stdout)
+    enigma.decode_file(@v.path_to_stderr)
   end
 
   def save_out_files
