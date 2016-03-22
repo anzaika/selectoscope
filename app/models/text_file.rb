@@ -4,5 +4,5 @@ class TextFile < ActiveRecord::Base
                     url:  "/text_file/:id/:filename"
 
   do_not_validate_attachment_file_type :file
-  belongs_to :textifileable
+  belongs_to :textifilable, polymorphic: true
 end

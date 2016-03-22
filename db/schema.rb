@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322111500) do
+ActiveRecord::Schema.define(version: 20160322145614) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "group_id",   limit: 4
@@ -40,9 +40,8 @@ ActiveRecord::Schema.define(version: 20160322111500) do
 
   create_table "fast_results", force: :cascade do |t|
     t.integer  "group_id",     limit: 4
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.binary   "output",       limit: 4294967295
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.boolean  "has_positive"
   end
 
@@ -58,8 +57,6 @@ ActiveRecord::Schema.define(version: 20160322111500) do
   end
 
   create_table "groups", force: :cascade do |t|
-    t.integer "sequences_count",     limit: 4
-    t.boolean "has_paralogs"
     t.integer "avg_sequence_length", limit: 4
     t.integer "batch_id",            limit: 4
     t.integer "user_id",             limit: 4
@@ -75,37 +72,27 @@ ActiveRecord::Schema.define(version: 20160322111500) do
 
   create_table "identifiers", force: :cascade do |t|
     t.string "name",     limit: 255
-    t.string "codename", limit: 255
+    t.string "codename", limit: 10
   end
 
   create_table "run_reports", force: :cascade do |t|
-    t.string   "program",            limit: 255
+    t.string   "program",            limit: 20
     t.string   "version",            limit: 255
     t.string   "params",             limit: 255
-    t.binary   "result",             limit: 4294967295
     t.date     "start"
     t.date     "finish"
     t.integer  "runtime",            limit: 4
     t.text     "directory_snapshot", limit: 65535
-    t.integer  "jobid",              limit: 4
-    t.integer  "runnable_id",        limit: 4
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.boolean  "successful"
-    t.integer  "user_id",            limit: 4
-  end
-
-  create_table "runnable_run_report_associations", force: :cascade do |t|
-    t.string   "runnable_type", limit: 255
-    t.integer  "runnable_id",   limit: 4
-    t.integer  "run_report_id", limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "group_id",           limit: 4
+    t.string   "exec",               limit: 255
   end
 
   create_table "text_files", force: :cascade do |t|
-    t.string   "textifilable_type", limit: 255
-    t.integer  "textifilable_id",   limit: 4
+    t.string   "textifilable_type", limit: 20,  null: false
+    t.integer  "textifilable_id",   limit: 4,   null: false
     t.string   "meta",              limit: 255
     t.string   "file_file_name",    limit: 255
     t.string   "file_content_type", limit: 255
@@ -115,8 +102,7 @@ ActiveRecord::Schema.define(version: 20160322111500) do
     t.datetime "updated_at",                    null: false
   end
 
-  add_index "text_files", ["textifilable_type", "meta", "textifilable_id"], name: "index_text_files_on_has_files_type_and_type_and_has_files_id", using: :btree
-  add_index "text_files", ["textifilable_type", "textifilable_id"], name: "index_text_files_on_textifilable_type_and_textifilable_id", using: :btree
+  add_index "text_files", ["textifilable_id", "textifilable_type"], name: "index_text_files_on_textifilable_id_and_textifilable_type", using: :btree
 
   create_table "trees", force: :cascade do |t|
     t.binary  "newick",        limit: 65535

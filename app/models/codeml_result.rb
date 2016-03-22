@@ -3,8 +3,6 @@ class CodemlResult < ActiveRecord::Base
   has_one :text_file, as: :textifilable
   has_one :tree, as: :treeable, dependent: :destroy
 
-  after_create :process_output
-
   def output
     File.open(text_file.file.path).read
   end

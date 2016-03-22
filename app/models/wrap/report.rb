@@ -23,11 +23,9 @@ class Report
   private
 
   def create_run_report
+    save_run_report
     decode_out_files
     save_out_files
-    save_run_report
-    @run_report.text_files << @stdout
-    @run_report.text_files << @stderr
   end
 
   def decode_out_files
@@ -37,8 +35,13 @@ class Report
   end
 
   def save_out_files
-    @stdout = TextFile.create(file: File.open(@v.path_to_stdout), meta: 'stdout')
-    @stderr = TextFile.create(file: File.open(@v.path_to_stderr), meta: 'stderr')
+    TextFile.create(file: File.open(@v.path_to_stdout),
+                    meta: 'stdout',
+                    textifilable: @run_report)
+
+    TextFile.create(file: File.open(@v.path_to_stderr),
+                    meta: 'stderr',
+                    textifilable: @run_report)
   end
 
   def save_run_report

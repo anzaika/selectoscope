@@ -1,5 +1,5 @@
 class RunReport < ActiveRecord::Base
-  has_many :runnable_run_report_associations, dependent: :destroy
+  belongs_to :group
   has_many :text_files, as: :textifilable
 
   def stdout

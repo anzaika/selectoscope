@@ -2,9 +2,6 @@ class Alignment < ActiveRecord::Base
   belongs_to :group
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
 
-  has_many :runnable_run_report_associations, as: :runnable, dependent: :destroy
-  has_many :run_reports, through: :runnable_run_report_associations
-
   scope :original, -> { where(meta: "original") }
   scope :processed, -> { where(meta: "processed") }
 
