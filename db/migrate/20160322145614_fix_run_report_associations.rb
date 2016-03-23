@@ -15,7 +15,6 @@ class FixRunReportAssociations < ActiveRecord::Migration
     change_column :identifiers, :codename, :string, limit: 10
 
     change_column :run_reports, :program, :string, limit: 20
-    change_column :run_reports, :program, :version, limit: 20
 
     change_column :text_files, :textifilable_type, :string, limit: 20
     change_column_null :text_files, :textifilable_type, false
