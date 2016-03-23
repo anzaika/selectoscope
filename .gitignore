@@ -8,6 +8,5 @@ tags
 *.tgz
 warnings
 log
-tmp
 config/database.yml
 spec/examples.txt
