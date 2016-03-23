@@ -22,7 +22,7 @@ class Group < ActiveRecord::Base
 
   validates_presence_of :fasta_file
 
-  after_create :process_identifiers
+  after_create :submit_process_job
 
   def name
     "Group " + id.to_s
@@ -36,11 +36,15 @@ class Group < ActiveRecord::Base
     end
   end
 
-  private
-
   def process_identifiers
     transform_identifiers_in_fasta_file
     save_identifiers
+  end
+
+  private
+
+  def submit_process_job
+    ProcessIdentifiersJob.perform_async(self.id)
   end
 
   def save_identifiers
