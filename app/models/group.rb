@@ -44,7 +44,7 @@ class Group < ActiveRecord::Base
   private
 
   def submit_process_job
-    ProcessIdentifiersJob.perform_async(self.id)
+    ProcessIdentifiersJob.perform_in(10.seconds, self.id)
   end
 
   def save_identifiers
