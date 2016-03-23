@@ -7,7 +7,6 @@ web:
     - redis
   volumes:
     - "./log:/opt/app/log"
-    - "./config:/opt/app/config"
     - "./production_data/storage:/opt/app/storage"
   restart: always
   env_file:
