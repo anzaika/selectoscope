@@ -2,11 +2,13 @@ web:
   extends:
     file: compose_common.yml
     service: web
+  user: 'prod_user'
   links:
     - redis
   volumes:
-      - ".:/opt/app"
-      - "./production_data/storage:/opt/app/storage"
+    - "./log:/opt/app/log"
+    - "./config:/opt/app/config"
+    - "./production_data/storage:/opt/app/storage"
   restart: always
   env_file:
     - 'production.env'
