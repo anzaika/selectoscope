@@ -89,7 +89,7 @@ ActiveAdmin.register Batch do
       if @batch.save
         if permitted_params["batch"]["fasta_files"]
           permitted_params["batch"]["fasta_files"].each do |f|
-            fasta = FastaFile.new(file: f.tempfile)
+            fasta = FastaFile::AsUpload.new(file: f.tempfile)
             @batch.groups.create(fasta_file: fasta, user_id: current_user.id)
           end
         end
