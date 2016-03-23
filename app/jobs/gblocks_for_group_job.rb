@@ -8,13 +8,17 @@ class GblocksForGroupJob
                   backtrace: true
 
   def perform(group_id)
-    tries ||= 5
+    tries ||= 10
     run = Wrap::Gblocks::Run.new(group_id)
     run.execute
     report = Wrap::Gblocks::Report.new(run)
     report.save
   rescue Errno::EPIPE => e
-    (tries -= 1) > 0 ? retry : raise e
+    if (tries -= 1) > 0
+      retry
+    else
+      raise e
+    end
   end
 
 end
