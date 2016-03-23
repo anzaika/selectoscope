@@ -49,8 +49,12 @@ class Group < ActiveRecord::Base
 
   def save_identifiers
     fasta_file.each_seq_with_description do |desc, seq|
-      identifier = Identifier.find_or_create_by(name: desc)
-      self.identifiers << identifier
+      begin
+        identifier = Identifier.find_or_create_by(name: desc)
+        self.identifiers << identifier
+      rescue ActiveRecord::RecordInvalid => e
+        retry
+      end
     end
   end
 
