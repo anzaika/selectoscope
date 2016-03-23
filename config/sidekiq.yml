@@ -1,13 +1,13 @@
 ---
 :pidfile: tmp/sidekiq.pid
 development:
-  :concurrency: 10
+  :concurrency: 4
   :queues:
     - many
     - control
   :process_limits:
-    many: 4
-    control: 4
+    many: 2
+    control: 2
 production:
   :logfile: ./log/sidekiq.log
   :concurrency: 30
