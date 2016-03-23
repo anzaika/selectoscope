@@ -3,6 +3,6 @@ sidekiq:
     file: compose_common.yml
     service: sidekiq
   volumes:
-    - "./production_data/storage:/home/app/webapp/storage"
+    - "./production_data/storage:/opt/app/storage"
   env_file:
     - 'production.env'
