@@ -10,10 +10,10 @@ development:
     control: 2
 production:
   :logfile: ./log/sidekiq.log
-  :concurrency: 30
+  :concurrency: 32
   :queues:
     - many
     - control
   :process_limits:
-    many: 15
-    control: 15
+    many: 16
+    control: 16
