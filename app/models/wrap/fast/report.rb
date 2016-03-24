@@ -12,7 +12,6 @@ class Fast::Report < Wrap::Report
         meta: 'fast_output',
         textifilable: fast_result)
 
-
     @g.fast_result.destroy if @g.fast_result
     @g.fast_result = fast_result
   end
