@@ -1,7 +1,7 @@
 class FastForGroupJob
   include Sidekiq::Worker
   include Sidekiq::Status::Worker
-  sidekiq_options queue: :many,
+  sidekiq_options queue: :four,
                   retry: false,
                   timeout: 60.minutes,
                   backtrace: true
