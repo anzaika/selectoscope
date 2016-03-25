@@ -9,7 +9,7 @@ development:
     many: 2
     control: 2
 production:
-  :logfile: ./log/sidekiq.log
+  :logfile: ./log/sidekiq_regular.log
   :concurrency: 32
   :queues:
     - many

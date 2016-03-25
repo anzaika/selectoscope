@@ -9,3 +9,4 @@ sidekiq:
     - "./production_data/storage:/opt/app/storage"
   env_file:
     - 'production.env'
+  command: bundle exec sidekiq --config /opt/app/config/sidekiq_four.yml

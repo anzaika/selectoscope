@@ -1,0 +1,7 @@
+---
+:pidfile: tmp/sidekiq.pid
+production:
+  :logfile: ./log/sidekiq_many.log
+  :concurrency: 16
+  :queues:
+    - many
