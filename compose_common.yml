@@ -11,6 +11,7 @@ web:
 
 sidekiq:
   build: .
+  hostname: "${HOSTNAME}_worker"
   command: bundle exec sidekiq
 
 redis:
