@@ -19,5 +19,5 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-system("qsub -l hostname='#{NODES}' -cwd -pe smp #{SLOTS} -R y bin/worker_init -t #{options[:type]}")
+system("qsub -l hostname='#{NODES}' -S /usr/bin/ruby -cwd -pe smp #{SLOTS} -R y bin/worker_init -t #{options[:type]}")
 
