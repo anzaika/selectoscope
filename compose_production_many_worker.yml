@@ -6,8 +6,7 @@ sidekiq:
   user: 'prod_user'
   volumes:
     - "./log:/opt/app/log"
-    - "./config:/opt/app/config"
     - "./production_data/storage:/opt/app/storage"
   env_file:
     - 'production.env'
-  command: bundle exec sidekiq --config /opt/app/config/sidekiq_many.yml
+  command: "bundle exec sidekiq -P tmp/sidekiq.pid -c 32 -L ./log/sidekiq_many_on_${HOSTNAME}.log"

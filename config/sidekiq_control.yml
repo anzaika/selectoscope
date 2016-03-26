@@ -1,7 +1,7 @@
 ---
 :pidfile: tmp/sidekiq.pid
 production:
-  :logfile: ./log/sidekiq_control.log
+  :logfile: <%= "./log/sidekiq_control_on_#{ENV['HOST']}.log" %>
   :concurrency: 32
   :queues:
     - control
