@@ -9,4 +9,4 @@ sidekiq:
     - "./production_data/storage:/opt/app/storage"
   env_file:
     - 'production.env'
-  command: "bundle exec sidekiq -P tmp/sidekiq.pid -c 4 -L ./log/sidekiq_four_on_${HOSTNAME}.log"
+  command: "bundle exec sidekiq -P tmp/sidekiq.pid -q four -c 4 -L ./log/sidekiq_four_on_${HOSTNAME}.log"
