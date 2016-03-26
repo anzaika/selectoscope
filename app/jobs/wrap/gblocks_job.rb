@@ -1,4 +1,4 @@
-class GblocksForGroupJob
+class Wrap::GblocksJob
 
   include Sidekiq::Worker
   include Sidekiq::Status::Worker

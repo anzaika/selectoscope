@@ -39,7 +39,7 @@ ActiveAdmin.register Batch do
           end
         end
       end
-      column span: 1 do
+      column span: 2 do
         panel "Groups" do
           a href: "/groups?utf8=✓&q%5Bbatch_id_eq%5D=#{batch.id}&commit=Filter&order=id_desc" do
             div "Open in Groups view"
@@ -75,7 +75,7 @@ ActiveAdmin.register Batch do
   end
 
   batch_action 'Run full stack on' do |ids|
-    Batch.find(ids).each{|b| FullStackForAllGroupsOfBatchJob.perform_async(b.id) }
+    Batch.find(ids).each{|b| Batch::FullStackForAllGroupsJob.perform_async(b.id) }
     redirect_to request.referrer, notice: "Job has been successfuly submited"
   end
 
@@ -98,7 +98,7 @@ ActiveAdmin.register Batch do
     end
 
     def run_full_stack
-      FullStackForAllGroupsOfBatchJob.perform_async(params[:id])
+      Batch::FullStackForAllGroupsJob.perform_async(params[:id])
       redirect_to resource_path(resource.id)
     end
   end

@@ -74,7 +74,7 @@ ActiveAdmin.register Group do
   end
 
   batch_action "run full-stack for" do |ids|
-    ids.each {|id| RunFullStackJob.perform_async(id) }
+    ids.each {|id| Group::FullStackJob.perform_async(id) }
     redirect_to request.referrer, notice: "Full stack job submitted."
   end
 
