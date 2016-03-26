@@ -7,6 +7,7 @@ class Wrap::CodemlJob
                   backtrace: true
 
   def perform(group_id)
+    return nil if Group::ForShow.find(group_id).codeml_job
     run = Wrap::Codeml::Run.new(group_id)
     run.execute
     report = Wrap::Codeml::Report.new(run)

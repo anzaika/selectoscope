@@ -7,6 +7,7 @@ class Wrap::AlignmentJob
                   backtrace: true
 
   def perform(group_id)
+    return nil if Group::ForShow.find(group_id).alignment_job
     run = Wrap::Mafft::Run.new(group_id)
     run.execute
     report = Wrap::Mafft::Report.new(run)

@@ -7,6 +7,7 @@ class Wrap::PhymlJob
                   backtrace: true
 
   def perform(group_id)
+    return nil if Group::ForShow.find(group_id).tree_job
     run = Wrap::Phyml::Run.new(group_id)
     run.execute
     report = Wrap::Phyml::Report.new(run)
