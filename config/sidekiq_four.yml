@@ -1,7 +1,0 @@
----
-:pidfile: tmp/sidekiq.pid
-production:
-  :logfile: ./log/sidekiq_fast.log
-    :concurrency: 4
-    :queues:
-      - four
