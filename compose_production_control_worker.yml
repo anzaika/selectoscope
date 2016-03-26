@@ -2,6 +2,7 @@ sidekiq:
   extends:
     file: compose_common.yml
     service: sidekiq
+  image: 'anzaika/selectoscope'
   user: 'prod_user'
   volumes:
     - "./log:/opt/app/log"
