@@ -1,0 +1,28 @@
+common: &common
+  adapter: mysql2
+  reconnect: true
+  encoding: utf8
+  port: 3306
+  username: root
+  password: 1234
+
+production:
+  <<: *common
+  pool: <%= ENV["DB_POOL"] %>
+  host: <%= ENV["DB_HOST"] %>
+  pool: <%= ENV["DB_PORT"] %>
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+  database: <%= ENV["DB_DATABASE"] %>
+
+development:
+  <<: *common
+  pool: 4
+  host: 192.168.59.100
+  database: selectoscope_development
+
+test:
+  <<: *common
+  pool: 4
+  host: 192.168.59.100
+  database: selectoscope_test
