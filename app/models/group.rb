@@ -16,7 +16,7 @@ class Group < ActiveRecord::Base
   belongs_to :batch, counter_cache: "groups_count"
   belongs_to :user
 
-  default_scope -> { includes(:tree, :codeml_result, :fast_result)}
+  default_scope -> { includes(:tree, :run_reports) }
   scope :with_positive, -> { joins(:fast_result).where(fast_results: {has_positive: true}) }
   scope :without_positive, -> { joins(:fast_result).where(fast_results: {has_positive: false}) }
 

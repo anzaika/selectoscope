@@ -19,4 +19,24 @@ class Group::ForShow < ActiveType::Record[Group]
       nil
     end
   end
+
+  def alignment_job
+    run_reports.alignment.first
+  end
+
+  def processed_alignment_job
+    run_reports.processed_alignment.first
+  end
+
+  def tree_job
+    run_reports.tree.first
+  end
+
+  def codeml_job
+    run_reports.codeml.first
+  end
+
+  def fast_job
+    run_reports.fast.first
+  end
 end

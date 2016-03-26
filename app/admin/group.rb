@@ -30,29 +30,21 @@ ActiveAdmin.register Group do
         "---"
       end
     end
-
     column :alignment do |g|
-      if !g.alignments.empty?
-        status_tag "yes"
-      else
-        status_tag "no"
-      end
+      render 'job_status', job: g.alignment_job
     end
-    # column "W0", sortable: "codeml_result.w0" do |g|
-    #   (cod = g.codeml_result) && cod.w0 || "---"
-    # end
-    # column "W1" do |g|
-    #   (cod = g.codeml_result) && cod.w1 || "---"
-    # end
-    # column "K" do |g|
-    #   (cod = g.codeml_result) && cod.k || "---"
-    # end
-    # column "P0" do |g|
-    #   (cod = g.codeml_result) && cod.p0 || "---"
-    # end
-    # column "P1" do |g|
-    #   (cod = g.codeml_result) && cod.p1 || "---"
-    # end
+    column :proc_align do |g|
+      render 'job_status', job: g.processed_alignment_job
+    end
+    column :tree do |g|
+      render 'job_status', job: g.tree_job
+    end
+    column :codeml do |g|
+      render 'job_status', job: g.codeml_job
+    end
+    column :fast do |g|
+      render 'job_status', job: g.fast_job
+    end
     actions
   end
 
@@ -87,8 +79,17 @@ ActiveAdmin.register Group do
   end
 
   controller do
+
+    def scoped_collection
+      Group::ForShow.all
+    end
+
+    def index
+      index!
+    end
+
     def show
-      @group = Group::ForShow.find(params[:id])
+      @group ||= Group::ForShow.find(params[:id])
     end
 
     def download_tree
