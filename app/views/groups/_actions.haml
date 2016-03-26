@@ -1,25 +1,10 @@
 %ul
-
-  -# %li
-  -#   = link_to('Align sequences', compute_alignment_group_path(resource))
-  -#
-  -# - if group.orig_align
-  -#   %li
-  -#     = link_to('Run Gblocks', compute_gblocks_group_path(resource))
-  -#
-  -# - if group.gblocks_align
-  -#   %li
-  -#     = link_to('Run Phyml', compute_phyml_group_path(resource))
-  -#
-  -# - if group.gblocks_align && group.tree
-  -#   %li
-  -#     = link_to('Run Codeml', compute_codeml_group_path(resource))
-  -#
-  -# - if group.codeml_result
-  -#   %li
-  -#     = link_to('Run Fast', compute_fast_group_path(resource))
-
-%ul
+  %li
+    = link_to('Run pipeline', run_full_stack_group_path(resource))
 
   %li
-    = link_to('Download tree', download_tree_group_path(resource))
+    = link_to('Clear all results', clear_results_group_path(resource))
+
+  - if resource.tree
+    %li
+      = link_to('Download tree', download_tree_group_path(resource))

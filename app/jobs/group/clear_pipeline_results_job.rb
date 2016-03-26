@@ -1,4 +1,4 @@
-class Group::ProcessIdentifiersJob
+class Group::ClearPipelineResultsJob
   include Sidekiq::Worker
   include Sidekiq::Status::Worker
   sidekiq_options queue: :control,
@@ -7,6 +7,6 @@ class Group::ProcessIdentifiersJob
                   backtrace: true
 
   def perform(group_id)
-    Group.find(group_id).process_identifiers
+    Group.find(group_id).clear_pipeline_results
   end
 end

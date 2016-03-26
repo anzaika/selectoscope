@@ -62,11 +62,16 @@ ActiveAdmin.register Group do
     actions
   end
 
-  show do
-    render "group"
-  end
+  show { render 'group' }
 
   member_action :run_full_stack, method: :get do
+    Group::FullStackJob.perform_async(resource.id)
+    redirect_to request.referrer, notice: "Full stack job submitted."
+  end
+
+  member_action :clear_results, method: :get do
+    Group::ClearPipelineResultsJob.perform_async(resource.id)
+    redirect_to request.referrer, notice: "All results have been queued for removal."
   end
 
   member_action :download_tree, method: :get do

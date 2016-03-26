@@ -41,10 +41,18 @@ class Group < ActiveRecord::Base
     save_identifiers
   end
 
+  def clear_pipeline_results
+    run_reports.each(&:destroy)
+    alignments.each(&:destroy)
+    tree.destroy if tree
+    codeml_result.destroy if codeml_result
+    fast_result.destroy if fast_result
+  end
+
   private
 
   def submit_process_job
-    ProcessIdentifiersJob.perform_in(10.seconds, self.id)
+    Group::ProcessIdentifiersJob.perform_in(10.seconds, self.id)
   end
 
   def save_identifiers
