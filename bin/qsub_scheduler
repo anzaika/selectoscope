@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+require 'optparse'
+
+NODES = "hpc05|hpc06|hpc07|hpc08|hpc09|hpc10"
+SLOTS = 16
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: qsub_scheduler.rb [options]"
+
+  opts.on("-t TYPE", "--type TYPE", String,
+          "Worker type: control, many or four") do |v|
+    options[:type] = v
+  end
+
+  opts.on("-h", "--help", "Prints this help") do
+    puts opts
+    exit
+  end
+end.parse!
+
+system("qsub -l hostname='#{NODES}' -cwd -pe smp #{SLOTS} -R y bin/worker_init -t #{options[:type]}")
+

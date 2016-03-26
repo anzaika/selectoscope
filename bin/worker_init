@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: qsub_scheduler.rb [options]"
+
+  opts.on("-t TYPE", "--type TYPE", String,
+          "Worker type: control, many or four") do |v|
+    options[:type] = v
+  end
+
+  opts.on("-h", "--help", "Prints this help") do
+    puts opts
+    exit
+  end
+end.parse!
+
+system("docker pull anzaika/selectoscope")
+system("~/bin/docker-compose -f compose_production_#{options[:type]}_worker.yml up")
