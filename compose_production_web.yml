@@ -4,16 +4,9 @@ web:
     service: web
   image: 'anzaika/selectoscope'
   user: 'prod_user'
-  links:
-    - redis
   volumes:
     - "./log:/opt/app/log"
     - "./production_data/storage:/opt/app/storage"
   restart: always
   env_file:
     - 'production.env'
-
-redis:
-  extends:
-    file: compose_common.yml
-    service: redis
