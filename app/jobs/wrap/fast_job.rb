@@ -1,4 +1,4 @@
-class FastForGroupJob
+class Wrap::FastJob
   include Sidekiq::Worker
   include Sidekiq::Status::Worker
   sidekiq_options queue: :four,

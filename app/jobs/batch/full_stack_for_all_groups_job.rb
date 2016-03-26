@@ -1,4 +1,4 @@
-class FullStackForAllGroupsOfBatchJob
+class Batch::FullStackForAllGroupsJob
   include Sidekiq::Worker
   sidekiq_options queue: :control,
                   retry: false,

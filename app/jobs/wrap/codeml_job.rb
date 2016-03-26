@@ -1,12 +1,15 @@
-class ProcessIdentifiersJob
+class Wrap::CodemlJob
   include Sidekiq::Worker
   include Sidekiq::Status::Worker
   sidekiq_options queue: :many,
                   retry: false,
-                  timeout: 10.minutes,
+                  timeout: 60.minutes,
                   backtrace: true
 
   def perform(group_id)
-    Group.find(group_id).process_identifiers
+    run = Wrap::Codeml::Run.new(group_id)
+    run.execute
+    report = Wrap::Codeml::Report.new(run)
+    report.save
   end
 end
