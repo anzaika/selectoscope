@@ -1,0 +1,1 @@
+job ? (job.successful? ? status_tag(:green, label: 'ok') : status_tag(:red, label: 'fail')) : status_tag('No')
