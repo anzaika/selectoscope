@@ -3,16 +3,16 @@ if Rails.env.production?
   Sidekiq.configure_server do |config|
     config.redis = { url: "redis://#{ENV['REDIS_HOST']}:6379/12" }
     config.server_middleware do |chain|
-      chain.add Sidekiq::Status::ServerMiddleware, expiration: 100.hours
+      chain.add Sidekiq::Status::ServerMiddleware, expiration: 10.days
     end
     config.client_middleware do |chain|
-      chain.add Sidekiq::Status::ClientMiddleware, expiration: 100.hours
+      chain.add Sidekiq::Status::ClientMiddleware, expiration: 10.days
     end
   end
   Sidekiq.configure_client do |config|
     config.redis = { url: "redis://#{ENV['REDIS_HOST']}:6379/12" }
     config.client_middleware do |chain|
-      chain.add Sidekiq::Status::ClientMiddleware, expiration: 100.hours
+      chain.add Sidekiq::Status::ClientMiddleware, expiration: 10.days
     end
   end
 
