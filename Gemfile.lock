@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: 18fd1c23fc60d3a96f8a31dffb13329c7d0595db
+  revision: 8b80ddad36bd1ba8ab0bb9ac8593d409e0fcbbf9
   specs:
     activeadmin (1.0.0.pre2)
       arbre (~> 1.0, >= 1.0.2)
@@ -184,10 +184,12 @@ GEM
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.10)
-    mail (2.6.3)
-      mime-types (>= 1.16, < 3)
+    mail (2.6.4)
+      mime-types (>= 1.16, < 4)
     method_source (0.8.2)
-    mime-types (2.99.1)
+    mime-types (3.0)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0221)
     mimemagic (0.3.0)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
@@ -212,8 +214,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
-    parallel (1.6.2)
-    parser (2.3.0.6)
+    parser (2.3.0.7)
       ast (~> 2.2)
     polyamorous (1.3.0)
       activerecord (>= 3.0)
@@ -327,8 +328,6 @@ GEM
       redis (~> 3.2, >= 3.2.1)
     sidekiq-failures (0.4.5)
       sidekiq (>= 2.16.0)
-    sidekiq-limit_fetch (3.1.0)
-      sidekiq (>= 4)
     sidekiq-statistic (1.2.0)
       sidekiq (>= 3.3.4, < 5)
     sidekiq-status (0.6.0)
@@ -359,8 +358,6 @@ GEM
     transaction_retry (1.0.2)
       activerecord (>= 3.0.11)
       transaction_isolation (>= 1.0.2)
-    turbolinks (2.5.3)
-      coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
@@ -402,7 +399,6 @@ DEPENDENCIES
   oj_mimic_json (~> 1.0.1)
   paper_trail (~> 4.1.0)
   paperclip (~> 4.3.5)
-  parallel (~> 1.6.2)
   pry-rails
   pry-rescue
   quiet_assets
@@ -412,12 +408,10 @@ DEPENDENCIES
   rollbar (~> 2.8.2)
   rspec-rails (~> 3.4.2)
   rubocop
-  ruby-progressbar
   sass-rails
   shoulda-matchers (~> 3.1)
   sidekiq (~> 4.1.1)
   sidekiq-failures (~> 0.4.5)
-  sidekiq-limit_fetch (~> 3.1.0)
   sidekiq-statistic (~> 1.2.0)
   sidekiq-status (~> 0.6.0)
   sinatra (~> 1.4.7)
@@ -425,7 +419,6 @@ DEPENDENCIES
   spring-commands-rspec
   therubyracer
   transaction_retry
-  turbolinks
   uglifier (~> 2.7.2)
   unicorn
   webmock

@@ -12,7 +12,6 @@ gem "devise", "~> 3.5.6"
 gem "sidekiq", "~> 4.1.1"
 gem "sidekiq-failures", "~> 0.4.5"
 gem "sinatra", "~> 1.4.7", require: nil
-gem "sidekiq-limit_fetch", "~> 3.1.0"
 gem "sidekiq-status", "~> 0.6.0"
 gem "sidekiq-statistic", "~> 1.2.0"
 gem "transaction_retry"
@@ -29,17 +28,16 @@ gem "jquery-rails", "~> 4.1.0"
 gem "coffee-rails"
 gem "haml-rails"
 gem "sass-rails"
-gem "turbolinks"
 gem "therubyracer", platforms: :ruby
 
 #------> Bio
 gem "newick-ruby", github: "jhbadger/Newick-ruby"
-# gem "rserve-client"
 gem "bio", github: "anzaika/bioruby", branch: "master"
 
+#------> Statistics
+# gem 'rinruby'
+
 #------> Helpers
-gem "parallel", "~> 1.6.2"
-gem "ruby-progressbar"
 gem "paperclip", "~> 4.3.5"
 
 group :development, :test do
