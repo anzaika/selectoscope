@@ -12,7 +12,7 @@ RSpec.describe Wrap::Vault do
     it "copies the file to the directory with desired name" do
       v = Wrap::Vault.new
       ff = Fabricate(:simple_fasta_file)
-      v.add(ff.file, 'fasta.fasta')
+      v.add(ff.file.path, 'fasta.fasta')
       files = Dir[File.join(v.dir, "/*")]
       file = File.join(v.dir, "fasta.fasta")
       expect(files).to include(file)
