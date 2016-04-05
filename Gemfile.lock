@@ -402,6 +402,7 @@ DEPENDENCIES
   pry-rescue
   quiet_assets
   rails (~> 4.2.6)
+  rake
   rb-inotify
   responsive_active_admin
   rollbar (~> 2.8.2)
