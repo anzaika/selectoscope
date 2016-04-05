@@ -5,7 +5,7 @@ gem "rails", "~> 4.2.6"
 gem "unicorn"
 gem "activeadmin", github: "activeadmin"
 gem "cancancan", "~> 1.13.1"
-gem "mysql2", "~> 0.3.20"
+gem "mysql2", "~> 0.4.3"
 gem "jbuilder", "~> 2.4.1"
 gem "uglifier", "~> 2.7.2"
 gem "devise", "~> 3.5.6"
@@ -20,7 +20,7 @@ gem "paper_trail", "~> 4.1.0"
 gem "active_type", "~> 0.4.5"
 
 gem "rollbar", "~> 2.8.2"
-gem "oj", "~> 2.14.6"
+gem "oj", "~> 2.15.0"
 gem 'oj_mimic_json', "~> 1.0.1"
 
 #------> Interface
