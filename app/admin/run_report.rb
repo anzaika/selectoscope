@@ -25,13 +25,17 @@ ActiveAdmin.register RunReport do
     columns do
       column span: 1 do
         panel "Output" do
-          report.stdout
+          div class: "mono" do
+            report.stdout
+          end
         end
       end
 
       column span: 1 do
         panel "Errors" do
-          report.stderr
+          div class: "mono" do
+            report.stderr
+          end
         end
       end
     end
