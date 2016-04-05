@@ -1,3 +1,5 @@
+[![Dependency Status](https://gemnasium.com/anzaika/selectoscope.svg)](https://gemnasium.com/anzaika/selectoscope)
+
 Selectoscope
 ================
 
