@@ -20,7 +20,7 @@ RSpec.describe Identifier, type: :model do
       group = Fabricate(:group_with_complicated_fasta)
       encoded = group.identifiers.map(&:codename).join("&")
       decoded = group.identifiers.map(&:name).join("&")
-      expect(Identifier.decode_string(Group.first.id, encoded)).to eq(decoded)
+      expect(Identifier::Enigma.new(Group.first.id).decode_string(encoded)).to eq(decoded)
     end
   end
 
@@ -29,7 +29,8 @@ RSpec.describe Identifier, type: :model do
       group = Fabricate(:group_with_complicated_fasta)
       decoded = group.identifiers.map(&:name).join("&")
       encoded = group.identifiers.map(&:codename).join("&")
-      expect(Identifier.encode_string(Group.first.id, decoded)).to eq(encoded)
+      expect(Identifier::Enigma.new(Group.first.id).encode_string(decoded)).to eq(encoded)
+
     end
   end
 end
