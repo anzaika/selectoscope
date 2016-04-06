@@ -8,7 +8,7 @@ class Codeml::Run < Wrap::Run
   OUTPUT = "output.out"
 
   def args
-    @args ||= "--preset M1 #{@v.path_to(ALIGNMENT)} #{@v.path_to(TREE)} #{@v.path_to(OUTPUT)}"
+    @args ||= "--method 1 --preset M1 #{@v.path_to(ALIGNMENT)} #{@v.path_to(TREE)} #{@v.path_to(OUTPUT)}"
   end
 
   def version
