@@ -35,7 +35,7 @@ gem "newick-ruby", github: "jhbadger/Newick-ruby"
 gem "bio", github: "anzaika/bioruby", branch: "master"
 
 #------> Statistics
-# gem 'rinruby'
+gem 'rinruby'
 
 #------> Helpers
 gem "paperclip", "~> 4.3.5"
@@ -50,11 +50,10 @@ group :development, :test do
   gem "quiet_assets"
   gem "rb-inotify", require: false
   gem "spring-commands-rspec"
-  gem "rubocop"
 end
 
 group :test do
-  gem "webmock"
+  gem "faker"
   gem "fabrication", require: false
   gem "rspec-rails", "~> 3.4.2"
   gem "database_cleaner"
