@@ -1,0 +1,10 @@
+guard:
+  build: .
+  privileged: true
+  user: 'root'
+  command: bash -c "rake db:migrate && sysctl -w fs.inotify.max_user_watches=524288 && bundle exec guard"
+  volumes:
+    - ".:/opt/app"
+    - "./development_data/storage:/opt/app/storage"
+  environment:
+    - RAILS_ENV=test

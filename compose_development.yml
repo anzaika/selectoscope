@@ -28,16 +28,3 @@ redis:
   extends:
     file: compose_common.yml
     service: redis
-
-guard:
-  extends:
-    file: compose_common.yml
-    service: web
-  privileged: true
-  user: 'root'
-  command: bash -c "sysctl -w fs.inotify.max_user_watches=524288 && bundle exec guard"
-  volumes:
-    - ".:/opt/app"
-    - "./development_data/storage:/opt/app/storage"
-  env_file:
-    - development.env
