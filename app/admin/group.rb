@@ -64,18 +64,19 @@ ActiveAdmin.register Group do
 
   show { render 'group' }
 
-  member_action :run_full_stack, method: :get do
+  member_action :run_full_stack, method: :post do
     Group::FullStackJob.perform_async(resource.id)
     redirect_to request.referrer, notice: "Full stack job submitted."
   end
 
-  member_action :clear_results, method: :get do
+  member_action :clear_results, method: :post do
     Group::ClearPipelineResultsJob.perform_async(resource.id)
     redirect_to request.referrer, notice: "All results have been queued for removal."
   end
 
   member_action :download_tree, method: :get do
-    resource.download_tree
+    # resource.download_tree
+    redirect_to request.referrer, notice: "All results have been queued for removal."
   end
 
   batch_action "run full-stack for" do |ids|
@@ -98,13 +99,14 @@ ActiveAdmin.register Group do
     end
 
     def download_tree
-      g = Group.find(params[:id])
-      newick = g.tree.newick
-      filename = "#{g.id}_tree.nwk"
-
-      Tempfile.create(filename) do |_f|
-        send_data(newick, type: "application/text", filename: filename)
-      end
+      # newick = Group.find(permitted_params[:id]).tree.newick
+      # filename = "#{g.id}_tree.nwk"
+      #
+      # Tempfile.create("group#{group.id}_tree.nwk")
+      #
+      # Tempfile.create(filename) do |_f|
+      #   send_data(newick, type: "application/text", filename: filename)
+      # end
     end
 
     def create

@@ -20,4 +20,10 @@ class Tree < ActiveRecord::Base
   def fast_inn_node_names
     newick.scan(/\*\d+/).map {|s| s.split("*").last.to_i }
   end
+
+  def to_file(&block)
+    Tempfile.create("group#{group.id}_tree.nwk") do
+      send_data(newick, type: "application/text", filename: 'tree.nwk')
+    end
+  end
 end

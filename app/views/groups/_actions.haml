@@ -1,10 +1,5 @@
-%ul
-  %li
-    = link_to('Run pipeline', run_full_stack_group_path(resource))
-
-  %li
-    = link_to('Clear all results', clear_results_group_path(resource))
-
-  - if resource.tree
-    %li
-      = link_to('Download tree', download_tree_group_path(resource))
+= button_to('Run pipeline', run_full_stack_group_path(resource))
+%br/
+= button_to('Clear all results', clear_results_group_path(resource))
+%br/
+= link_to('Download tree', download_tree_group_path(resource)) if resource.tree
