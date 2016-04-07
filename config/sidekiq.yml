@@ -2,9 +2,10 @@
 :pidfile: tmp/sidekiq.pid
 development:
   :logfile: <%= "./log/sidekiq_on_#{`hostname`.strip}.log" %>
-  :concurrency: 4
+  :concurrency: 8
   :queues:
     - many
+    - four
     - control
   :process_limits:
     many: 2
