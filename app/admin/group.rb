@@ -1,4 +1,5 @@
 ActiveAdmin.register Group do
+  config.per_page = 10
   permit_params :id,
                 :pattern,
                 :tree_id,
