@@ -1,5 +1,10 @@
 FROM anzaika/selectoscope_base
 
+RUN curl --silent --location https://deb.nodesource.com/setup_5.x | sudo bash - &&\
+    apt-get update -qq &&\
+    apt-get install -y nodejs &&\
+    npm install webpack webpack-dev-server -g
+
 ENV DEV_USER dev_user
 ENV PROD_USER prod_user
 ENV GROUP runners

@@ -1,0 +1,6 @@
+require 'd3'
+require 'msa'
+require 'biojs-io-newick'
+require './tree_builder.coffee'
+require './alignment_viewer.coffee'
+require './panels_collapser.coffee'

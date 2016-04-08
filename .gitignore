@@ -9,3 +9,11 @@ tags
 warnings
 log
 spec/examples.txt
+storage
+# React on Rails
+npm-debug.log
+node_modules
+
+# Generated js bundles
+/app/assets/javascripts/app-bundle.js
+/app/assets/javascripts/vendor-bundle.js

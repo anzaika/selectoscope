@@ -1,0 +1,14 @@
+{
+  "name": "selectoscope",
+  "main": "server.js",
+  "scripts": {
+    "postinstall": "cd client && npm install",
+    "express-server": "echo 'visit http://localhost:4000' && cd client && npm start",
+    "rails-server": "echo 'visit http://localhost:3000/hello_world' && foreman start -f Procfile.dev",
+    "build:production:client": "(cd client && npm run build:production:client --silent)",
+    "build:client": "(cd client && npm run build:client --silent",
+    "build:dev:client": "(cd client && npm run build:dev:client --silent)",
+    "test": "rspec && (cd client && npm run lint)"
+  },
+  "license": "MIT"
+}

@@ -29,6 +29,7 @@ gem "coffee-rails"
 gem "haml-rails"
 gem "sass-rails"
 gem "therubyracer", platforms: :ruby
+gem "react_on_rails", "~> 5"
 
 #------> Bio
 gem "newick-ruby", github: "jhbadger/Newick-ruby"
@@ -60,3 +61,5 @@ group :test do
   gem "shoulda-matchers", "~> 3.1"
   gem "rake", require: false
 end
+
+gem 'bootstrap-sass'

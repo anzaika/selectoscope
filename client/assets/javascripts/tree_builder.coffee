@@ -1,3 +1,5 @@
+require 'tntvis'
+
 window.TreeBuilder =
   build : (newick, root, width) ->
     tree_vis = tnt.tree()
