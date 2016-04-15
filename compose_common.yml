@@ -1,20 +1,42 @@
-db:
-  image: "mysql"
-  ports:
-    - "3306"
+version: '2'
+services:
+  web:
+    build: .
+    # command: bundle exec unicorn -p 8080 -c config/unicorn.rb
+    command: foreman start -f Procfile.dev
+    ports:
+      - "3009:8080"
+    volumes:
+      - "./data/storage:/opt/app/storage"
+      - "./data/log:/opt/app/log"
+    tmpfs:
+      - /tmp
+      - /opt/app/tmp:rw,uid=1000,gid=1000
 
-web:
-  build: .
-  command: bundle exec unicorn -p 8080 -c config/unicorn.rb
-  ports:
-    - "3009:8080"
+  sidekiq:
+    build: .
+    hostname: "${HOSTNAME}_worker"
+    command: bundle exec sidekiq
+    volumes:
+      - "./data/storage:/opt/app/storage"
+      - "./data/log:/opt/app/log"
+    tmpfs:
+      - /tmp
+      - /opt/app/tmp:rw,uid=1000,gid=1000
 
-sidekiq:
-  build: .
-  hostname: "${HOSTNAME}_worker"
-  command: bundle exec sidekiq
+  redis:
+    image: "redis:3"
+    ports:
+      - "6379:6379"
 
-redis:
-  image: "redis:latest"
-  ports:
-    - "6379:6379"
+  db:
+    image: "mysql:5.7"
+    mem_limit: 4G
+    volumes:
+      - "./config/mysql:/etc/mysql/conf.d"
+      - "./data/database:/var/lib/mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+    ports:
+      - "3306"
+

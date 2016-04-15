@@ -1,31 +1,33 @@
-web:
-  extends:
-    file: compose_common.yml
-    service: web
-  user: 'dev_user'
-  volumes:
-    - ".:/opt/app"
-    - "./development_data/storage:/opt/app/storage"
-  links:
-    - redis
-  env_file:
-    - development.env
+version: '2'
+services:
+  web:
+    extends:
+      file: compose_common.yml
+      service: web
+    user: 'dev_user'
+    volumes:
+      - ".:/opt/app"
+    links:
+      - db
+      - redis
 
+  sidekiq:
+    extends:
+      file: compose_common.yml
+      service: sidekiq
+    user: 'dev_user'
+    volumes:
+      - ".:/opt/app"
+    links:
+      - db
+      - redis
 
-sidekiq:
-  extends:
-    file: compose_common.yml
-    service: sidekiq
-  user: 'dev_user'
-  volumes:
-    - ".:/opt/app"
-    - "./development_data/storage:/opt/app/storage"
-  links:
-    - redis
-  env_file:
-    - development.env
+  redis:
+    extends:
+      file: compose_common.yml
+      service: redis
 
-redis:
-  extends:
-    file: compose_common.yml
-    service: redis
+  db:
+    extends:
+      file: compose_common.yml
+      service: db
