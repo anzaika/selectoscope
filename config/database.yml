@@ -1,8 +1,10 @@
 common: &common
   adapter: mysql2
+  host: db
   reconnect: true
   encoding: utf8
   port: 3306
+  pool: 12
   username: root
   password: 1234
 
@@ -17,12 +19,8 @@ production:
 
 development:
   <<: *common
-  pool: 4
-  host: 192.168.59.100
-  database: selectoscope_development
+  database: db
 
 test:
   <<: *common
-  pool: 4
-  host: 192.168.59.100
-  database: selectoscope_test
+  database: db_test
