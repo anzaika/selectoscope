@@ -1,9 +1,4 @@
-development_data
-production_data
-production.env
 data
-rails/log/*
-rails/warnings
 tags
 *.tgz
 warnings
