@@ -5,6 +5,8 @@ warnings
 log
 spec/examples.txt
 storage
+
+*.env
 # React on Rails
 npm-debug.log
 node_modules
