@@ -5,7 +5,7 @@ gem "rails", "~> 4.2.6"
 gem "unicorn"
 gem "activeadmin", github: "activeadmin"
 gem "cancancan", "~> 1.13.1"
-gem "mysql2", "~> 0.4.3"
+gem "mysql2"
 gem "jbuilder", "~> 2.4.1"
 gem "uglifier", "~> 2.7.2"
 gem "devise", "~> 3.5.6"
@@ -40,6 +40,7 @@ gem 'rinruby'
 
 #------> Helpers
 gem "paperclip", "~> 4.3.5"
+gem "annotate"
 
 group :development, :test do
   gem "guard-rspec", require: false
