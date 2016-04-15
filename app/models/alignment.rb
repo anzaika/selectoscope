@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: alignments
+#
+#  id         :integer          not null, primary key
+#  group_id   :integer
+#  meta       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Alignment < ActiveRecord::Base
   belongs_to :group
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy

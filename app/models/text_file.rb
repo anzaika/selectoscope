@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: text_files
+#
+#  id                :integer          not null, primary key
+#  textifilable_type :string(20)       not null
+#  textifilable_id   :integer          not null
+#  meta              :string(255)
+#  file_file_name    :string(255)
+#  file_content_type :string(255)
+#  file_file_size    :integer
+#  file_updated_at   :datetime
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
 class TextFile < ActiveRecord::Base
   has_attached_file :file,
                     path: ":rails_root/storage/text_files/:id/:basename.:extension",
@@ -5,4 +21,8 @@ class TextFile < ActiveRecord::Base
 
   do_not_validate_attachment_file_type :file
   belongs_to :textifilable, polymorphic: true
+
+  def web_view
+    File.open(file.path).read.split("\n").join("</br>").html_safe
+  end
 end
