@@ -1,6 +1,4 @@
-$ ->
-
-  # CONFIGURE PANELS COLLAPSER
+engagePanelCollapser = ->
   $('.panel[data-panel]').each ->
     $this = $(this)
     $a = $('<a href=\'javascript:void(null)\'>').on('click', (event) ->
@@ -25,3 +23,6 @@ $ ->
         return
     return
   return
+
+$(document).ready(engagePanelCollapser)
+$(document).on('page:load', engagePanelCollapser)

@@ -1,5 +1,4 @@
 --color
---require spec_helper
 --format documentation
---backtrace
 --no-profile
+--tag ~speed:slow
