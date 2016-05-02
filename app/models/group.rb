@@ -1,5 +1,4 @@
 class Group < ActiveRecord::Base
-
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
   has_and_belongs_to_many :identifiers
 
@@ -52,14 +51,14 @@ class Group < ActiveRecord::Base
   private
 
   def submit_process_job
-    Group::ProcessIdentifiersJob.perform_in(10.seconds, self.id)
+    Group::ProcessIdentifiersJob.perform_in(10.seconds, id)
   end
 
   def save_identifiers
-    fasta_file.each_seq_with_description do |desc, seq|
+    fasta_file.each_seq_with_description do |desc, _seq|
       begin
         identifier = Identifier.find_or_create_by(name: desc)
-        self.identifiers << identifier
+        identifiers << identifier
       rescue ActiveRecord::RecordInvalid => e
         retry
       end
@@ -67,7 +66,6 @@ class Group < ActiveRecord::Base
   end
 
   def transform_identifiers_in_fasta_file
-    TransformIdentifiers.new(self.id).transform
+    TransformIdentifiers.new(id).transform
   end
-
 end
