@@ -9,7 +9,10 @@ done
 
 >&2 echo "MySQL is up - starting guard"
 rake db:drop
+
+# rake parallel:setup
 rake db:create
 rake db:schema:load
+
 sysctl -w fs.inotify.max_user_watches=524288
-bundle exec guard
+bundle exec guard -p -w app spec

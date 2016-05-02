@@ -1,6 +1,7 @@
 version: '2'
 services:
   web:
+    container_name: web
     build: .
     # command: bundle exec unicorn -p 8080 -c config/unicorn.rb
     command: foreman start -f Procfile.dev
@@ -14,6 +15,7 @@ services:
       - /opt/app/tmp:rw,uid=1000,gid=1000
 
   sidekiq:
+    container_name: sidekiq
     build: .
     hostname: "${HOSTNAME}_worker"
     command: bundle exec sidekiq
@@ -27,12 +29,14 @@ services:
       - /opt/app/tmp:rw,uid=1000,gid=1000
 
   redis:
+    container_name: redis
     image: "redis:3"
     command: redis-server --save 900 1
     ports:
       - "6379:6379"
 
   db:
+    container_name: db
     image: "mysql:5.7"
     mem_limit: 4G
     volumes:
@@ -42,4 +46,3 @@ services:
       - MYSQL_ROOT_PASSWORD=1234
     ports:
       - "3306"
-

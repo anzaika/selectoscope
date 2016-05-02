@@ -41,6 +41,7 @@ gem 'rinruby'
 #------> Helpers
 gem "paperclip", "~> 4.3.5"
 gem "annotate"
+gem "rerun"
 
 group :development, :test do
   gem "guard-rspec", require: false
@@ -61,6 +62,7 @@ group :test do
   gem "database_cleaner"
   gem "shoulda-matchers", "~> 3.1"
   gem "rake", require: false
+  gem "parallel_tests"
 end
 
 gem 'bootstrap-sass'

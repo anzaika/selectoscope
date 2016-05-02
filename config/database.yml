@@ -24,4 +24,4 @@ development:
 test:
   <<: *common
   host: test_db
-  database: db_test
+  database: db_test<%= ENV['TEST_ENV_NUMBER'] %>
