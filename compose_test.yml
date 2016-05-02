@@ -1,10 +1,26 @@
-guard:
-  build: .
-  privileged: true
-  user: 'root'
-  command: bash -c "rake db:migrate && sysctl -w fs.inotify.max_user_watches=524288 && bundle exec guard"
-  volumes:
-    - ".:/opt/app"
-    - "./development_data/storage:/opt/app/storage"
-  environment:
-    - RAILS_ENV=test
+version: "2"
+services:
+  guard:
+    build: .
+    depends_on:
+      - test_db
+    container_name: guard
+    working_dir: /opt/app
+    privileged: true
+    user: 'root'
+    environment:
+      - RAILS_ENV=test
+    volumes:
+      - ".:/opt/app"
+      - "/home/anzaika/fast/selectoscope_test_storage:/opt/app/storage"
+    links:
+      - test_db
+
+  test_db:
+    image: "mysql:5.7"
+    volumes:
+      - "/home/anzaika/fast/selectoscope_test_database:/var/lib/mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+    ports:
+      - "3306"

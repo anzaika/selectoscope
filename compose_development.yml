@@ -15,6 +15,7 @@ services:
     extends:
       file: compose_common.yml
       service: sidekiq
+    command: bundle exec rerun --background --dir app,db,lib --pattern '{**/*.rb}' -- bundle exec sidekiq --verbose
     user: 'dev_user'
     volumes:
       - ".:/opt/app"

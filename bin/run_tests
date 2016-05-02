@@ -1,0 +1,3 @@
+#!/bin/bash
+docker-compose -f compose_test.yml build
+docker-compose -f compose_test.yml run guard ./bin/start_guard

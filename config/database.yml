@@ -23,4 +23,5 @@ development:
 
 test:
   <<: *common
+  host: test_db
   database: db_test
