@@ -1,4 +1,8 @@
 >seq1
-ATGC
+ATA
 >seq2
-ATGT
+ATG
+>seq3
+ATT
+>seq4
+ATC

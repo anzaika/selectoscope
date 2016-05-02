@@ -17,6 +17,8 @@ services:
     build: .
     hostname: "${HOSTNAME}_worker"
     command: bundle exec sidekiq
+    environment:
+      - OPENMP_NUM_THREADS=4
     volumes:
       - "./data/storage:/opt/app/storage"
       - "./data/log:/opt/app/log"
