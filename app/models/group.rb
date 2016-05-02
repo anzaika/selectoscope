@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: groups
+#
+#  id                  :integer          not null, primary key
+#  avg_sequence_length :integer
+#  batch_id            :integer
+#  user_id             :integer
+#
+
 class Group < ActiveRecord::Base
 
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy

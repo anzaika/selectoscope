@@ -7,9 +7,10 @@ class Group::FullStackJob
                   backtrace: true
 
   def perform(group_id)
-    jid = Wrap::AlignmentJob.perform_async(group_id)
-    job_status(interval: 2, jid: jid) &&
-      jid = Wrap::GblocksJob.perform_async(group_id)
+    # jid = Wrap::AlignmentJob.perform_async(group_id)
+    # job_status(interval: 2, jid: jid) &&
+    #   jid = Wrap::GblocksJob.perform_async(group_id)
+    jid = Wrap::GuidanceJob.perform_async(group_id)
     at(20, 'Alignment complete')
     job_status(interval: 5, jid: jid) &&
       jid = Wrap::PhymlJob.perform_async(group_id)

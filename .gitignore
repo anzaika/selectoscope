@@ -1,15 +1,12 @@
-development_data
-production_data
-production.env
 data
-rails/log/*
-rails/warnings
 tags
 *.tgz
 warnings
 log
 spec/examples.txt
 storage
+
+*.env
 # React on Rails
 npm-debug.log
 node_modules

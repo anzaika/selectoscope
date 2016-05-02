@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: codeml_results
+#
+#  id       :integer          not null, primary key
+#  k        :float(24)
+#  w0       :float(24)
+#  w1       :float(24)
+#  p0       :float(24)
+#  p1       :float(24)
+#  group_id :integer
+#
+
 class CodemlResult < ActiveRecord::Base
   belongs_to :group
   has_one :text_file, as: :textifilable, dependent: :destroy

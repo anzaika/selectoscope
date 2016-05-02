@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: groups
+#
+#  id                  :integer          not null, primary key
+#  avg_sequence_length :integer
+#  batch_id            :integer
+#  user_id             :integer
+#
+
 class Group::ForShow < ActiveType::Record[Group]
   def original_alignment
     alignments.original.first

@@ -15,7 +15,7 @@ class Guidance::FilterResidues
   end
 
   def run
-    @bad_positions.each { |pos| @alignment.replace_slice("n", pos) }
+    @bad_positions.each { |pos| alignment.replace_slice("n", pos) }
     self
   end
 

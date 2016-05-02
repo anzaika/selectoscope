@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: identifiers
+#
+#  id       :integer          not null, primary key
+#  name     :string(255)
+#  codename :string(10)
+#
+
 require 'rails_helper'
 
 RSpec.describe Identifier, type: :model do
