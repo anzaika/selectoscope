@@ -1,0 +1,3 @@
+#!/bin/bash
+set -e
+./watch.sh rsync -C -r --delete --exclude 'data' . crursync:/home/anzaika/projects/selectoscope
