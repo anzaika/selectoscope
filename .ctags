@@ -1,0 +1,8 @@
+--exclude=.git
+--exclude=log
+-R
+--tag-relative=yes
+--exclude=vendor
+--exclude=data
+--exclude=db
+--exclude=client
