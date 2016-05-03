@@ -13,6 +13,9 @@ services:
     volumes:
       - ".:/opt/app"
       - "/home/anzaika/fast/selectoscope_test_storage:/opt/app/storage"
+    tmpfs:
+      - /tmp:rw,uid=1000,gid=1000
+      - /opt/app/tmp:rw,uid=1000,gid=1000
     links:
       - test_db
 

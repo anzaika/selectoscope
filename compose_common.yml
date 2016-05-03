@@ -25,7 +25,7 @@ services:
       - "./data/storage:/opt/app/storage"
       - "./data/log:/opt/app/log"
     tmpfs:
-      - /tmp
+      - /tmp:rw,uid=1000,gid=1000
       - /opt/app/tmp:rw,uid=1000,gid=1000
 
   redis:
