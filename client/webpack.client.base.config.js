@@ -15,8 +15,7 @@ module.exports = {
     // See use of 'vendor' in the CommonsChunkPlugin inclusion below.
     vendor: [
       'babel-polyfill',
-      'jquery',
-      'turbolinks'
+      'jquery'
     ],
 
     // This will contain the app entry points defined by webpack.hot.config and
@@ -62,8 +61,7 @@ module.exports = {
       // bootstrap js
       { test: /\.coffee$/, loader: "coffee" },
       { test: require.resolve('jquery'), loader: 'expose?jQuery' },
-      { test: require.resolve('jquery'), loader: 'expose?$' },
-      { test: require.resolve('turbolinks'), loader: 'imports?this=>window' },
+      { test: require.resolve('jquery'), loader: 'expose?$' }
     ],
   },
 };
