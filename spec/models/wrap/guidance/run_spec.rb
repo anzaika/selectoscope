@@ -7,18 +7,14 @@ RSpec.describe Wrap::Guidance::Run do
     let(:w)  { Wrap::Guidance::Run.new(g) }
 
     context "for simple fasta file" do
-
       it "runs" do
         w.execute
       end
-
       it "creates an output directory" do
         w
         w.execute
         expect(Dir.exist?(w.path_to_output)).to be true
       end
-
     end
   end
 end
-

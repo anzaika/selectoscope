@@ -9,7 +9,6 @@
 #
 
 class Group < ActiveRecord::Base
-
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
   has_and_belongs_to_many :identifiers
 

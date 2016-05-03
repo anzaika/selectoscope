@@ -59,5 +59,4 @@ class FastaFile < ActiveRecord::Base
   def to_fasta_string
     File.open(file.path).read
   end
-
 end
