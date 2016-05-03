@@ -3,7 +3,11 @@
 @import "alignment/alignment";
 @import "msa";
 
+.header {
+  font-size: 125%;
+}
+
 .mono {
-  white-space: nowrap;
   font-family: "Lucida Console", Monaco, monospace;
+  white-space: nowrap;
 }
