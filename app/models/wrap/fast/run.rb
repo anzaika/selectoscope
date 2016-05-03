@@ -13,7 +13,7 @@ class Fast::Run < Wrap::Run
 
   def args
     @args ||=
-      " -nt 4"                       +
+      " -nt 1"                       +
       " -p w0=#{codeml.w0}"          +
       " -p k=#{codeml.k}"            +
       " -p p0=#{codeml.p0}"          +
