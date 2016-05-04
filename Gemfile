@@ -21,13 +21,14 @@ gem "active_type", "~> 0.4.5"
 
 gem "rollbar", "~> 2.8.2"
 gem "oj", "~> 2.15.0"
-gem 'oj_mimic_json', "~> 1.0.1"
+gem "oj_mimic_json", "~> 1.0.1"
 
 #------> Interface
 gem "jquery-rails", "~> 4.1.0"
 gem "coffee-rails"
 gem "haml-rails"
 gem "sass-rails"
+gem "bootstrap-sass"
 gem "therubyracer", platforms: :ruby
 gem "react_on_rails", "~> 5"
 
@@ -36,7 +37,7 @@ gem "newick-ruby", github: "jhbadger/Newick-ruby"
 gem "bio", github: "anzaika/bioruby", branch: "master"
 
 #------> Statistics
-gem 'rinruby'
+gem "rinruby"
 
 #------> Helpers
 gem "paperclip", "~> 4.3.5"
@@ -65,4 +66,8 @@ group :test do
   gem "parallel_tests"
 end
 
-gem 'bootstrap-sass'
+gem "rbtrace", require: false, platform: :mri
+gem "flamegraph", require: false
+gem "rack-mini-profiler", require: false
+gem "stackprof", require: false, platform: %i(mri_21 mri_22 mri_23)
+gem "memory_profiler", require: false, platform: %i(mri_21 mri_22 mri_23)

@@ -14,4 +14,8 @@ Rails.application.configure do
   config.logger.level = Logger.const_get('DEBUG')
   config.log_level    = :debug
   config.active_record.raise_in_transactional_callbacks = true
+
+  BetterErrors::Middleware.allow_ip!('172.20.0.1')
+  config.load_mini_profiler = true
+  require 'rbtrace'
 end
