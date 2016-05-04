@@ -1,5 +1,4 @@
 class FastResult::Output
-
   def initialize(fast_result_id)
     @fr = FastResult.find(fast_result_id)
     @g = @fr.group
@@ -48,5 +47,4 @@ class FastResult::Output
     tree = stdout.split("\n")[tree_row + 1]
     tree.scan(/\*\d+/).map {|s| s.split("*").last.to_i }
   end
-
 end
