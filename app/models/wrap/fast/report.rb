@@ -1,20 +1,12 @@
 module Wrap
-class Fast::Report < Wrap::Report
+  class Fast::Report < Wrap::Report
+    def save_output
+      Identifier::Enigma.new(@g.id).decode_file(@run.path_to_output)
 
-  def save_output
-    Identifier::Enigma.new(@g.id).decode_file(@run.path_to_output)
-
-    fast_result = FastResult.create
-
-    output =
       TextFile.create(
-        file: File.open(@run.path_to_output),
-        meta: 'fast_output',
-        textifilable: fast_result)
-
-    @g.fast_result.destroy if @g.fast_result
-    @g.fast_result = fast_result
+        file:         File.open(@run.path_to_output),
+        meta:         "output",
+        textifilable: @run_report)
+    end
   end
-
-end
 end
