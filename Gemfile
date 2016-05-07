@@ -46,7 +46,6 @@ gem "rerun"
 
 group :development, :test do
   gem "guard-rspec", require: false
-  gem "spring"
   gem "pry-rails"
   gem "pry-rescue"
   gem "better_errors"
