@@ -5,7 +5,7 @@ ActiveAdmin.register RunReport do
     selectable_column
     column :program
     column :successful
-    column :runtime
+    column :created_at
     actions
   end
 
