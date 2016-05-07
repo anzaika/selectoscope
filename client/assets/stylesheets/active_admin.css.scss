@@ -1,0 +1,13 @@
+@import "active_admin/mixins";
+@import "active_admin/base";
+@import "alignment/alignment";
+@import "msa";
+
+.header {
+  font-size: 125%;
+}
+
+.mono {
+  font-family: "Lucida Console", Monaco, monospace;
+  white-space: nowrap;
+}
