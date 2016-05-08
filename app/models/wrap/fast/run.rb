@@ -13,6 +13,7 @@ module Wrap
     def args
       @args ||=
         " -nt 1"                       \
+        " --no-pre-stop"               \
         " -nt 4"                       \
         " -p w0=#{codeml.w0}"          \
         " -p k=#{codeml.k}"            \
