@@ -1,3 +1,3 @@
 #!/bin/bash
 set -e
-rerun -x 'unison -ui text selectoscope'
+rerun --pattern '*' -x 'unison -ui text selectoscope'
