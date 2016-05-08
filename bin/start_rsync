@@ -1,3 +1,0 @@
-#!/bin/bash
-set -e
-./watch.sh rsync -l -C -r -t --delete --exclude 'data' --exclude 'client/node_modules' . crursync:/home/anzaika/projects/selectoscope
