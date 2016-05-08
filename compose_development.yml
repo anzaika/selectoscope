@@ -22,8 +22,6 @@ services:
     links:
       - db
       - redis
-    environment:
-      - OMP_NUM_THREADS=4
 
   redis:
     extends:

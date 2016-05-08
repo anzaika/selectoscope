@@ -20,7 +20,7 @@ services:
     hostname: "${HOSTNAME}_worker"
     command: bundle exec sidekiq
     environment:
-      - OPENMP_NUM_THREADS=4
+      - OMP_NUM_THREADS=1
     volumes:
       - "./data/storage:/opt/app/storage"
       - "./data/log:/opt/app/log"
