@@ -3,15 +3,29 @@ require "rails_helper"
 RSpec.describe FastOutput::CreateTreeWithPositiveInfo do
   describe "::new" do
     it "works" do
-      original_tree = PhylogeneticTree.new("(A,B,(C,D));")
+      # codeml_tree = PhylogeneticTree.new(
+      #   "(s1: 1.1, s2: 1.1, (s2: 1.1, ((s3: 1.1, (s4: 1.1, s5: 1.1): 1.1): " \
+      #   "1.1, ((s6: 1.1, s7: 1.1): 1.1, (s8: 1.1, (s9: 1.1, s10: 1.1): 1.1): 1.1): 1.1): 1.1): 1.1);"
+      # )
       fast_tree = PhylogeneticTree.new(
-        "(seq4:7.775817*0,(seq1:0.000000*2,seq3:0.521281*3):6.326581*1,seq2:0.000000*4);"
+        "(s1,s2,(s2,((s3,(s4,s5)*3)*2,((s6,s7)*5,(s8,(s9,s10)*7)*6)*4)*1)*0);"
       )
-      create_tree()
+
+      branches = []
+      8.times do |i|
+        branch = instance_double('FastOutput::Branch')
+        allow(branch).to receive(:positive?).and_return(i % 2 == 0)
+        branches << branch
+      end
+
+      tree = create_tree(fast_tree, branches)
+      out = tree.run
+      expected = "(s1,s2,(s2,((s3,(s4,s5))-,((s6,s7),(s8,(s9,s10))-)-))-);"
+      expect(out).to eq(expected)
     end
   end
 
   def create_tree(*params)
-    FastOutput::CreateTreeWithPositiveInfo.new(params)
+    FastOutput::CreateTreeWithPositiveInfo.new(*params)
   end
 end
