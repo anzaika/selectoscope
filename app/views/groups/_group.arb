@@ -31,17 +31,6 @@ columns do
         render(partial: "groups/positive_report", locals: {report: group.fast_result.positive_report})
       end
     end
-    panel "Codeml" do
-      if group.codeml_result
-        attributes_table_for group.codeml_result do
-          row :w0
-          row :w1
-          row :k
-          row :p0
-          row :p1
-        end
-      end
-    end
   end
 end
 
