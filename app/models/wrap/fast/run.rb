@@ -14,11 +14,8 @@ module Wrap
       @args ||=
         " --no-pre-stop"               \
         " -nt 4"                       \
-        " -p w0=#{codeml.w0}"          \
+        " -v 4"                        \
         " -p k=#{codeml.k}"            \
-        " -p p0=#{codeml.p0}"          \
-        " -p p1=#{codeml.p1}"          \
-        " -p w2=#{codeml.w1}"          \
         " -ou #{@v.path_to(OUTPUT)}"   \
         " #{@v.path_to(TREE)}"         \
         " #{@v.path_to(ALIGNMENT)}"
