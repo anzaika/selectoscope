@@ -61,7 +61,7 @@ class Group < ActiveRecord::Base
   private
 
   def submit_process_job
-    Group::ProcessIdentifiersJob.perform_in(10.seconds, self.id)
+    Group::ProcessIdentifiersJob.perform_in(1.seconds, self.id)
   end
 
   def save_identifiers
