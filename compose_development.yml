@@ -5,6 +5,8 @@ services:
       file: compose_common.yml
       service: web
     user: 'dev_user'
+    environment:
+      - OMP_NUM_THREADS=1
     volumes:
       - ".:/opt/app"
     links:
