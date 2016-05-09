@@ -61,14 +61,14 @@ class Group < ActiveRecord::Base
   private
 
   def submit_process_job
-    Group::ProcessIdentifiersJob.perform_in(1.seconds, self.id)
+    Group::ProcessIdentifiersJob.perform_in(1.second, id)
   end
 
   def save_identifiers
     fasta_file.each_seq_with_description do |desc, seq|
       begin
         identifier = Identifier.find_or_create_by(name: desc)
-        self.identifiers << identifier
+        identifiers << identifier
       rescue ActiveRecord::RecordInvalid => e
         retry
       end
