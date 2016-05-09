@@ -19,11 +19,11 @@ RSpec.describe Group, type: :model do
 
     describe "#create" do
       it "is expected to create two idetifiers", focus: true do
-        expect{group}.to change{Identifier.count}.from(0).to(2)
+        expect{group}.to change{Identifier.count}.from(0).to(4)
       end
       it "...and link them to the group" do
         group
-        expect(group.identifiers.count).to eq(2)
+        expect(group.identifiers.count).to eq(4)
       end
     end
   end

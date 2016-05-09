@@ -12,5 +12,6 @@ class Wrap::FastJob
     run.execute
     report = Wrap::Fast::Report.new(run)
     report.save
+    FastResult.create(group_id: group_id)
   end
 end

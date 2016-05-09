@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322164710) do
+ActiveRecord::Schema.define(version: 20160509134320) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "group_id",   limit: 4
@@ -43,6 +43,25 @@ ActiveRecord::Schema.define(version: 20160322164710) do
   end
 
   add_index "codeml_results", ["group_id"], name: "index_codeml_results_on_group_id", using: :btree
+
+  create_table "fast_result_branches", force: :cascade do |t|
+    t.integer "fast_result_id", limit: 4,                           null: false
+    t.integer "number",         limit: 4,                           null: false
+    t.decimal "l0",                       precision: 16, scale: 11
+    t.decimal "l1",                       precision: 16, scale: 11
+    t.boolean "positive"
+  end
+
+  add_index "fast_result_branches", ["fast_result_id", "positive"], name: "index_fast_result_branches_on_fast_result_id_and_positive", using: :btree
+
+  create_table "fast_result_sites", force: :cascade do |t|
+    t.integer "fast_result_id", limit: 4,                         null: false
+    t.integer "branch",         limit: 4,                         null: false
+    t.integer "site",           limit: 4,                         null: false
+    t.decimal "probability",              precision: 7, scale: 6, null: false
+  end
+
+  add_index "fast_result_sites", ["fast_result_id"], name: "index_fast_result_sites_on_fast_result_id", using: :btree
 
   create_table "fast_results", force: :cascade do |t|
     t.integer  "group_id",     limit: 4

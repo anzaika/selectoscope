@@ -25,4 +25,8 @@ class TextFile < ActiveRecord::Base
   def web_view
     File.open(file.path).read.split("\n").join("</br>").html_safe
   end
+
+  def raw
+    File.open(file.path).read
+  end
 end

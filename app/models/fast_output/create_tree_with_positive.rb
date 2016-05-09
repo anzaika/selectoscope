@@ -1,5 +1,5 @@
 module FastOutput
-  class CreateTreeWithPositiveInfo
+  class CreateTreeWithPositive
     # @param fast_tree [PhylogeneticTree] A tree from fast run
     # @param branches [Array<FastOutput::Branch>]
     # @return [PhylogeneticTree]
@@ -8,11 +8,13 @@ module FastOutput
       @branches = branches
     end
 
+
     def run
-      @fast_tree.newick.gsub(/\*\d+/) do |v|
+      tree = @fast_tree.newick.gsub(/\*\d+/) do |v|
         branch_num = v.split("*").last.to_i
         @branches[branch_num].positive? ? "-" : ""
       end
+      PhylogeneticTree.new(tree)
     end
 
     # def run

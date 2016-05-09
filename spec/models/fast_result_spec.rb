@@ -9,7 +9,7 @@
 #  has_positive :boolean
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe FastResult, type: :model do
 end

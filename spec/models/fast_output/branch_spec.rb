@@ -27,6 +27,15 @@ RSpec.describe FastOutput::Branch do
     end
   end
 
+  describe "#number" do
+    it "should return an integer" do
+      expect(branch(GOOD_STRING).number.class).to eq(Fixnum)
+    end
+    it "should return correct value" do
+      expect(branch(GOOD_STRING).number).to eq(1)
+    end
+  end
+
   GOOD_STRING = %(
     Branch:    1
 

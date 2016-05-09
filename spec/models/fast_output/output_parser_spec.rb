@@ -12,7 +12,6 @@ RSpec.describe FastOutput::OutputParser do
       parser(output)
     end
   end
-  
 
   describe "#parse_branches" do
     it "should work" do
@@ -22,13 +21,16 @@ RSpec.describe FastOutput::OutputParser do
       expect(parser(output).parse_branches.class).to eq(Array)
     end
     it "should return an array with correct number of branches" do
-      expect(parser(output).parse_branches.count).to be(9)
+      expect(parser(output).parse_branches.count).to be(8)
     end
     it "should return an array of FastOutput::Parser objects" do
       expect(parser(output).parse_branches.all?{|b| b.class == FastOutput::Branch}).to be true
     end
+    it "should correctly parse branc numbers" do
+      expect(parser(output).parse_branches[0].number).to be(0)
+    end
     it "should split output into valid branches" do
-      expect(parser(output).parse_branches.first.l1).to eq(BigDecimal("-2366.614359"))
+      expect(parser(output).parse_branches.first.l1).to eq(BigDecimal("-2614.055575"))
     end
   end
 
@@ -40,7 +42,7 @@ RSpec.describe FastOutput::OutputParser do
       expect(parser(output).parse_sites.class).to eq(Array)
     end
     it "should return an array with correct number of sites" do
-      expect(parser(output).parse_sites.count).to be(42)
+      expect(parser(output).parse_sites.count).to be(10)
     end
   end
 

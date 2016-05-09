@@ -19,11 +19,23 @@ module FastOutput
     end
 
     def positive?
-      return nil unless l0 && l1
-      (2 * (l0 - l1) - THRESHOLD) > 0
+      @positive ||= compute_positive
+    end
+
+    def number
+      @text.scan(/Branch:\s+\d+/)
+           .first
+           .split(":")
+           .last
+           .to_i
     end
 
     private
+
+    def compute_positive
+      return nil unless l0 && l1
+      (2 * (l0 - l1) - THRESHOLD) > 0
+    end
 
     def parse_l(ind)
       line = @text.scan(/LnL#{ind}\:\s+-?\d+.\d+/).first

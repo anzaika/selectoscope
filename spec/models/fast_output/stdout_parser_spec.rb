@@ -24,7 +24,7 @@ RSpec.describe FastOutput::StdoutParser do
       expect(parser(output).parse_tree.class).to eq(PhylogeneticTree)
     end
     it "should return a PhylogeneticTree object with correct content" do
-      expect(parser(output).parse_tree.newick.include?("(Vibrio_fischeri_ES114")).to be true
+      expect(parser(output).parse_tree.newick.include?("(9_Burkholderia_multivorans_ATCC_17616_JGI,8_Burkholderia_multivorans_ATCC_17616")).to be true
     end
   end
 end

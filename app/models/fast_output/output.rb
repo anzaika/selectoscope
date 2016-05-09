@@ -1,14 +1,13 @@
 module FastOutput
   class Output
-    def initialize(fast_result_id)
-      @fs = FastResult.find(fast_result_id)
+    def initialize(run_report_id)
+      @report = RunReport.find(run_report_id)
       read_logs
     end
 
     def read_logs
-      @output_raw = File.open(@fs.output).read
-      stdout_file = @fs.group.run_reports.fast.first.stdout
-      @stdout_raw = File.open(stdout_file).read
+      @output_raw = @report.text_files.find_by(meta: "output").raw
+      @stdout_raw = @report.text_files.find_by(meta: "stdout").raw
     end
 
     # @return [Array<FastOutput::Branch>]
@@ -26,8 +25,9 @@ module FastOutput
       @tree ||= stdout_parser.parse_tree
     end
 
-    def tree_with_positive_info
-      @tree_positive ||= create_tree_with_positive_report
+    # @return [PhylogeneticTree]
+    def tree_with_positive
+      @tree_positive ||= create_tree_with_positive
     end
 
     private
@@ -40,9 +40,8 @@ module FastOutput
       @stdout_parser ||= FastOutput::StdoutParser.new(@stdout_raw)
     end
 
-    def create_tree_with_positive_report
-      FastOutput::CreateTreeWithPositiveInfo
-        .new(PhylogeneticTree.new(@fs.group.tree.newick), tree, branches)
+    def create_tree_with_positive
+      FastOutput::CreateTreeWithPositive.new(tree, branches).run
     end
   end
 end

@@ -21,6 +21,8 @@ window.TreeBuilder =
     switch target.data().name
       when '-'
         color = 'green'
+      else
+        color = 'grey'
     color
 
   tnt_theme : (newick, width) ->
@@ -29,10 +31,10 @@ window.TreeBuilder =
         .data(tnt.tree.parse_newick(newick))
         .layout(
           tnt.tree
-             .layout
-             .vertical()
-             .width(width)
-             .scale(false))
+          .layout
+          .vertical()
+          .width(width)
+          .scale(false))
         .branch_color(TreeBuilder.colorFunc)
         .label(tnt.tree.label.text().height(22))
 

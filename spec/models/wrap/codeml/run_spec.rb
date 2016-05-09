@@ -7,8 +7,9 @@ RSpec.describe Wrap::Codeml::Run do
 
   describe "#execute" do
     it "creates an output file" do
+      pending
       codeml.execute
-      expect(FileTest.exist?(codeml.path_to_output)).to be(true)
+      expect(FileTest.exist?(codeml.path_to_output)).to be true
     end
   end
 
