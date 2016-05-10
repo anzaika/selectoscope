@@ -3,22 +3,16 @@ columns do
     panel "Basic info" do
       attributes_table_for group do
         row :sequences_count
-        row :avg_sequence_length do |group|
-          group.avg_sequence_length.to_i
-        end
       end
     end
 
-    panel "Actions" do
-      render(partial: "groups/actions", locals: {group: group})
-    end
   end
 
   column span: 3 do
     panel "Tree", "data-panel" => :open do
       if group.tree
         render(partial: "groups/tnt_tree",
-                locals:  {tree:    group.tree.newick,
+                locals:  {tree:    group.fast_result.tree.newick,
                           width:   600,
                           compact: false})
       end
@@ -26,10 +20,8 @@ columns do
   end
 
   column span: 1 do
-    panel "Fast positive report", "data-panel" => :open do
-      if group.fast_result
-        render(partial: "groups/positive_report", locals: {report: group.fast_result.positive_report})
-      end
+    panel "Actions" do
+      render(partial: "groups/actions", locals: {group: group})
     end
   end
 end
@@ -37,16 +29,4 @@ end
 panel "Alignments", id: "alignments" do
   render group.original_alignment if group.original_alignment
   render group.processed_alignment if group.processed_alignment
-end
-panel "Codeml output", "data-panel" => :collapsed do
-  if group.codeml_result
-    render(partial: "groups/codeml_output",
-            locals:  {report: group.codeml_result})
-  end
-end
-panel "Fast output", "data-panel" => :collapsed do
-  if group.fast_result
-    render(partial: "groups/fast_output",
-            locals:  {report: group.fast_result})
-  end
 end
