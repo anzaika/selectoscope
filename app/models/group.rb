@@ -11,6 +11,7 @@
 class Group < ActiveRecord::Base
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
   has_and_belongs_to_many :identifiers
+  
 
   has_many :alignments, dependent: :destroy
   has_one :tree, as: :treeable, dependent: :destroy
@@ -29,7 +30,7 @@ class Group < ActiveRecord::Base
   scope :with_positive, -> { joins(:fast_result).where(fast_results: {has_positive: true}) }
   scope :without_positive, -> { joins(:fast_result).where(fast_results: {has_positive: false}) }
 
-  validates_presence_of :fasta_file
+  validates :fasta_file, presence: true
 
   after_create :submit_process_job
 
@@ -78,5 +79,4 @@ class Group < ActiveRecord::Base
   def transform_identifiers_in_fasta_file
     TransformIdentifiers.new(self.id).transform
   end
-
 end
