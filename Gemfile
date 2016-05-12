@@ -17,7 +17,7 @@ gem "sidekiq-statistic", "~> 1.2.0"
 gem "transaction_retry"
 gem "responsive_active_admin"
 gem "paper_trail", "~> 4.1.0"
-gem "active_type", "~> 0.4.5"
+gem "active_type"
 
 gem "rollbar", "~> 2.8.2"
 gem "oj", "~> 2.15.0"
