@@ -8,6 +8,10 @@
 #  updated_at   :datetime         not null
 #  has_positive :boolean
 #
+# Indexes
+#
+#  index_fast_results_on_group_id  (group_id)
+#
 
 require "rails_helper"
 

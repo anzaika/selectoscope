@@ -8,6 +8,10 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
+# Indexes
+#
+#  index_alignments_on_group_id  (group_id)
+#
 
 class Alignment < ActiveRecord::Base
   belongs_to :group

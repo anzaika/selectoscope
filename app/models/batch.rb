@@ -10,6 +10,10 @@
 #  groups_count :integer
 #  user_id      :integer
 #
+# Indexes
+#
+#  index_batches_on_user_id  (user_id)
+#
 
 class Batch < ActiveRecord::Base
   has_many :groups, dependent: :destroy

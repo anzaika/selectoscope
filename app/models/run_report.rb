@@ -16,6 +16,10 @@
 #  group_id           :integer
 #  exec               :string(255)
 #
+# Indexes
+#
+#  index_run_reports_on_group_id  (group_id)
+#
 
 class RunReport < ActiveRecord::Base
   belongs_to :group

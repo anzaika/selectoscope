@@ -13,6 +13,10 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
+# Indexes
+#
+#  index_text_files_on_textifilable_id_and_textifilable_type  (textifilable_id,textifilable_type)
+#
 
 class TextFile < ActiveRecord::Base
   has_attached_file :file,

@@ -7,6 +7,11 @@
 #  batch_id            :integer
 #  user_id             :integer
 #
+# Indexes
+#
+#  index_groups_on_batch_id  (batch_id)
+#  index_groups_on_user_id   (user_id)
+#
 
 class Group < ActiveRecord::Base
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy

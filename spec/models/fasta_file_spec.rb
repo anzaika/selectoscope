@@ -12,6 +12,10 @@
 #  file_file_size              :integer
 #  file_updated_at             :datetime
 #
+# Indexes
+#
+#  fasta_filex_polymorphic  (representable_as_fasta_id,representable_as_fasta_type)
+#
 
 require "rails_helper"
 

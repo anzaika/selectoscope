@@ -7,6 +7,11 @@
 #  batch_id            :integer
 #  user_id             :integer
 #
+# Indexes
+#
+#  index_groups_on_batch_id  (batch_id)
+#  index_groups_on_user_id   (user_id)
+#
 
 require 'rails_helper'
 

@@ -10,6 +10,10 @@
 #  p1       :float(24)
 #  group_id :integer
 #
+# Indexes
+#
+#  index_codeml_results_on_group_id  (group_id)
+#
 
 class CodemlResult < ActiveRecord::Base
   belongs_to :group
