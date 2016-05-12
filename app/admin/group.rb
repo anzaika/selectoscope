@@ -32,19 +32,19 @@ ActiveAdmin.register Group do
       end
     end
     column :alignment do |g|
-      render 'job_status', job: g.alignment_job
+      render "job_status", job: g.alignment_job
     end
     column :proc_align do |g|
-      render 'job_status', job: g.processed_alignment_job
+      render "job_status", job: g.processed_alignment_job
     end
     column :tree do |g|
-      render 'job_status', job: g.tree_job
+      render "job_status", job: g.tree_job
     end
     column :codeml do |g|
-      render 'job_status', job: g.codeml_job
+      render "job_status", job: g.codeml_job
     end
     column :fast do |g|
-      render 'job_status', job: g.fast_job
+      render "job_status", job: g.fast_job
     end
     actions
   end
@@ -53,7 +53,7 @@ ActiveAdmin.register Group do
   filter :has_paralogs
   filter :codeml_result_w0, as: :numeric, label: "codeml W0"
   filter :codeml_result_p1, as: :numeric, label: "codeml P1"
-  filter :fast_result_has_positive, as: :select, values: ["true", "false"]
+  filter :fast_result_has_positive, as: :select, values: %w(true false)
 
   form html: {multipart: true} do |f|
     f.semantic_errors
@@ -63,7 +63,7 @@ ActiveAdmin.register Group do
     actions
   end
 
-  show { render 'group' }
+  show { render "group" }
 
   member_action :run_full_stack, method: :post do
     Group::FullStackJob.perform_async(resource.id)
@@ -86,7 +86,6 @@ ActiveAdmin.register Group do
   end
 
   controller do
-
     def scoped_collection
       Group::ForShow.all
     end
@@ -111,15 +110,14 @@ ActiveAdmin.register Group do
     end
 
     def create
-      @group = Group.new(permitted_params['group'])
+      @group = Group.new(permitted_params["group"])
       @group.user_id = current_user.id
       if @group.save
         redirect_to @group
       else
         flash[:errors] = @group.errors.messages
-        render('new')
+        render("new")
       end
     end
-
   end
 end
