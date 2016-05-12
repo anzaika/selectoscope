@@ -9,6 +9,7 @@
 #  has_positive :boolean
 #
 
+
 class FastResult < ActiveRecord::Base
   belongs_to :group
   has_many :run_reports, through: :group
@@ -17,6 +18,9 @@ class FastResult < ActiveRecord::Base
   has_one :tree, as: :treeable, dependent: :destroy
 
   after_create :parse_output
+
+  alias_attribute :branches, :fast_result_branches
+  alias_attribute :sites, :sites
 
   private
 
@@ -34,7 +38,8 @@ class FastResult < ActiveRecord::Base
         number:      b.number,
         l0:          b.l0,
         l1:          b.l1,
-        positive:    b.positive?
+        positive:    b.positive?,
+        q:           b.q
       )
     end
   end

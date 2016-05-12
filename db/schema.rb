@@ -12,6 +12,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20160509134320) do
+  
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "group_id",   limit: 4

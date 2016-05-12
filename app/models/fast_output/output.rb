@@ -12,7 +12,9 @@ module FastOutput
 
     # @return [Array<FastOutput::Branch>]
     def branches
-      @branches ||= output_parser.parse_branches
+      @branches ||=
+        FastOutput::SetBranchQvalues
+          .new(output_parser.parse_branches)
     end
 
     # @return [Array<FastOutput::Site>]

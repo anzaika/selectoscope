@@ -3,6 +3,7 @@ module FastOutput
     THRESHOLD = BigDecimal.new("3.841459").freeze
 
     attr_reader :l0, :l1
+    attr_accessor :q
 
     def initialize(text)
       @text = text
@@ -23,11 +24,12 @@ module FastOutput
     end
 
     def number
-      @text.scan(/Branch:\s+\d+/)
-           .first
-           .split(":")
-           .last
-           .to_i
+      @number ||=
+        @text.scan(/Branch:\s+\d+/)
+             .first
+             .split(":")
+             .last
+             .to_i
     end
 
     private
