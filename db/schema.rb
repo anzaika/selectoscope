@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160509134320) do
-  
+ActiveRecord::Schema.define(version: 20160512153541) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "group_id",   limit: 4
@@ -51,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160509134320) do
     t.decimal "l0",                       precision: 16, scale: 11
     t.decimal "l1",                       precision: 16, scale: 11
     t.boolean "positive"
+    t.decimal "q",                        precision: 16, scale: 11
   end
 
   add_index "fast_result_branches", ["fast_result_id", "positive"], name: "index_fast_result_branches_on_fast_result_id_and_positive", using: :btree
