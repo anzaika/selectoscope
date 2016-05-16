@@ -17,19 +17,30 @@ class QValues < ActiveType::Object
     qvalues
   end
 
+  def lrt
+    @lrt ||= l1.zip(l0).map {|a| a.reduce(:-) * 2 }
+  end
+
   private
 
   def qvalues
     R.lrt = l1.zip(l0).map {|a| a.reduce(:-) * 2 }
-    R.eval(script)
+    lrt.size > 4 ? R.eval(storey) : R.eval(benjamini_hochberg)
     R.q
   end
 
-  def script
+  def storey
     <<-FOO
       library(qvalue)
       p = pchisq(lrt, df=1, lower.tail = F)
       q = qvalue(p, pi0.metho='bootstrap', robust=T)$qvalues
+    FOO
+  end
+
+  def benjamini_hochberg
+    <<-FOO
+      q = p.adjust(pchisq(lrt, df=1, lower.tail = F), method='BH')
+      p.adjust(q, method='BH')
     FOO
   end
 end
