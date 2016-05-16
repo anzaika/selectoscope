@@ -23,7 +23,7 @@ class FastResult < ActiveRecord::Base
   after_create :parse_output
 
   alias_attribute :branches, :fast_result_branches
-  alias_attribute :sites, :sites
+  alias_attribute :sites, :fast_result_sites
 
   private
 
@@ -48,12 +48,12 @@ class FastResult < ActiveRecord::Base
   end
 
   def create_sites(out)
-    out.sites.each do |_s|
+    out.sites.each do |s|
       FastResultSite.create(
         fast_result: self,
-        branch:      b.branch,
-        position:    b.position,
-        probability: b.probability
+        branch:      s.branch,
+        position:    s.position,
+        probability: s.probability
       )
     end
   end
