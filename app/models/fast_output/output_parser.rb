@@ -8,7 +8,6 @@ module FastOutput
       @text = text
     end
 
-
     def parse_branches
       @text.split(BRANCH_REGULAR)
            .map {|text| FastOutput::Branch.new(text) }
