@@ -6,6 +6,7 @@
 #  avg_sequence_length :integer
 #  batch_id            :integer
 #  user_id             :integer
+#  preprocessing_done  :boolean          default(FALSE), not null
 #
 # Indexes
 #

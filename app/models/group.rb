@@ -6,6 +6,7 @@
 #  avg_sequence_length :integer
 #  batch_id            :integer
 #  user_id             :integer
+#  preprocessing_done  :boolean          default(FALSE), not null
 #
 # Indexes
 #
@@ -53,6 +54,7 @@ class Group < ActiveRecord::Base
   def process_identifiers
     transform_identifiers_in_fasta_file
     save_identifiers
+    update_attribute(:preprocessing_done, true)
   end
 
   def clear_pipeline_results

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512153541) do
+ActiveRecord::Schema.define(version: 20160516101833) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "group_id",   limit: 4
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20160512153541) do
     t.integer "avg_sequence_length", limit: 4
     t.integer "batch_id",            limit: 4
     t.integer "user_id",             limit: 4
+    t.boolean "preprocessing_done",            default: false, null: false
   end
 
   add_index "groups", ["batch_id"], name: "index_groups_on_batch_id", using: :btree
