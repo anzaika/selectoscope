@@ -1,27 +1,45 @@
 columns do
-  column span: 1 do
-    panel "Basic info" do
+  column span: 2 do
+    panel "Pipeline progress" do
       attributes_table_for group do
-        row :sequences_count
+        row :preprocessing_done
+        row :alignment_ready
+        row :tree_ready
+        row :codeml_ready
+        row :fast_ready
       end
     end
-
   end
 
-  column span: 3 do
-    panel "Tree", "data-panel" => :open do
-      if group.tree
+  column span: 5 do
+    if group.newick_tree
+      panel "Tree", "data-panel" => :open do
         render(partial: "groups/tnt_tree",
-                locals:  {tree:    group.fast_result.tree.newick,
-                          width:   600,
-                          compact: false})
+               locals:  {tree:    group.newick_tree,
+                         width:   600,
+                         compact: false})
       end
     end
   end
 
-  column span: 1 do
-    panel "Actions" do
-      render(partial: "groups/actions", locals: {group: group})
+  column span: 4 do
+    if group.fast_result
+      panel "Branches" do
+        table_for group.fast_result.branches do
+          column :number
+          column :l0
+          column :l1
+          column :positive
+          column :q
+        end
+      end
+      panel "Sites under selection" do
+        table_for group.fast_result.sites do
+          column :branch
+          column :position
+          column :probability
+        end
+      end
     end
   end
 end
