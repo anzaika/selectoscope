@@ -5,7 +5,7 @@
 #  id             :integer          not null, primary key
 #  fast_result_id :integer          not null
 #  branch         :integer          not null
-#  site           :integer          not null
+#  position       :integer          not null
 #  probability    :decimal(7, 6)    not null
 #
 # Indexes
@@ -15,4 +15,6 @@
 
 class FastResultSite < ActiveRecord::Base
   belongs_to :fast_result
+
+  default_scope -> { order(probability: :desc) }
 end
