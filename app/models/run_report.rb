@@ -32,12 +32,22 @@ class RunReport < ActiveRecord::Base
   scope :fast, -> { where(program: Wrap::Fast::Run::PROGRAM) }
 
   def stdout
-    f = text_files.where(meta: 'stdout').first
-    f ? File.open(f.file.path).read.split("\n").join("</br>").html_safe : nil
+    read_file("stdout")
   end
 
   def stderr
-    f = text_files.where(meta: 'stderr').first
+    read_file("stderr")
+  end
+
+  def method_missing(name)
+    raise "Unknown method: #{name}" unless name =~ /read_\w+/
+    read_file(name.to_s.split("_").last)
+  end
+
+  private
+
+  def read_file(name)
+    f = text_files.where(meta: name).first
     f ? File.open(f.file.path).read.split("\n").join("</br>").html_safe : nil
   end
 end
