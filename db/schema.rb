@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516101833) do
+ActiveRecord::Schema.define(version: 20160516120748) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "group_id",   limit: 4
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20160516101833) do
   create_table "fast_result_sites", force: :cascade do |t|
     t.integer "fast_result_id", limit: 4,                         null: false
     t.integer "branch",         limit: 4,                         null: false
-    t.integer "site",           limit: 4,                         null: false
+    t.integer "position",       limit: 4,                         null: false
     t.decimal "probability",              precision: 7, scale: 6, null: false
   end
 
