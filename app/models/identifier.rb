@@ -1,12 +1,3 @@
-# == Schema Information
-#
-# Table name: identifiers
-#
-#  id       :integer          not null, primary key
-#  name     :string(255)
-#  codename :string(10)
-#
-
 class Identifier < ActiveRecord::Base
   has_and_belongs_to_many :groups
 
@@ -42,3 +33,12 @@ class Identifier < ActiveRecord::Base
   end
 
 end
+
+# == Schema Information
+#
+# Table name: identifiers
+#
+#  id       :integer          not null, primary key
+#  name     :string(255)
+#  codename :string(10)
+#

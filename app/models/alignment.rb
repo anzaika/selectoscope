@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: alignments
-#
-#  id         :integer          not null, primary key
-#  group_id   :integer
-#  meta       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-# Indexes
-#
-#  index_alignments_on_group_id  (group_id)
-#
-
 class Alignment < ActiveRecord::Base
   belongs_to :group
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
@@ -43,3 +28,18 @@ class Alignment < ActiveRecord::Base
     # alignment.alignment_collect {|seq| seq }
   end
 end
+
+# == Schema Information
+#
+# Table name: alignments
+#
+#  id         :integer          not null, primary key
+#  group_id   :integer
+#  meta       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+# Indexes
+#
+#  index_alignments_on_group_id  (group_id)
+#

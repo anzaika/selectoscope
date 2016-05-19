@@ -1,3 +1,8 @@
+require 'rails_helper'
+
+RSpec.describe Alignment, type: :model do
+end
+
 # == Schema Information
 #
 # Table name: alignments
@@ -12,8 +17,3 @@
 #
 #  index_alignments_on_group_id  (group_id)
 #
-
-require 'rails_helper'
-
-RSpec.describe Alignment, type: :model do
-end

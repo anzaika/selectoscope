@@ -7,11 +7,11 @@ if Rails.env.development?
     # same name.
     Annotate.set_defaults(
       'routes'                  => 'false',
-      'position_in_routes'      => 'before',
-      'position_in_class'       => 'before',
-      'position_in_test'        => 'before',
-      'position_in_fixture'     => 'before',
-      'position_in_factory'     => 'before',
+      'position_in_routes'      => 'after',
+      'position_in_class'       => 'after',
+      'position_in_test'        => 'after',
+      'position_in_fixture'     => 'after',
+      'position_in_factory'     => 'after',
       'position_in_serializer'  => 'before',
       'show_foreign_keys'       => 'true',
       'show_indexes'            => 'true',

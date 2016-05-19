@@ -1,3 +1,7 @@
+class FastResultBranch < ActiveRecord::Base
+  belongs_to :fast_result
+end
+
 # == Schema Information
 #
 # Table name: fast_result_branches
@@ -14,7 +18,3 @@
 #
 #  index_fast_result_branches_on_fast_result_id_and_positive  (fast_result_id,positive)
 #
-
-class FastResultBranch < ActiveRecord::Base
-  belongs_to :fast_result
-end

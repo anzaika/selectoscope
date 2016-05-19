@@ -1,19 +1,3 @@
-# == Schema Information
-#
-# Table name: groups
-#
-#  id                  :integer          not null, primary key
-#  avg_sequence_length :integer
-#  batch_id            :integer
-#  user_id             :integer
-#  preprocessing_done  :boolean          default(FALSE), not null
-#
-# Indexes
-#
-#  index_groups_on_batch_id  (batch_id)
-#  index_groups_on_user_id   (user_id)
-#
-
 class Group < ActiveRecord::Base
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
   has_and_belongs_to_many :identifiers
@@ -86,3 +70,19 @@ class Group < ActiveRecord::Base
     TransformIdentifiers.new(self.id).transform
   end
 end
+
+# == Schema Information
+#
+# Table name: groups
+#
+#  id                  :integer          not null, primary key
+#  avg_sequence_length :integer
+#  batch_id            :integer
+#  user_id             :integer
+#  preprocessing_done  :boolean          default(FALSE), not null
+#
+# Indexes
+#
+#  index_groups_on_batch_id  (batch_id)
+#  index_groups_on_user_id   (user_id)
+#

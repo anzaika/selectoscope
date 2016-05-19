@@ -1,17 +1,3 @@
-# == Schema Information
-#
-# Table name: trees
-#
-#  id            :integer          not null, primary key
-#  newick        :binary(65535)
-#  treeable_id   :integer          not null
-#  treeable_type :string(20)       not null
-#
-# Indexes
-#
-#  index_trees_on_treeable_id_and_treeable_type  (treeable_id,treeable_type)
-#
-
 class Tree < ActiveRecord::Base
   belongs_to :treeable, polymorphic: true
 
@@ -41,3 +27,17 @@ class Tree < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: trees
+#
+#  id            :integer          not null, primary key
+#  newick        :binary(65535)
+#  treeable_id   :integer          not null
+#  treeable_type :string(20)       not null
+#
+# Indexes
+#
+#  index_trees_on_treeable_id_and_treeable_type  (treeable_id,treeable_type)
+#

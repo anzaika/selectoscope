@@ -1,19 +1,7 @@
-# == Schema Information
-#
-# Table name: groups
-#
-#  id                  :integer          not null, primary key
-#  avg_sequence_length :integer
-#  batch_id            :integer
-#  user_id             :integer
-#
-# Indexes
-#
-#  index_groups_on_batch_id  (batch_id)
-#  index_groups_on_user_id   (user_id)
-#
-
 class Group::ForShow < ActiveType::Record[Group]
+
+  # alias :alignment_ready :processed_alignment
+
   def original_alignment
     alignments.original.first
   end
@@ -30,8 +18,6 @@ class Group::ForShow < ActiveType::Record[Group]
       return processed.first
     elsif original.count > 0
       return original.first
-    else
-      nil
     end
   end
 
@@ -54,4 +40,32 @@ class Group::ForShow < ActiveType::Record[Group]
   def fast_job
     run_reports.fast.first
   end
+
+  # def tree?
+  #   tree || fast_result
+  # end
+
+  def newick_tree
+    if fast_result
+      fast_result.tree.newick
+    elsif tree
+      tree.newick
+    end
+  end
 end
+
+# == Schema Information
+#
+# Table name: groups
+#
+#  id                  :integer          not null, primary key
+#  avg_sequence_length :integer
+#  batch_id            :integer
+#  user_id             :integer
+#  preprocessing_done  :boolean          default(FALSE), not null
+#
+# Indexes
+#
+#  index_groups_on_batch_id  (batch_id)
+#  index_groups_on_user_id   (user_id)
+#

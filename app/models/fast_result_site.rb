@@ -1,3 +1,9 @@
+class FastResultSite < ActiveRecord::Base
+  belongs_to :fast_result
+
+  default_scope -> { order(probability: :desc) }
+end
+
 # == Schema Information
 #
 # Table name: fast_result_sites
@@ -12,9 +18,3 @@
 #
 #  index_fast_result_sites_on_fast_result_id  (fast_result_id)
 #
-
-class FastResultSite < ActiveRecord::Base
-  belongs_to :fast_result
-
-  default_scope -> { order(probability: :desc) }
-end
