@@ -8,16 +8,16 @@ class Group::FullStackJob
 
   def perform(group_id)
     check_group_preprocessing_done(group_id)
-    jid = Wrap::GuidanceJob.perform_async(group_id)
+    jid = GuidanceJob.perform_async(group_id)
     at(20, "Alignment complete")
     job_status(interval: 5, jid: jid) &&
-      jid = Wrap::PhymlJob.perform_async(group_id)
+      jid = PhymlJob.perform_async(group_id)
     at(40, "Gblocks complete")
     job_status(interval: 10, jid: jid) &&
-      jid = Wrap::CodemlJob.perform_async(group_id)
+      jid = CodemlJob.perform_async(group_id)
     at(60, "PhyML complete")
     job_status(interval: 10, jid: jid) &&
-      jid = Wrap::FastJob.perform_async(group_id)
+      jid = FastcodemlJob.perform_async(group_id)
     at(80, "CodeML complete")
   end
 
