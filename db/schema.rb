@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516120748) do
+ActiveRecord::Schema.define(version: 20160519103429) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "group_id",   limit: 4
@@ -65,13 +65,13 @@ ActiveRecord::Schema.define(version: 20160516120748) do
   add_index "fast_result_sites", ["fast_result_id"], name: "index_fast_result_sites_on_fast_result_id", using: :btree
 
   create_table "fast_results", force: :cascade do |t|
-    t.integer  "group_id",     limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.boolean  "has_positive"
+    t.integer  "run_report_id", limit: 4, null: false
   end
 
-  add_index "fast_results", ["group_id"], name: "index_fast_results_on_group_id", using: :btree
+  add_index "fast_results", ["run_report_id"], name: "index_fast_results_on_run_report_id", using: :btree
 
   create_table "fasta_files", force: :cascade do |t|
     t.string   "representable_as_fasta_type", limit: 255
