@@ -2,11 +2,11 @@ class RunReport < ActiveRecord::Base
   belongs_to :group
   has_many :text_files, as: :textifilable, dependent: :destroy
 
-  scope :alignment, -> { where(program: Wrap::Phyml::Run::PROGRAM) }
-  scope :processed_alignment, -> { where(program: Wrap::Gblocks::Run::PROGRAM) }
-  scope :tree, -> { where(program: Wrap::Phyml::Run::PROGRAM) }
-  scope :codeml, -> { where(program: Wrap::Codeml::Run::PROGRAM) }
-  scope :fast, -> { where(program: Wrap::Fast::Run::PROGRAM) }
+  scope :alignment, -> { where(program: Phyml::Run::PROGRAM) }
+  scope :processed_alignment, -> { where(program: Gblocks::Run::PROGRAM) }
+  scope :tree, -> { where(program: Phyml::Run::PROGRAM) }
+  scope :codeml, -> { where(program: Codeml::Run::PROGRAM) }
+  scope :fast, -> { where(program: Fast::Run::PROGRAM) }
 
   def stdout
     read_file("stdout")
