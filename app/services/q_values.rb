@@ -17,16 +17,17 @@ class QValues < ActiveType::Object
     qvalues
   end
 
-  def lrt
-    @lrt ||= l1.zip(l0).map {|a| a.reduce(:-) * 2 }
-  end
-
   private
 
+
   def qvalues
-    R.lrt = l1.zip(l0).map {|a| a.reduce(:-) * 2 }
+    R.lrt = lrt
     lrt.size > 4 ? R.eval(storey) : R.eval(benjamini_hochberg)
     R.q
+  end
+
+  def lrt
+    @lrt ||= l1.zip(l0).map {|a| (a.reduce(:-) * 2).to_f }
   end
 
   def storey
