@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   scope :users,  -> { where role: USER  }
   scope :admins, -> { where role: ADMIN }
 
+  def self.roles
+    ROLES
+  end
+
   def name
     first_name + " " + last_name
   end

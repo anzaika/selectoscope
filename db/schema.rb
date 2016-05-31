@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520122505) do
+ActiveRecord::Schema.define(version: 20160531085014) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "group_id",   limit: 4
@@ -109,30 +109,31 @@ ActiveRecord::Schema.define(version: 20160520122505) do
     t.string "codename", limit: 10
   end
 
-  create_table "run_profile_links", force: :cascade do |t|
-    t.integer  "group_id",       limit: 4, null: false
-    t.integer  "run_profile_id", limit: 4, null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+  create_table "run_profile_group_links", force: :cascade do |t|
+    t.integer "group_id",       limit: 4, null: false
+    t.integer "run_profile_id", limit: 4, null: false
   end
 
-  add_index "run_profile_links", ["group_id", "run_profile_id"], name: "index_run_profile_links_on_group_id_and_run_profile_id", using: :btree
-  add_index "run_profile_links", ["run_profile_id", "group_id"], name: "index_run_profile_links_on_run_profile_id_and_group_id", using: :btree
+  add_index "run_profile_group_links", ["group_id"], name: "index_run_profile_group_links_on_group_id", using: :btree
+  add_index "run_profile_group_links", ["run_profile_id", "group_id"], name: "index_run_profile_group_links_on_run_profile_id_and_group_id", unique: true, using: :btree
+
+  create_table "run_profile_tool_links", force: :cascade do |t|
+    t.integer "run_profile_id", limit: 4, null: false
+    t.integer "tool_id",        limit: 4, null: false
+  end
+
+  add_index "run_profile_tool_links", ["run_profile_id"], name: "index_run_profile_tool_links_on_run_profile_id", using: :btree
+  add_index "run_profile_tool_links", ["tool_id", "run_profile_id"], name: "index_run_profile_tool_links_on_tool_id_and_run_profile_id", unique: true, using: :btree
 
   create_table "run_profiles", force: :cascade do |t|
-    t.integer  "run_profile_link_id", limit: 4
-    t.string   "name",                limit: 255,   null: false
-    t.text     "description",         limit: 65535
-    t.integer  "user_id",             limit: 4,     null: false
-    t.string   "alignment",           limit: 50,    null: false
-    t.string   "tree",                limit: 50,    null: false
-    t.string   "selection",           limit: 50,    null: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.string   "name",        limit: 255,   null: false
+    t.text     "description", limit: 65535
+    t.integer  "user_id",     limit: 4,     null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   add_index "run_profiles", ["user_id", "name"], name: "index_run_profiles_on_user_id_and_name", using: :btree
-  add_index "run_profiles", ["user_id", "run_profile_link_id"], name: "index_run_profiles_on_user_id_and_run_profile_link_id", using: :btree
 
   create_table "run_reports", force: :cascade do |t|
     t.string   "program",            limit: 20
@@ -164,6 +165,17 @@ ActiveRecord::Schema.define(version: 20160520122505) do
   end
 
   add_index "text_files", ["textifilable_id", "textifilable_type"], name: "index_text_files_on_textifilable_id_and_textifilable_type", using: :btree
+
+  create_table "tools", force: :cascade do |t|
+    t.string   "name",        limit: 150,   null: false
+    t.text     "description", limit: 65535
+    t.string   "class_name",  limit: 80,    null: false
+    t.string   "type",        limit: 50,    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "tools", ["type"], name: "index_tools_on_type", using: :btree
 
   create_table "trees", force: :cascade do |t|
     t.binary  "newick",        limit: 65535
