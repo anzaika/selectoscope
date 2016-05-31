@@ -7,7 +7,7 @@ class CodemlJob
                   backtrace: true
 
   def perform(group_id)
-    return nil if Group::ForShow.find(group_id).codeml_job
+    return nil if Group.find(group_id).codeml_job
     run = Codeml::Run.new(group_id)
     run.execute
     report = Codeml::Report.new(run)

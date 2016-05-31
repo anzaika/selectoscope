@@ -7,7 +7,7 @@ class GblocksJob
                   backtrace: true
 
   def perform(group_id)
-    return nil if Group::ForShow.find(group_id).processed_alignment_job
+    return nil if Group.find(group_id).processed_alignment_job
     tries ||= 10
     run = Gblocks::Run.new(group_id)
     run.execute

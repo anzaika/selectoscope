@@ -7,7 +7,7 @@ class AlignmentJob
                   backtrace: true
 
   def perform(group_id)
-    return nil if Group::ForShow.find(group_id).alignment_job
+    return nil if Group.find(group_id).alignment_job
     run = Mafft::Run.new(group_id)
     run.execute
     report = Mafft::Report.new(run)
