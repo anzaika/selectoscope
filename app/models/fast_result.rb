@@ -1,10 +1,9 @@
 class FastResult < ActiveRecord::Base
   belongs_to :run_report
-  has_many :run_reports, through: :group
+  has_one :group, through: :run_report
   has_many :fast_result_branches, dependent: :destroy
   has_many :fast_result_sites, dependent: :destroy
   has_one :tree, as: :treeable, dependent: :destroy
-  
 
   after_create :parse_output
   after_create :set_branch_q_values
@@ -15,7 +14,7 @@ class FastResult < ActiveRecord::Base
   private
 
   def parse_output
-    out = FastOutput::Output.new(run_reports.find_by(program: "Fastcodeml"))
+    out = FastOutput::Output.new(run_report)
     return nil unless out
     create_branches(out)
     create_sites(out)
@@ -51,6 +50,13 @@ class FastResult < ActiveRecord::Base
       treeable: self,
       newick:   out.tree_with_positive.newick
     )
+  end
+
+  def set_branch_q_values
+    l0 = branches.map(&:l0)
+    l1 = branches.map(&:l1)
+    qvalues = QValues.create(l0: l0, l1: l1).to_a
+    branches.each_with_index {|b, i| b.update_attribute(:q, qvalues[i]) }
   end
 end
 
