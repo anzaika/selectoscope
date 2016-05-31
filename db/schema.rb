@@ -117,6 +117,13 @@ ActiveRecord::Schema.define(version: 20160531085014) do
   add_index "run_profile_group_links", ["group_id"], name: "index_run_profile_group_links_on_group_id", using: :btree
   add_index "run_profile_group_links", ["run_profile_id", "group_id"], name: "index_run_profile_group_links_on_run_profile_id_and_group_id", unique: true, using: :btree
 
+  create_table "run_profile_reports", force: :cascade do |t|
+    t.integer  "group_id",       limit: 4, null: false
+    t.integer  "run_profile_id", limit: 4, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
   create_table "run_profile_tool_links", force: :cascade do |t|
     t.integer "run_profile_id", limit: 4, null: false
     t.integer "tool_id",        limit: 4, null: false
