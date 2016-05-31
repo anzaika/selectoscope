@@ -11,16 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160531085014) do
+ActiveRecord::Schema.define(version: 20160531172708) do
 
   create_table "alignments", force: :cascade do |t|
-    t.integer  "group_id",   limit: 4
-    t.string   "meta",       limit: 255
+    t.integer  "alignable_id",   limit: 4
+    t.string   "meta",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "alignable_type", limit: 50
   end
 
-  add_index "alignments", ["group_id"], name: "index_alignments_on_group_id", using: :btree
+  add_index "alignments", ["alignable_id", "alignable_type"], name: "index_alignments_on_alignable_id_and_alignable_type", using: :btree
 
   create_table "batches", force: :cascade do |t|
     t.string   "name",         limit: 255

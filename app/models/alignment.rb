@@ -1,31 +1,13 @@
 class Alignment < ActiveRecord::Base
-  belongs_to :group
+  belongs_to :alignable, polymorphic: true
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
 
-  scope :original, -> { where(meta: "original") }
-  scope :processed, -> { where(meta: "processed") }
-
-  def to_fasta_string
-    File.open(fasta_file.file.path).read
-  end
-
-  def to_bioruby_alignment_object
-    Bio::Alignment::MultiFastaFormat.new(to_fasta_string)
-  end
+  delegate :to_fasta_string, to: :fasta_file
+  delegate :to_bioruby_alignment_object, to: :fasta_file
+  delegate :to_hash, to: :fasta_file
 
   def to_molphy_string
-    to_bioruby_alignment_object
-      .alignment
-      .output_molphy(width: 100_000)
-  end
-
-  def phylip
-    alignment.output_phylip
-  end
-
-  def to_hash
-    to_bioruby_alignment_object.alignment.to_hash
-    # alignment.alignment_collect {|seq| seq }
+    fasta_file.to_molphy_text_format
   end
 end
 
@@ -33,13 +15,14 @@ end
 #
 # Table name: alignments
 #
-#  id         :integer          not null, primary key
-#  group_id   :integer
-#  meta       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  id             :integer          not null, primary key
+#  alignable_id   :integer
+#  meta           :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  alignable_type :string(50)
 #
 # Indexes
 #
-#  index_alignments_on_group_id  (group_id)
+#  index_alignments_on_alignable_id_and_alignable_type  (alignable_id,alignable_type)
 #
