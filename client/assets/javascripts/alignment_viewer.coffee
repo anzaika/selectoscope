@@ -15,16 +15,15 @@ window.AlignmentViewer =
   alignmentHeight: ->
     @lineHeight * @seqsCount()
 
-  build : (id, root)->
-    AlignmentViewer.loadSeqs(id)
+  build : (id, root, type='alignments')->
+    AlignmentViewer.loadSeqs(id, type)
     setTimeout(->
       AlignmentViewer.drawAlignment(root, id)
     , 500)
 
-
-  loadSeqs : (id) ->
+  loadSeqs : (id, type) ->
     @seqs[id] = []
-    $.getJSON '/alignments/' + id + '.json',  (data) ->
+    $.getJSON "/#{type}/" + id + '.json',  (data) ->
       $.each data.sequences, (i, v) ->
         AlignmentViewer.seqs[id].push v
 
