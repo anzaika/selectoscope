@@ -1,6 +1,20 @@
 require "rails_helper"
 
 RSpec.describe FastResult, type: :model do
+  context "given a succesfull fastcodeml RunReport" do
+    let(:fr) { Fabricate(:fast_result) }
+    describe "::create" do
+      it "creates fast_result_branch records" do
+        expect(fr.branches.count > 0).to be true
+      end
+      it "creates fast_result_site records" do
+        expect(fr.sites.count > 0).to be true
+      end
+      it "sets the q-value in branches" do
+        expect(fr.branches.pluck(:q).all? {|v| !v.nil? }).to be true
+      end
+    end
+  end
 end
 
 # == Schema Information
