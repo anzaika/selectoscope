@@ -8,6 +8,7 @@ require "rspec/rails"
 require "fabrication"
 require "database_cleaner"
 require_relative "support/database_cleaner"
+require_relative "support/capybara"
 
 require "sidekiq/testing"
 Sidekiq::Testing.inline!

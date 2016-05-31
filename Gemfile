@@ -63,6 +63,7 @@ group :test do
   gem "shoulda-matchers", "~> 3.1"
   gem "rake", require: false
   gem "parallel_tests"
+  gem "capybara"
 end
 
 gem "rbtrace", require: false, platform: :mri
