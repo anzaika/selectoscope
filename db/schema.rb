@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519103429) do
+ActiveRecord::Schema.define(version: 20160520122505) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "group_id",   limit: 4
@@ -108,6 +108,31 @@ ActiveRecord::Schema.define(version: 20160519103429) do
     t.string "name",     limit: 255
     t.string "codename", limit: 10
   end
+
+  create_table "run_profile_links", force: :cascade do |t|
+    t.integer  "group_id",       limit: 4, null: false
+    t.integer  "run_profile_id", limit: 4, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "run_profile_links", ["group_id", "run_profile_id"], name: "index_run_profile_links_on_group_id_and_run_profile_id", using: :btree
+  add_index "run_profile_links", ["run_profile_id", "group_id"], name: "index_run_profile_links_on_run_profile_id_and_group_id", using: :btree
+
+  create_table "run_profiles", force: :cascade do |t|
+    t.integer  "run_profile_link_id", limit: 4
+    t.string   "name",                limit: 255,   null: false
+    t.text     "description",         limit: 65535
+    t.integer  "user_id",             limit: 4,     null: false
+    t.string   "alignment",           limit: 50,    null: false
+    t.string   "tree",                limit: 50,    null: false
+    t.string   "selection",           limit: 50,    null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "run_profiles", ["user_id", "name"], name: "index_run_profiles_on_user_id_and_name", using: :btree
+  add_index "run_profiles", ["user_id", "run_profile_link_id"], name: "index_run_profiles_on_user_id_and_run_profile_link_id", using: :btree
 
   create_table "run_reports", force: :cascade do |t|
     t.string   "program",            limit: 20

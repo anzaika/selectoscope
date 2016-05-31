@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 
   has_many :groups, dependent: :destroy
   has_many :batches, dependent: :destroy
+  has_many :run_profiles, dependent: :destroy
 
   USER  = "user"
   ADMIN = "admin"
