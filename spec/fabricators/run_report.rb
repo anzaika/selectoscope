@@ -1,10 +1,11 @@
 Fabricator(:run_report) do
+  program { Faker::Lorem.word }
+  successful true
+  group
 end
 
 Fabricator(:run_report_fast, from: :run_report) do
   program "Fastcodeml"
-  successful true
-  group
   after_create { |run_report|
     Fabricate(
       :text_file,
