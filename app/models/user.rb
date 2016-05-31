@@ -6,9 +6,9 @@ class User < ActiveRecord::Base
   has_many :batches, dependent: :destroy
   has_many :run_profiles, dependent: :destroy
 
-  USER  = "user"
-  ADMIN = "admin"
-  ROLES = %W( #{USER} #{ADMIN} )
+  USER  = "user".freeze
+  ADMIN = "admin".freeze
+  ROLES = %W( #{USER} #{ADMIN} ).freeze
 
   validates_presence_of :first_name, :last_name, :email, :role
 

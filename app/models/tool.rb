@@ -3,6 +3,7 @@ class Tool < ActiveRecord::Base
 
   validates :name, uniqueness: true, presence: true
   validates :class_name, uniqueness: true, presence: true
+  validates :type, presence: true
 
   scope :for_alignment, -> { where(type: "ToolForAlignment") }
   scope :for_tree, -> { where(type: "ToolForTree") }
