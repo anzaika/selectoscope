@@ -6,7 +6,7 @@ services:
       service: web
     user: 'dev_user'
     environment:
-      - OMP_NUM_THREADS=1
+      - RAILS_ENV=development
     volumes:
       - ".:/opt/app"
     links:
@@ -19,6 +19,9 @@ services:
       service: sidekiq
     command: bundle exec rerun --background --dir app,db,lib --pattern '{**/*.rb}' -- bundle exec sidekiq --verbose
     user: 'dev_user'
+    environment:
+      - RAILS_ENV=development
+      - OMP_NUM_THREADS=1
     volumes:
       - ".:/opt/app"
     links:

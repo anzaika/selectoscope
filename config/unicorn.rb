@@ -1,4 +1,4 @@
-root = '/opt/app'
+root = "/opt/app"
 working_directory root
 pid "#{root}/tmp/unicorn.pid"
 stderr_path "#{root}/log/unicorn.log"
@@ -10,7 +10,7 @@ else
   worker_processes 4
 end
 preload_app true
-timeout 1000
+timeout 600
 
 before_fork do |server, _worker|
   defined?(ActiveRecord::Base) &&
@@ -20,10 +20,10 @@ before_fork do |server, _worker|
   if File.exist?(old_pid) && server.pid != old_pid
     puts "We've got an old pid and server pid is not the old pid"
     begin
-      Process.kill('QUIT', File.read(old_pid).to_i)
-      puts 'killing master process (good thing tm)'
+      Process.kill("QUIT", File.read(old_pid).to_i)
+      puts "killing master process (good thing tm)"
     rescue Errno::ENOENT, Errno::ESRCH
-      puts 'unicorn master already killed'
+      puts "unicorn master already killed"
       # someone else did our job for us
     end
   end
@@ -31,7 +31,7 @@ end
 
 after_fork do |server, worker|
   port = 5000 + worker.nr
-  child_pid = server.config[:pid].sub('.pid', ".#{port}.pid")
+  child_pid = server.config[:pid].sub(".pid", ".#{port}.pid")
   system("echo #{Process.pid} > #{child_pid}")
   defined?(ActiveRecord::Base) &&
     ActiveRecord::Base.establish_connection
