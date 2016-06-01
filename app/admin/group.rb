@@ -8,52 +8,34 @@ ActiveAdmin.register Group do
                 fasta_file_attributes: [:file]
 
   scope :all
-  scope :with_positive
-  scope :without_positive
 
   index download_links: false do
     selectable_column
-    column "tree" do |group|
-      if group.tree
-        render(partial: "groups/tnt_tree",
-               locals:  {tree:    group.tree.newick,
-                         width:   "400",
-                         compact: true})
-      end
-    end
-
-    column :positive_selection do |group|
-      if group.fast_result && group.fast_result.has_positive
-        status_tag "yes"
-      elsif group.fast_result && !group.fast_result.has_positive
-        status_tag "no"
-      else
-        "---"
-      end
-    end
-    column :alignment do |g|
-      render "job_status", job: g.alignment_job
-    end
-    column :proc_align do |g|
-      render "job_status", job: g.processed_alignment_job
-    end
-    column :tree do |g|
-      render "job_status", job: g.tree_job
-    end
-    column :codeml do |g|
-      render "job_status", job: g.codeml_job
-    end
-    column :fast do |g|
-      render "job_status", job: g.fast_job
-    end
+    # column "tree" do |group|
+    #   if group.tree
+    #     render(partial: "groups/tnt_tree",
+    #            locals:  {tree:    group.tree.newick,
+    #                      width:   "400",
+    #                      compact: true})
+    #   end
+    # end
+    # column :alignment do |g|
+    #   render "job_status", job: g.alignment_job
+    # end
+    # column :tree do |g|
+    #   render "job_status", job: g.tree_job
+    # end
+    # column :codeml do |g|
+    #   render "job_status", job: g.codeml_job
+    # end
+    # column :fast do |g|
+    #   render "job_status", job: g.fast_job
+    # end
     actions
   end
 
   filter :batch, collection: -> { Batch.all }
-  filter :has_paralogs
-  filter :codeml_result_w0, as: :numeric, label: "codeml W0"
-  filter :codeml_result_p1, as: :numeric, label: "codeml P1"
-  filter :fast_result_has_positive, as: :select, values: %w(true false)
+  filter :identifiers_name
 
   form html: {multipart: true} do |f|
     f.semantic_errors
@@ -65,6 +47,14 @@ ActiveAdmin.register Group do
 
   show { render "group" }
 
+  action_item(:run_full_stack, only: :show) do
+    link_to("Run full stack", run_full_stack_group_path(resource), method: :post)
+  end
+
+  action_item(:clear_results, only: :show) do
+    link_to("Clear results", clear_results_group_path(resource), method: :post)
+  end
+
   member_action :run_full_stack, method: :post do
     Group::FullStackJob.perform_async(resource.id)
     redirect_to request.referrer, notice: "Full stack job submitted."
@@ -75,40 +65,15 @@ ActiveAdmin.register Group do
     redirect_to request.referrer, notice: "All results have been queued for removal."
   end
 
-  member_action :download_tree, method: :get do
-    # resource.download_tree
-    redirect_to request.referrer, notice: "All results have been queued for removal."
-  end
-
-  batch_action "run full-stack for" do |ids|
-    ids.each {|id| Group::FullStackJob.perform_async(id) }
-    redirect_to request.referrer, notice: "Full stack job submitted."
+  batch_action "add run profile",
+               form: -> { {"run_profile" => RunProfile.all.pluck(:name, :id)} } do |ids, inputs|
+    ids.each do |id|
+      RunProfileGroupLink.create(group_id: id, run_profile_id: inputs["run_profile"])
+    end
+    redirect_to request.referrer, notice: "Run profile: #{RunProfile.find(inputs["run_profile"]).name} has been successfully added to #{ids.count} groups"
   end
 
   controller do
-    def scoped_collection
-      Group::ForShow.all
-    end
-
-    def index
-      index!
-    end
-
-    def show
-      @group ||= Group::ForShow.find(params[:id])
-    end
-
-    def download_tree
-      # newick = Group.find(permitted_params[:id]).tree.newick
-      # filename = "#{g.id}_tree.nwk"
-      #
-      # Tempfile.create("group#{group.id}_tree.nwk")
-      #
-      # Tempfile.create(filename) do |_f|
-      #   send_data(newick, type: "application/text", filename: filename)
-      # end
-    end
-
     def create
       @group = Group.new(permitted_params["group"])
       @group.user_id = current_user.id
