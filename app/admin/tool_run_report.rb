@@ -1,4 +1,4 @@
-ActiveAdmin.register RunReport do
+ActiveAdmin.register ToolRunReport do
   filter :program
 
   index do
@@ -12,7 +12,7 @@ ActiveAdmin.register RunReport do
   show do |report|
     columns do
       column span: 1 do
-        panel 'General info' do
+        panel "General info" do
           attributes_table_for report do
             row :program
             row :exec

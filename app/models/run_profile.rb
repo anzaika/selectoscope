@@ -32,6 +32,13 @@ class RunProfile < ActiveRecord::Base
     tools.for_tree.limit(1).first
   end
 
+  # @param group_id [Integer]
+  def execute_for_group(group_id)
+    RunProfileRunReport.create(group_id: group_id, run_profile_id: id).run_pipeline
+  end
+
+  private
+
   def create_run_profile_tool_links
     RunProfileToolLink.create(
       run_profile_id: id, tool_id: tool_for_alignment_id

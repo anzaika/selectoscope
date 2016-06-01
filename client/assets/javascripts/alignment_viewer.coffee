@@ -10,7 +10,7 @@ window.AlignmentViewer =
     @seqs[@firstSequenceId()].length
 
   alignmentWidth: ->
-    $('#alignments').width() - @labelsWidth - 30
+    # $('#alignments').width() - @labelsWidth - 30
 
   alignmentHeight: ->
     @lineHeight * @seqsCount()

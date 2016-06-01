@@ -11,6 +11,13 @@ ActiveAdmin.register Group do
 
   index download_links: false do
     selectable_column
+    column :name
+    column :sequences do |group|
+      group.group_identifier_links.count
+    end
+    column :run_profiles do |group|
+      group.run_profiles.map(&:name).join(", ")
+    end
     # column "tree" do |group|
     #   if group.tree
     #     render(partial: "groups/tnt_tree",
