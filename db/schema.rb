@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601070921) do
+ActiveRecord::Schema.define(version: 20160601180910) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "alignable_id",   limit: 4
@@ -87,6 +87,14 @@ ActiveRecord::Schema.define(version: 20160601070921) do
 
   add_index "fasta_files", ["representable_as_fasta_id", "representable_as_fasta_type"], name: "fasta_filex_polymorphic", using: :btree
 
+  create_table "group_identifier_links", force: :cascade do |t|
+    t.integer "group_id",      limit: 4, null: false
+    t.integer "identifier_id", limit: 4, null: false
+  end
+
+  add_index "group_identifier_links", ["group_id", "identifier_id"], name: "index_group_identifier_links_on_group_id_and_identifier_id", unique: true, using: :btree
+  add_index "group_identifier_links", ["identifier_id"], name: "index_group_identifier_links_on_identifier_id", using: :btree
+
   create_table "groups", force: :cascade do |t|
     t.integer "avg_sequence_length", limit: 4
     t.integer "batch_id",            limit: 4
@@ -97,18 +105,13 @@ ActiveRecord::Schema.define(version: 20160601070921) do
   add_index "groups", ["batch_id"], name: "index_groups_on_batch_id", using: :btree
   add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
 
-  create_table "groups_identifiers", id: false, force: :cascade do |t|
-    t.integer "group_id",      limit: 4
-    t.integer "identifier_id", limit: 4
-  end
-
-  add_index "groups_identifiers", ["group_id", "identifier_id"], name: "index_groups_identifiers_on_group_id_and_identifier_id", unique: true, using: :btree
-  add_index "groups_identifiers", ["identifier_id"], name: "index_groups_identifiers_on_identifier_id", using: :btree
-
   create_table "identifiers", force: :cascade do |t|
-    t.string "name",     limit: 255
+    t.string "name",     limit: 255, null: false
     t.string "codename", limit: 10
   end
+
+  add_index "identifiers", ["codename"], name: "index_identifiers_on_codename", unique: true, using: :btree
+  add_index "identifiers", ["name"], name: "index_identifiers_on_name", unique: true, using: :btree
 
   create_table "run_profile_group_links", force: :cascade do |t|
     t.integer "group_id",       limit: 4, null: false

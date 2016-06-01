@@ -1,15 +1,15 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Group, type: :model do
-  it { is_expected.to validate_presence_of(:fasta_file)}
-  it { is_expected.to respond_to(:fasta_file)}
+  it { is_expected.to validate_presence_of(:fasta_file) }
+  it { is_expected.to respond_to(:fasta_file) }
 
   context "--> with 'simple' fasta file uploaded" do
     let (:group) { Fabricate(:group_with_simple_fasta) }
 
     describe "#create" do
       it "is expected to create two idetifiers", focus: true do
-        expect{group}.to change{Identifier.count}.from(0).to(4)
+        expect { group }.to change { Identifier.count }.from(0).to(4)
       end
       it "...and link them to the group" do
         group
@@ -25,7 +25,7 @@ RSpec.describe Group, type: :model do
         ids_before =
           ff.to_bioruby_alignment_object
             .keys
-            .map { |id| id.split(" ").join("_") }
+            .map {|id| id.split(" ").join("_") }
 
         g = Group.create(fasta_file: ff)
         ids_after = g.fasta_file.to_bioruby_alignment_object.keys
@@ -36,10 +36,10 @@ RSpec.describe Group, type: :model do
   end
 
   context "--> with 'complicated' fasta file uploaded" do
-    let (:comp_group) {Fabricate(:group_with_complicated_fasta)}
+    let (:comp_group) { Fabricate(:group_with_complicated_fasta) }
     describe "#create" do
       it "is expected to create seven identifiers" do
-        expect{comp_group}.to change{Identifier.count}.from(0).to(7)
+        expect { comp_group }.to change { Identifier.count }.from(0).to(7)
       end
       it "...and link them to the group" do
         comp_group

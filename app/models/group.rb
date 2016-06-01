@@ -1,13 +1,11 @@
 class Group < ActiveRecord::Base
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
-  has_many :run_profile_links, dependent: :destroy
+  has_many :run_profile_group_links, dependent: :destroy
+  has_many :run_profiles, through: :run_profile_group_links
+  has_many :run_profile_run_reports, dependent: :destroy
 
-  has_many :alignments, dependent: :destroy
-  has_one :tree, as: :treeable, dependent: :destroy
-  has_one :codeml_result, dependent: :destroy
-  has_one :fast_result, dependent: :destroy
-
-  has_many :run_reports, dependent: :destroy
+  has_many :group_identifier_links, dependent: :destroy
+  has_many :identifiers, through: :group_identifier_links
 
   validates_associated :fasta_file
   accepts_nested_attributes_for :fasta_file, allow_destroy: true
@@ -15,24 +13,12 @@ class Group < ActiveRecord::Base
   belongs_to :batch, counter_cache: "groups_count"
   belongs_to :user
 
-  default_scope -> { includes(:tree, :run_reports) }
-  scope :with_positive, -> { joins(:fast_result).where(fast_results: {has_positive: true}) }
-  scope :without_positive, -> { joins(:fast_result).where(fast_results: {has_positive: false}) }
-
   validates :fasta_file, presence: true
 
   after_create :submit_process_job
 
   def name
     "Group " + id.to_s
-  end
-
-  def to_bio_alignment_object(codenames: true)
-    if codenames
-      Bio::Alignment::OriginalAlignment.new(sequences.map(&:seq_with_codename))
-    else
-      Bio::Alignment::OriginalAlignment.new(sequences.map(&:seq_with_name))
-    end
   end
 
   def process_identifiers
@@ -49,25 +35,23 @@ class Group < ActiveRecord::Base
     fast_result.destroy if fast_result
   end
 
-  private
-
   def submit_process_job
     Group::ProcessIdentifiersJob.perform_in(1.second, id)
   end
 
   def save_identifiers
-    fasta_file.each_seq_with_description do |desc, seq|
+    fasta_file.each_seq_with_description do |desc, _seq|
       begin
         identifier = Identifier.find_or_create_by(name: desc)
         identifiers << identifier
-      rescue ActiveRecord::RecordInvalid => e
+      rescue ActiveRecord::RecordNotUnique
         retry
       end
     end
   end
 
   def transform_identifiers_in_fasta_file
-    TransformIdentifiers.new(self.id).transform
+    TransformIdentifiers.new(id).transform
   end
 end
 
