@@ -18,18 +18,18 @@ class RunProfile < ActiveRecord::Base
   validates :tool_for_tree_id, presence: true
   validates :tool_for_selection_id, presence: true
 
-  after_save :create_run_profile_tool_links
+  after_create :create_run_profile_tool_links
 
   def tool_for_alignment
-    tools.tool_for_alignment.limit(1).first
+    tools.for_alignment.limit(1).first
   end
 
   def tool_for_tree
-    tools.tool_for_tree.limit(1).first
+    tools.for_tree.limit(1).first
   end
 
   def tool_for_selection
-    tools.tool_for_tree.limit(1).first
+    tools.for_tree.limit(1).first
   end
 
   def create_run_profile_tool_links

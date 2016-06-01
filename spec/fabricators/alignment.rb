@@ -1,4 +1,5 @@
 Fabricator(:alignment) do
+  fasta_file
 end
 
 Fabricator(:original_alignment_for_complicated_fasta, from: :alignment) do

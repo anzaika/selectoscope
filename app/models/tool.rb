@@ -1,11 +1,16 @@
 class Tool < ActiveRecord::Base
   has_many :run_profile_tool_links, dependent: :destroy
+  has_many :tool_run_reports, dependent: :destroy
 
   validates :name, uniqueness: true, presence: true
   validates :class_name, uniqueness: true, presence: true
   validates :type, presence: true
 
-  scope :for_alignment, -> { where(type: "ToolForAlignment") }
+  FOR_ALIGNMENT = "ToolForAlignment".freeze
+  FOR_TREE = "ToolForTree".freeze
+  FOR_SELECTION = "ToolForSelection".freeze
+
+  scope :for_alignment, -> { where(type: FOR_ALIGNMENT) }
   scope :for_tree, -> { where(type: "ToolForTree") }
   scope :for_selection, -> { where(type: "ToolForSelection") }
 
