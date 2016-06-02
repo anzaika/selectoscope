@@ -28,13 +28,14 @@ class Enigma
         .inject(string) {|a, e| a.gsub(e.first, e.last) }
   end
 
-  # TODO: doesn't it just append the encoded content? Needs fixing
+  # @param path_to_file [String]
   def encode_file(path_to_file)
     content = File.open(path_to_file).read
     encoded = encode_string(content)
     File.open(path_to_file, "w") {|f| f << encoded }
   end
 
+  # @param path_to_file [String]
   def decode_file(path_to_file)
     content = File.open(path_to_file).read
     decoded = decode_string(content)
