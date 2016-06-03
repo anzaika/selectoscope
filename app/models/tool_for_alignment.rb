@@ -1,18 +1,11 @@
 class ToolForAlignment < Tool
-  def self.result_for(tool_run_report)
-    return nil unless tool_run_report.successful
-    Bio::FastaFormat.new(
-      tool_run_report.raw_file_content("output_alignment")
-    )
-  end
-
   # @param fasta [Bio::Alignment]
+  # @param rprr_id [Integer] id of RunProfileRunReport
   # @return Bio::Alignment
-  def execute(fasta)
-    tool_run_report = Guidance.run(fasta, id)
+  def execute(rprr_id)
+    ExecuteToolForAlignment.new(rprr_id)
   end
 end
-
 
 # == Schema Information
 #

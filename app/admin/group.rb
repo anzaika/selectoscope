@@ -54,22 +54,15 @@ ActiveAdmin.register Group do
 
   show { render "group" }
 
-  action_item(:run_full_stack, only: :show) do
-    link_to("Run full stack", run_full_stack_group_path(resource), method: :post)
+  action_item(:run_all_profiles, only: :show) do
+    link_to("Run pipeline", run_all_profiles_group_path(resource), method: :post)
   end
 
-  action_item(:clear_results, only: :show) do
-    link_to("Clear results", clear_results_group_path(resource), method: :post)
-  end
-
-  member_action :run_full_stack, method: :post do
-    Group::FullStackJob.perform_async(resource.id)
+  member_action :run_all_profiles, method: :post do
+    resource.run_profiles.pluck(:id).each do |pid|
+      SubmitPipelineJob.perform_async(resource.id, pid)
+    end
     redirect_to request.referrer, notice: "Full stack job submitted."
-  end
-
-  member_action :clear_results, method: :post do
-    Group::ClearPipelineResultsJob.perform_async(resource.id)
-    redirect_to request.referrer, notice: "All results have been queued for removal."
   end
 
   batch_action "add run profile",
@@ -77,7 +70,7 @@ ActiveAdmin.register Group do
     ids.each do |id|
       RunProfileGroupLink.create(group_id: id, run_profile_id: inputs["run_profile"])
     end
-    redirect_to request.referrer, notice: "Run profile: #{RunProfile.find(inputs["run_profile"]).name} has been successfully added to #{ids.count} groups"
+    redirect_to request.referrer, notice: "Run profile: #{RunProfile.find(inputs['run_profile']).name} has been successfully added to #{ids.count} groups"
   end
 
   controller do

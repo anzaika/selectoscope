@@ -5,6 +5,11 @@ module Guidance
     FASTA = "fasta.fasta".freeze
     OUTPUT = "output".freeze
 
+    # @param fasta_string [String]
+    def initialize(fasta_string)
+      @fasta_string = fasta_string
+    end
+
     def version
       ""
     end
@@ -17,8 +22,7 @@ module Guidance
     end
 
     def setup_files
-      @v.add(@g.fasta_file.file.path, FASTA)
+      v.write_to_file(@fasta_string, FASTA)
     end
   end
-  
 end

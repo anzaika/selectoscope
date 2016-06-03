@@ -1,14 +1,15 @@
 class ReportBase
-  def initialize(run)
+  def initialize(run, tool_id)
     @run = run
     @v = run.v
-    @g = run.g
+    @tool_id = tool_id
   end
 
   def save
     create_run_report
-    save_output if run_successful?
+    save_tool_results if run_successful?
     clear_temp_files
+    @tool_run_report
   end
 
   def run_successful?
@@ -21,38 +22,31 @@ class ReportBase
   private
 
   def create_run_report
-    save_run_report
-    decode_out_files
-    save_out_files
+    save_tool_run_report
+    save_stdout_files
   end
 
-  def decode_out_files
-    enigma = Identifier::Enigma.new(@g.id)
-    enigma.decode_file(@v.path_to_stdout)
-    enigma.decode_file(@v.path_to_stderr)
-  end
-
-  def save_out_files
+  def save_stdout_files
     TextFile.create(file:         File.open(@v.path_to_stdout),
                     meta:         "stdout",
-                    textifilable: @run_report)
+                    textifilable: @tool_run_report)
 
     TextFile.create(file:         File.open(@v.path_to_stderr),
                     meta:         "stderr",
-                    textifilable: @run_report)
+                    textifilable: @tool_run_report)
   end
 
-  def save_run_report
-    @run_report =
-      RunReport.create(
+  def save_tool_run_report
+    @tool_run_report =
+      ToolRunReport.new(
         directory_snapshot: @v.file_list,
         program:            @run.class::PROGRAM,
         exec:               @run.class::EXEC,
         version:            @run.version,
         params:             @run.args,
-        successful:         run_successful?
+        successful:         run_successful?,
+        tool_id:            @tool_id
       )
-    @g.run_reports << @run_report
   end
 
   def clear_temp_files

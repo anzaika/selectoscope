@@ -7,6 +7,11 @@ class ToolRunReport < ActiveRecord::Base
   scope :for_tree, -> { joins(:tool).where("tools.type = ?", Tool::FOR_TREE) }
   scope :for_selection, -> { joins(:tool).where("tools.type = ?", Tool::FOR_SELECTION) }
 
+  def decode_all_text_files
+    enigma = Enigma.new(run_profile_run_report.group.id)
+    text_files.each {|f| enigma.decode_file(f.file.path) }
+  end
+
   def stdout
     read_file("stdout")
   end
@@ -15,6 +20,15 @@ class ToolRunReport < ActiveRecord::Base
     read_file("stderr")
   end
 
+  # @param meta [String]
+  # @return [TextFile]
+  def get_file(meta)
+    text_files.find_by_meta(meta)
+  end
+
+  # read_*
+  # for example read_output_alignment
+  # @return String
   def method_missing(name)
     raise "Unknown method: #{name}" unless name =~ /read_\w+/
     read_file(name.to_s.split("_").last)

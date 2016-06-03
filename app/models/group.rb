@@ -53,6 +53,12 @@ class Group < ActiveRecord::Base
   def transform_identifiers_in_fasta_file
     TransformIdentifiers.new(id).transform
   end
+
+  def run_profile(profile_id)
+    rprr = run_profile_run_reports.find_by_run_profile_id(profile_id)
+    rprr.destroy if rprr
+    RunProfileRunReport.create(run_profile_id: profile_id, group_id: id).run_pipeline
+  end
 end
 
 # == Schema Information

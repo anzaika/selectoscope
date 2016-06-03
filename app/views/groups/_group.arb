@@ -1,50 +1,54 @@
-columns do
-  column span: 2 do
-    panel "Pipeline progress" do
-      attributes_table_for group do
-        row :preprocessing_done
-        row :alignment_ready
-        row :tree_ready
-        row :codeml_ready
-        row :fast_ready
-      end
-    end
-  end
-
-  column span: 5 do
-    if group.newick_tree
-      panel "Tree", "data-panel" => :open do
-        render(partial: "groups/tnt_tree",
-               locals:  {tree:    group.newick_tree,
-                         width:   600,
-                         compact: false})
-      end
-    end
-  end
-
-  column span: 4 do
-    if group.fast_result
-      panel "Branches" do
-        table_for group.fast_result.branches do
-          column :number
-          column :l0
-          column :l1
-          column :positive
-          column :q
-        end
-      end
-      panel "Sites under selection" do
-        table_for group.fast_result.sites do
-          column :branch
-          column :position
-          column :probability
-        end
-      end
-    end
-  end
+panel "Original multi-FASTA file" do
+  render group.fasta_file
 end
 
-panel "Alignments", id: "alignments" do
-  render group.original_alignment if group.original_alignment
-  render group.processed_alignment if group.processed_alignment
+# columns do
+#   column span: 1 do
+#     panel "Pipeline progress" do
+#       attributes_table_for group do
+#         row :preprocessing_done
+#         row :average_sequence_length
+#       end
+#     end
+#   end
+#
+#
+#   #   if group.newick_tree
+#   #     panel "Tree", "data-panel" => :open do
+#   #       render(partial: "groups/tnt_tree",
+#   #              locals:  {tree:    group.newick_tree,
+#   #                        width:   600,
+#   #                        compact: false})
+#   #     end
+#   #   end
+# #   column span: 4 do
+# #     if group.fast_result
+# #       panel "Branches" do
+# #         table_for group.fast_result.branches do
+# #           column :number
+# #           column :l0
+# #           column :l1
+# #           column :positive
+# #           column :q
+# #         end
+# #       end
+# #       panel "Sites under selection" do
+# #         table_for group.fast_result.sites do
+# #           column :branch
+# #           column :position
+# #           column :probability
+# #         end
+# #       end
+# #     end
+# #   end
+# # end
+# #
+# # panel "Alignments", id: "alignments" do
+# #   render group.processed_alignment if group.processed_alignment
+# end
+
+group.run_profiles.each do |profile|
+  panel "Run Profile: #{profile.name}" do
+    render RunProfileRunReport.where(group_id: group.id, run_profile_id: profile.id).first
+  end
 end

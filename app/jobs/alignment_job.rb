@@ -6,11 +6,8 @@ class AlignmentJob
                   timeout:   60.minutes,
                   backtrace: true
 
-  def perform(group_id)
-    return nil if Group.find(group_id).alignment_job
-    run = Mafft::Run.new(group_id)
-    run.execute
-    report = Mafft::Report.new(run)
-    report.save
+  def perform(rprr_id)
+    rprr = RunProfileRunReport.find(rprr_id)
+    rprr.tool_for_alignment.execute(rprr_id)
   end
 end
