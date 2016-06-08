@@ -11,11 +11,12 @@ Make sure you have [Docker](https://docs.docker.com/engine/installation/) and [d
 mkdir ~/projects/selectoscope
 git clone https://github.com/anzaika/selectoscope.git ~/projects/selectoscope
 cd ~/projects/selectoscope
-docker-compose -f compose_development.yml build
-docker-compose -f compose_development.yml run web rake db:seed
+docker-compose -f compose_development.yml run web rake db:setup
 docker-compose -f compose_development.yml up
-
 ```
+
+This this sequence should be run only once, at the time of installation.
+Afterwards you can relaunch the server with the last command only.
 
 This sequence of commands will start a web-server on port 3009. So after this you can open your browser and navigate to
 [localhost:3009](http://localhost:3009).
