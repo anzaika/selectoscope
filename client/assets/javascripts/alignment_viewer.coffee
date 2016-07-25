@@ -29,6 +29,7 @@ window.AlignmentViewer =
 
   drawAlignment : (root, id) ->
     opts = {
+      bootstrapMenu: true
       seqs : AlignmentViewer.seqs[id]
       scheme : AlignmentViewer.colorscheme
       conf: AlignmentViewer.conf
@@ -39,6 +40,14 @@ window.AlignmentViewer =
     m = msa(opts)
     rootDiv.appendChild(m.el)
     m.render()
+
+  conf: {
+    registerMouseHover: false
+    registerMouseClicks: true
+    eventBus: true
+    alphabetSize: 80
+    dropImport: false
+  }
 
   vis: {
     sequences: true
@@ -78,7 +87,7 @@ window.AlignmentViewer =
       autoResize: true
 
       textVisible: true
-      labelIdLength: 30
+      labelIdLength: 80
       labelNameLength: @labelsWidth
       labelPartLength: 15
       labelCheckLength: 15

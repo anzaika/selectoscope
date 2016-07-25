@@ -1,7 +1,7 @@
 module FastOutput
   class Output
-    def initialize(run_report_id)
-      @report = RunReport.find(run_report_id)
+    def initialize(run_report)
+      @report = run_report
       read_logs
     end
 
@@ -12,9 +12,7 @@ module FastOutput
 
     # @return [Array<FastOutput::Branch>]
     def branches
-      @branches ||=
-        FastOutput::SetBranchQvalues
-          .new(output_parser.parse_branches)
+      @branches ||= output_parser.parse_branches
     end
 
     # @return [Array<FastOutput::Site>]

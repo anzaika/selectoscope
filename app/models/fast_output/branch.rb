@@ -1,6 +1,7 @@
 module FastOutput
   class Branch
     THRESHOLD = BigDecimal.new("3.841459").freeze
+    
 
     attr_reader :l0, :l1
     attr_accessor :q

@@ -9,7 +9,8 @@ RUN useradd $DEV_USER -G $GROUP -u 1000 -ms /bin/bash -U
 RUN useradd $PROD_USER -G $GROUP -u 1013 -ms /bin/bash -U
 
 # Install heavy gems for adding an extra caching layer
-RUN gem install nokogiri:1.6.7.2 oj:2.15.0
+# RUN gem install nokogiri:1.6.7.2 oj:2.15.0
+RUN apt-get install -y libmysqlclient-dev
 
 RUN mkdir -p /opt/bundle
 RUN mkdir -p /opt/bundle-cache
@@ -24,6 +25,9 @@ RUN cd /opt/bundle-cache && bundle install -j6
 ENV APP_HOME /opt/app
 WORKDIR $APP_HOME
 ADD . $APP_HOME
+
+ENV BUNDLE_CONFIG /opt/app/.bundle/config
+ENV BUNDLE_APP_CONFIG /opt/app/.bundle/config
 
 RUN chown -R $PROD_USER:$GROUP /opt \
   && chmod g+rwx -R /opt \

@@ -2,6 +2,7 @@ class ToolRunReport < ActiveRecord::Base
   belongs_to :run_profile_run_report
   belongs_to :tool
   has_many :text_files, as: :textifilable, dependent: :destroy
+  has_one :group, through: :run_profile_run_report
 
   scope :for_alignment, -> { joins(:tool).where("tools.type = ?", Tool::FOR_ALIGNMENT) }
   scope :for_tree, -> { joins(:tool).where("tools.type = ?", Tool::FOR_TREE) }

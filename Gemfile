@@ -11,17 +11,17 @@ gem "uglifier", "~> 2.7"
 gem "devise", "~> 3.5"
 gem "sidekiq", "~> 4.1"
 gem "sidekiq-failures", "~> 0.4"
-gem "sinatra", "~> 1.4", require: nil
-gem "sidekiq-status", "~> 0.6"
-gem "sidekiq-statistic", "~> 1.2"
+gem "sinatra", require: nil
+gem "sidekiq-status"
+gem "sidekiq-statistic"
 gem "transaction_retry"
 gem "responsive_active_admin"
 gem "paper_trail", "~> 4.1"
 gem "active_type"
 
-gem "rollbar", "~> 2.8"
-gem "oj", "~> 2.15"
-gem "oj_mimic_json", "~> 1.0"
+gem "rollbar"
+gem "oj"
+gem "oj_mimic_json"
 
 #------> Interface
 gem "jquery-rails", "~> 4.1"
@@ -43,6 +43,7 @@ gem "rinruby"
 gem "paperclip", "~> 4.3"
 gem "annotate"
 gem "rerun"
+gem "table_print"
 
 group :development, :test do
   gem "guard-rspec", require: false

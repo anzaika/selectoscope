@@ -3,7 +3,8 @@ ActiveAdmin.register ToolRunReport do
 
   index do
     selectable_column
-    column :program
+    column :tool
+    column :group
     column :successful
     column :created_at
     actions

@@ -1,9 +1,9 @@
 - root = "alignment#{rand(100_000)}"
-.alignment-wrap{style: "overflow: scroll;"}
+.alignment-wrap{style: "overflow: scroll"}
   -# %h3
   -#   Type:
   -#   = alignment.meta
-  %div{ id: root }
+  %div{ id: root, style: "margin-right: 300px;" }
 
 :javascript
   window.AlignmentViewer.build(#{alignment.id}, "#{root}");

@@ -27,14 +27,6 @@ class Group < ActiveRecord::Base
     update_attribute(:preprocessing_done, true)
   end
 
-  def clear_pipeline_results
-    run_reports.each(&:destroy)
-    alignments.each(&:destroy)
-    tree.destroy if tree
-    codeml_result.destroy if codeml_result
-    fast_result.destroy if fast_result
-  end
-
   def submit_process_job
     Group::ProcessIdentifiersJob.perform_in(1.second, id)
   end

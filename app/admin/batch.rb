@@ -5,6 +5,8 @@ ActiveAdmin.register Batch do
                 :user_id,
                 fasta_files: []
 
+                
+
   index download_links: false do
     selectable_column
     column :name
@@ -14,12 +16,12 @@ ActiveAdmin.register Batch do
     column "Groups", sortable: "groups_count" do |batch|
       batch.count_groups
     end
-    column "Groups with positive (cnt)" do |batch|
-      batch.count_groups_with_positive
-    end
-    column "Groups with positive (%)" do |batch|
-      batch.percent_of_groups_with_positive
-    end
+    # column "Groups with positive (cnt)" do |batch|
+    #   batch.count_groups_with_positive
+    # end
+    # column "Groups with positive (%)" do |batch|
+    #   batch.percent_of_groups_with_positive
+    # end
     actions
   end
 
