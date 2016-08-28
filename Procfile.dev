@@ -1,2 +1,0 @@
-web: bundle exec unicorn -p 8080 -c config/unicorn.rb
-client: sh -c 'rm app/assets/webpack/* || true && cd client && npm run build:dev:client'
