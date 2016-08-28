@@ -30,7 +30,6 @@ gem "haml-rails"
 gem "sass-rails"
 gem "bootstrap-sass"
 gem "therubyracer", platforms: :ruby
-gem "react_on_rails", "~> 5"
 
 #------> Bio
 gem "newick-ruby", github: "jhbadger/Newick-ruby"
