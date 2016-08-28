@@ -9,8 +9,8 @@ const config = require('./webpack.client.base.config');
 const devBuild = process.env.NODE_ENV !== 'production';
 
 config.output = {
-  filename: 'app-bundle.js',
-  path: '../app/assets/javascripts',
+  filename: '[name]-bundle.js',
+  path: '../app/assets/webpack',
 };
 
 // You can add entry points specific to rails here

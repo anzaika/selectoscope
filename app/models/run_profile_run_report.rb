@@ -11,7 +11,7 @@ class RunProfileRunReport < ActiveRecord::Base
   has_many :tool_run_reports, dependent: :nullify
 
   has_one :alignment, as: :alignable, dependent: :destroy
-  # has_one :tree, as: :treeable, dependent: :destroy
+  has_one :tree, as: :treeable, dependent: :destroy
   # has_one :codeml_result, dependent: :destroy
   # has_one :fast_result, dependent: :destroy
 

@@ -34,6 +34,7 @@ services:
       - "./config/redis:/usr/local/etc/redis"
     ports:
       - "6379:6379"
+      - "./data/redis:/data"
 
   db:
     image: "mysql:5.7"
@@ -43,5 +44,3 @@ services:
       - "./data/database:/var/lib/mysql"
     environment:
       - MYSQL_ROOT_PASSWORD=1234
-    ports:
-      - "3306"

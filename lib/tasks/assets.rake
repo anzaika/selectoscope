@@ -14,12 +14,7 @@ namespace :assets do
 
   desc "Compile assets with webpack"
   task :webpack do
-    sh "cd client && npm run build:production:client"
-    sh "mkdir -p public/assets"
-
-    # sh "cp -rf app/assets/webpack/*.woff* app/assets/webpack/*.svg app/assets/webpack/*.ttf "\
-       # "app/assets/webpack/*.eot* public/assets"
-
+    sh "cd client && npm run build:client"
   end
 
   task :clobber do

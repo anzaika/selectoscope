@@ -1,3 +1,4 @@
+# Shown below are the defaults for configuration
 ReactOnRails.configure do |config|
   # Client bundles are configured in application.js
 
