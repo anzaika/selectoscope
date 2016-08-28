@@ -5,6 +5,11 @@ module Mafft
     FASTA = "fasta.fasta".freeze
     OUTPUT = "output.out".freeze
 
+    # @param fasta_string [String]
+    def initialize(fasta_string)
+      @fasta_string = fasta_string
+    end
+
     def version
       ""
     end
@@ -14,7 +19,7 @@ module Mafft
     end
 
     def setup_files
-      @v.add(@g.fasta_file.file.path, FASTA)
+      v.add(@g.fasta_file.file.path, FASTA)
     end
   end
 end
