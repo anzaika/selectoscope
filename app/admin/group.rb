@@ -12,6 +12,7 @@ ActiveAdmin.register Group do
   index download_links: false do
     selectable_column
     column :name
+    column :batch
     column :sequences do |group|
       group.group_identifier_links.count
     end
@@ -42,7 +43,6 @@ ActiveAdmin.register Group do
   end
 
   filter :batch, collection: -> { Batch.all }
-  filter :identifiers_name
 
   form html: {multipart: true} do |f|
     f.semantic_errors
