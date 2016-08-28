@@ -5,8 +5,6 @@ ActiveAdmin.register Batch do
                 :user_id,
                 fasta_files: []
 
-                
-
   index download_links: false do
     selectable_column
     column :name
@@ -52,15 +50,15 @@ ActiveAdmin.register Batch do
                 div group.name
               end
             end
-            column :positive_selection do |group|
-              if group.fast_result && group.fast_result.has_positive
-                status_tag "yes"
-              elsif group.fast_result && !group.fast_result.has_positive
-                status_tag "no"
-              else
-                "---"
-              end
-            end
+            # column :positive_selection do |group|
+            #   if group.fast_result && group.fast_result.has_positive
+            #     status_tag "yes"
+            #   elsif group.fast_result && !group.fast_result.has_positive
+            #     status_tag "no"
+            #   else
+            #     "---"
+            #   end
+            # end
           end
         end
       end
