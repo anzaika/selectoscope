@@ -1,4 +1,6 @@
-#= require vendor-bundle
-#= require app-bundle
 #= require active_admin/base
-##= require bootstrap-sprockets
+#= require msa
+#= require alignment_viewer
+#= require main
+#= require panels_collapser
+#= require tree_builder
