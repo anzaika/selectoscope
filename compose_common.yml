@@ -2,8 +2,7 @@ version: '2'
 services:
   web:
     build: .
-    # command: bundle exec unicorn -p 8080 -c config/unicorn.rb
-    command: foreman start -f Procfile.dev
+    command: bundle exec unicorn -p 8080 -c config/unicorn.rb
     ports:
       - "3009:8080"
     volumes:
@@ -32,9 +31,9 @@ services:
     command: redis-server /usr/local/etc/redis/redis.conf
     volumes:
       - "./config/redis:/usr/local/etc/redis"
+      - "./data/redis:/data"
     ports:
       - "6379:6379"
-      - "./data/redis:/data"
 
   db:
     image: "mysql:5.7"
