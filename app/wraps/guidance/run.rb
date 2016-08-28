@@ -1,7 +1,7 @@
 module Guidance
   class Run < RunBase
     PROGRAM = "Guidance".freeze
-    EXEC = "perl /usr/src/guidance/guidance.v2.01/www/Guidance/guidance.pl".freeze
+    EXEC = "perl /usr/src/guidance/guidance-2.01/www/Guidance/guidance.pl".freeze
     FASTA = "fasta.fasta".freeze
     OUTPUT = "output".freeze
 
