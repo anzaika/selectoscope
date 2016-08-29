@@ -6,6 +6,6 @@ class SubmitPipelineJob
                   backtrace: true
 
   def perform(group_id, profile_id)
-    Group.find(group_id).run_profile(profile_id)
+    Group.find(group_id).profile(profile_id)
   end
 end

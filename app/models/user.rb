@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   has_many :groups, dependent: :destroy
   has_many :batches, dependent: :destroy
-  has_many :run_profiles, dependent: :destroy
+  has_many :profiles, dependent: :destroy
 
   USER  = "user".freeze
   ADMIN = "admin".freeze

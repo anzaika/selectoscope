@@ -1,4 +1,4 @@
-Fabricator(:run_profile_run_report) do
+Fabricator(:profile_report) do
   group
-  run_profile
+  profile
 end

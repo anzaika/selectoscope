@@ -18,7 +18,7 @@ ActiveAdmin.register RunProfile do
     columns do
       column span: 1 do
         panel "General" do
-          attributes_table_for run_profile do
+          attributes_table_for profile do
             row :name
             row :description
           end
@@ -26,7 +26,7 @@ ActiveAdmin.register RunProfile do
       end
       column span: 1 do
         panel "Tools" do
-          table_for run_profile.tools do |tool|
+          table_for profile.tools do |tool|
             column :name
             column :type
           end
@@ -56,12 +56,12 @@ ActiveAdmin.register RunProfile do
 
   controller do
     def create
-      @run_profile = RunProfile.new(permitted_params["run_profile"])
-      @run_profile.user_id = current_user.id
-      if @run_profile.save
-        redirect_to @run_profile
+      @profile = RunProfile.new(permitted_params["profile"])
+      @profile.user_id = current_user.id
+      if @profile.save
+        redirect_to @profile
       else
-        flash[:errors] = @run_profile.errors.messages
+        flash[:errors] = @profile.errors.messages
         render("new")
       end
     end

@@ -28,7 +28,7 @@ class ExecuteToolForAlignment
   def execute_wrapper
     @tool_run_report =
       Guidance.run(input_fasta_string, @rprr.tool_for_alignment.id)
-    @tool_run_report.update_attribute(:run_profile_run_report_id, @rprr.id)
+    @tool_run_report.update_attribute(:profile_report_id, @rprr.id)
   end
 
   def tool_run_successful?

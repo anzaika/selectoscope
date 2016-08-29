@@ -1,8 +1,8 @@
 class Group < ActiveRecord::Base
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
-  has_many :run_profile_group_links, dependent: :destroy
-  has_many :run_profiles, through: :run_profile_group_links
-  has_many :run_profile_run_reports, dependent: :destroy
+  has_many :profile_group_links, dependent: :destroy
+  has_many :profiles, through: :profile_group_links
+  has_many :profile_reports, dependent: :destroy
 
   has_many :group_identifier_links, dependent: :destroy
   has_many :identifiers, through: :group_identifier_links
@@ -16,6 +16,7 @@ class Group < ActiveRecord::Base
   validates :fasta_file, presence: true
 
   after_create :submit_process_job
+  
 
   def name
     "Group " + id.to_s
@@ -46,10 +47,10 @@ class Group < ActiveRecord::Base
     TransformIdentifiers.new(id).transform
   end
 
-  def run_profile(profile_id)
-    rprr = run_profile_run_reports.find_by_run_profile_id(profile_id)
+  def profile(profile_id)
+    rprr = profile_reports.find_by_profile_id(profile_id)
     rprr.destroy if rprr
-    RunProfileRunReport.create(run_profile_id: profile_id, group_id: id).run_pipeline
+    RunProfileRunReport.create(profile_id: profile_id, group_id: id).run_pipeline
   end
 end
 

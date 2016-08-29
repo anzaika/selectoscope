@@ -1,5 +1,5 @@
 class Tool < ActiveRecord::Base
-  has_many :run_profile_tool_links, dependent: :destroy
+  has_many :profile_tool_links, dependent: :destroy
   has_many :tool_run_reports, dependent: :destroy
 
   validates :name, uniqueness: true, presence: true

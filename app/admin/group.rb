@@ -16,8 +16,8 @@ ActiveAdmin.register Group do
     column :sequences do |group|
       group.group_identifier_links.count
     end
-    column :run_profiles do |group|
-      group.run_profiles.map(&:name).join(", ")
+    column :profiles do |group|
+      group.profiles.map(&:name).join(", ")
     end
     # column "tree" do |group|
     #   if group.tree
@@ -59,18 +59,18 @@ ActiveAdmin.register Group do
   end
 
   member_action :run_all_profiles, method: :post do
-    resource.run_profiles.pluck(:id).each do |pid|
+    resource.profiles.pluck(:id).each do |pid|
       SubmitPipelineJob.perform_async(resource.id, pid)
     end
     redirect_to request.referrer, notice: "Full stack job submitted."
   end
 
   batch_action "add run profile",
-               form: -> { {"run_profile" => RunProfile.all.pluck(:name, :id)} } do |ids, inputs|
+               form: -> { {"profile" => RunProfile.all.pluck(:name, :id)} } do |ids, inputs|
     ids.each do |id|
-      RunProfileGroupLink.create(group_id: id, run_profile_id: inputs["run_profile"])
+      RunProfileGroupLink.create(group_id: id, profile_id: inputs["profile"])
     end
-    redirect_to request.referrer, notice: "Run profile: #{RunProfile.find(inputs['run_profile']).name} has been successfully added to #{ids.count} groups"
+    redirect_to request.referrer, notice: "Run profile: #{RunProfile.find(inputs['profile']).name} has been successfully added to #{ids.count} groups"
   end
 
   controller do

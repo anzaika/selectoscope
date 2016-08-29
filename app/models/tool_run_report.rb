@@ -1,15 +1,15 @@
 class ToolRunReport < ActiveRecord::Base
-  belongs_to :run_profile_run_report
+  belongs_to :profile_report
   belongs_to :tool
   has_many :text_files, as: :textifilable, dependent: :destroy
-  has_one :group, through: :run_profile_run_report
+  has_one :group, through: :profile_report
 
   scope :for_alignment, -> { joins(:tool).where("tools.type = ?", Tool::FOR_ALIGNMENT) }
   scope :for_tree, -> { joins(:tool).where("tools.type = ?", Tool::FOR_TREE) }
   scope :for_selection, -> { joins(:tool).where("tools.type = ?", Tool::FOR_SELECTION) }
 
   def decode_all_text_files
-    enigma = Enigma.new(run_profile_run_report.group.id)
+    enigma = Enigma.new(profile_report.group.id)
     text_files.each {|f| enigma.decode_file(f.file.path) }
   end
 
@@ -52,23 +52,23 @@ end
 #
 # Table name: tool_run_reports
 #
-#  id                        :integer          not null, primary key
-#  program                   :string(20)
-#  version                   :string(255)
-#  params                    :string(255)
-#  start                     :date
-#  finish                    :date
-#  runtime                   :integer
-#  directory_snapshot        :text(65535)
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  successful                :boolean
-#  run_profile_run_report_id :integer
-#  exec                      :string(255)
-#  tool_id                   :integer          not null
+#  id                 :integer          not null, primary key
+#  program            :string(20)
+#  version            :string(255)
+#  params             :string(255)
+#  start              :date
+#  finish             :date
+#  runtime            :integer
+#  directory_snapshot :text(65535)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  successful         :boolean
+#  profile_report_id  :integer
+#  exec               :string(255)
+#  tool_id            :integer          not null
 #
 # Indexes
 #
-#  index_tool_run_reports_on_run_profile_run_report_id_and_tool_id  (run_profile_run_report_id,tool_id) UNIQUE
-#  index_tool_run_reports_on_tool_id                                (tool_id)
+#  index_tool_run_reports_on_profile_report_id_and_tool_id  (profile_report_id,tool_id) UNIQUE
+#  index_tool_run_reports_on_tool_id                        (tool_id)
 #

@@ -9,8 +9,8 @@ RSpec.describe ToolRunReport, type: :model do
 
   describe "decode_all_text_files" do
     it "shou decode all files" do
-      profile = Fabricate(:run_profile_run_report)
-      report = Fabricate(:tool_run_report, run_profile_run_report: profile)
+      profile = Fabricate(:profile_report)
+      report = Fabricate(:tool_run_report, profile_report: profile)
       ident = profile.group.identifiers.first
       codename = ident.codename
       name = ident.name
