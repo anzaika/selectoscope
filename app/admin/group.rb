@@ -66,11 +66,11 @@ ActiveAdmin.register Group do
   end
 
   batch_action "add run profile",
-               form: -> { {"profile" => RunProfile.all.pluck(:name, :id)} } do |ids, inputs|
+               form: -> { {"profile" => Profile.all.pluck(:name, :id)} } do |ids, inputs|
     ids.each do |id|
-      RunProfileGroupLink.create(group_id: id, profile_id: inputs["profile"])
+      ProfileGroupLink.create(group_id: id, profile_id: inputs["profile"])
     end
-    redirect_to request.referrer, notice: "Run profile: #{RunProfile.find(inputs['profile']).name} has been successfully added to #{ids.count} groups"
+    redirect_to request.referrer, notice: "Run profile: #{Profile.find(inputs['profile']).name} has been successfully added to #{ids.count} groups"
   end
 
   controller do

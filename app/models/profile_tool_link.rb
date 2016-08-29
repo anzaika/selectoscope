@@ -1,4 +1,4 @@
-class RunProfileToolLink < ActiveRecord::Base
+class ProfileToolLink < ActiveRecord::Base
   belongs_to :profile
   belongs_to :tool
 end

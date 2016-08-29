@@ -1,4 +1,4 @@
-class CreateRunProfileReports < ActiveRecord::Migration
+class CreateProfileReports < ActiveRecord::Migration
   def change
     create_table :profile_reports do |t|
       t.integer :group_id, null: false

@@ -1,4 +1,4 @@
-class ToolRunReport < ActiveRecord::Base
+class ToolReport < ActiveRecord::Base
   belongs_to :profile_report
   belongs_to :tool
   has_many :text_files, as: :textifilable, dependent: :destroy

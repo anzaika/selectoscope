@@ -1,4 +1,4 @@
-class CreateRunProfileToolLinks < ActiveRecord::Migration
+class CreateProfileToolLinks < ActiveRecord::Migration
   def change
     create_table :profile_tool_links do |t|
       t.integer :profile_id, null: false

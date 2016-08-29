@@ -1,4 +1,4 @@
-ActiveAdmin.register RunProfile do
+ActiveAdmin.register Profile do
   permit_params :id,
                 :name,
                 :description,
@@ -56,7 +56,7 @@ ActiveAdmin.register RunProfile do
 
   controller do
     def create
-      @profile = RunProfile.new(permitted_params["profile"])
+      @profile = Profile.new(permitted_params["profile"])
       @profile.user_id = current_user.id
       if @profile.save
         redirect_to @profile

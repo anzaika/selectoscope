@@ -34,19 +34,19 @@ class Profile < ActiveRecord::Base
 
   # @param group_id [Integer]
   def execute_for_group(group_id)
-    RunProfileRunReport.create(group_id: group_id, profile_id: id).run_pipeline
+    ProfileReport.create(group_id: group_id, profile_id: id).run_pipeline
   end
 
   private
 
   def create_profile_tool_links
-    RunProfileToolLink.create(
+    ProfileToolLink.create(
       profile_id: id, tool_id: tool_for_alignment_id
     )
-    RunProfileToolLink.create(
+    ProfileToolLink.create(
       profile_id: id, tool_id: tool_for_tree_id
     )
-    RunProfileToolLink.create(
+    ProfileToolLink.create(
       profile_id: id, tool_id: tool_for_selection_id
     )
   end

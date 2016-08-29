@@ -7,7 +7,7 @@ class AlignmentJob
                   backtrace: true
 
   def perform(rprr_id)
-    rprr = RunProfileRunReport.find(rprr_id)
+    rprr = ProfileReport.find(rprr_id)
     rprr.tool_for_alignment.execute(rprr_id)
   end
 end

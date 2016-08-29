@@ -1,7 +1,7 @@
 class ExecuteToolForAlignment
-  # @param rprr_id [Integer] ID of RunProfileRunReport record
+  # @param rprr_id [Integer] ID of ProfileReport record
   def initialize(rprr_id)
-    @rprr = RunProfileRunReport.find(rprr_id)
+    @rprr = ProfileReport.find(rprr_id)
     execute
   end
 

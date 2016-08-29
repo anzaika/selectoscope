@@ -38,7 +38,7 @@ class ReportBase
 
   def save_tool_run_report
     @tool_run_report =
-      ToolRunReport.new(
+      ToolReport.new(
         directory_snapshot: @v.file_list,
         program:            @run.class::PROGRAM,
         exec:               @run.class::EXEC,

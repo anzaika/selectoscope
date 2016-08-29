@@ -1,4 +1,4 @@
-ActiveAdmin.register ToolRunReport do
+ActiveAdmin.register ToolReport do
   filter :program
 
   index do

@@ -50,7 +50,7 @@ class Group < ActiveRecord::Base
   def profile(profile_id)
     rprr = profile_reports.find_by_profile_id(profile_id)
     rprr.destroy if rprr
-    RunProfileRunReport.create(profile_id: profile_id, group_id: id).run_pipeline
+    ProfileReport.create(profile_id: profile_id, group_id: id).run_pipeline
   end
 end
 

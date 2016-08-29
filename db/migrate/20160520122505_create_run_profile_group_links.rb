@@ -1,4 +1,4 @@
-class CreateRunProfileGroupLinks < ActiveRecord::Migration
+class CreateProfileGroupLinks < ActiveRecord::Migration
   def change
     create_table :profile_group_links do |t|
       t.integer :group_id, null: false

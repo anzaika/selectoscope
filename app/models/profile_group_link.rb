@@ -1,4 +1,4 @@
-class RunProfileGroupLink < ActiveRecord::Base
+class ProfileGroupLink < ActiveRecord::Base
   belongs_to :group
   belongs_to :profile
 end

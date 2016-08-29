@@ -1,4 +1,4 @@
-class RenameRunReportToToolRunReport < ActiveRecord::Migration
+class RenameRunReportToToolReport < ActiveRecord::Migration
   def change
     rename_table :run_reports, :tool_run_reports
     remove_index :tool_run_reports, name: :index_tool_run_reports_on_group_id
