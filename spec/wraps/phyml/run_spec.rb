@@ -1,7 +1,7 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Phyml::Run do
-  let(:g)  { Fabricate(:group_with_alignment) }
+  let(:g) { Fabricate(:group) }
   let(:phyml) { Phyml::Run.new(g.id) }
 
   describe "#setup_files" do
@@ -17,7 +17,6 @@ RSpec.describe Phyml::Run do
     end
   end
 
-
   describe "#execute" do
     it "runs" do
       phyml.execute
@@ -28,5 +27,4 @@ RSpec.describe Phyml::Run do
       expect(FileTest.exist?(phyml.path_to_output)).to be(true)
     end
   end
-
 end
