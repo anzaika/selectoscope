@@ -14,12 +14,12 @@ ActiveAdmin.register Batch do
     column "Groups", sortable: "groups_count" do |batch|
       batch.count_groups
     end
-    column "Groups with positive (cnt)" do |batch|
-      batch.count_groups_with_positive
-    end
-    column "Groups with positive (%)" do |batch|
-      batch.percent_of_groups_with_positive
-    end
+    # column "Groups with positive (cnt)" do |batch|
+    #   batch.count_groups_with_positive
+    # end
+    # column "Groups with positive (%)" do |batch|
+    #   batch.percent_of_groups_with_positive
+    # end
     actions
   end
 
@@ -50,15 +50,15 @@ ActiveAdmin.register Batch do
                 div group.name
               end
             end
-            column :positive_selection do |group|
-              if group.fast_result && group.fast_result.has_positive
-                status_tag "yes"
-              elsif group.fast_result && !group.fast_result.has_positive
-                status_tag "no"
-              else
-                "---"
-              end
-            end
+            # column :positive_selection do |group|
+            #   if group.fast_result && group.fast_result.has_positive
+            #     status_tag "yes"
+            #   elsif group.fast_result && !group.fast_result.has_positive
+            #     status_tag "no"
+            #   else
+            #     "---"
+            #   end
+            # end
           end
         end
       end

@@ -1,0 +1,5 @@
+image: anzaika/selectoscope_base
+
+test:
+  script:
+  - bundle exec rspec

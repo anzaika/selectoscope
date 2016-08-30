@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: fasta_files
-#
-#  id                          :integer          not null, primary key
-#  representable_as_fasta_type :string(255)
-#  representable_as_fasta_id   :integer
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
-#  file_file_name              :string(255)
-#  file_content_type           :string(255)
-#  file_file_size              :integer
-#  file_updated_at             :datetime
-#
-
 class FastaFile::RepeatingIdentifiersValidator < ActiveModel::Validator
   def validate(record)
     content = File.open(record.file.queued_for_write[:original].path).read
@@ -32,3 +17,22 @@ end
 class FastaFile::AsUpload < ActiveType::Record[FastaFile]
   validates_with FastaFile::RepeatingIdentifiersValidator
 end
+
+# == Schema Information
+#
+# Table name: fasta_files
+#
+#  id                          :integer          not null, primary key
+#  representable_as_fasta_type :string(255)
+#  representable_as_fasta_id   :integer
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  file_file_name              :string(255)
+#  file_content_type           :string(255)
+#  file_file_size              :integer
+#  file_updated_at             :datetime
+#
+# Indexes
+#
+#  fasta_filex_polymorphic  (representable_as_fasta_id,representable_as_fasta_type)
+#

@@ -11,16 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322164710) do
+ActiveRecord::Schema.define(version: 20160830175700) do
 
   create_table "alignments", force: :cascade do |t|
-    t.integer  "group_id",   limit: 4
-    t.string   "meta",       limit: 255
+    t.integer  "alignable_id",   limit: 4
+    t.string   "meta",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "alignable_type", limit: 50
   end
 
-  add_index "alignments", ["group_id"], name: "index_alignments_on_group_id", using: :btree
+  add_index "alignments", ["alignable_id", "alignable_type"], name: "index_alignments_on_alignable_id_and_alignable_type", using: :btree
 
   create_table "batches", force: :cascade do |t|
     t.string   "name",         limit: 255
@@ -44,14 +45,34 @@ ActiveRecord::Schema.define(version: 20160322164710) do
 
   add_index "codeml_results", ["group_id"], name: "index_codeml_results_on_group_id", using: :btree
 
-  create_table "fast_results", force: :cascade do |t|
-    t.integer  "group_id",     limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.boolean  "has_positive"
+  create_table "fast_result_branches", force: :cascade do |t|
+    t.integer "fast_result_id", limit: 4,                           null: false
+    t.integer "number",         limit: 4,                           null: false
+    t.decimal "l0",                       precision: 16, scale: 11
+    t.decimal "l1",                       precision: 16, scale: 11
+    t.boolean "positive"
+    t.decimal "q",                        precision: 16, scale: 11
   end
 
-  add_index "fast_results", ["group_id"], name: "index_fast_results_on_group_id", using: :btree
+  add_index "fast_result_branches", ["fast_result_id", "positive"], name: "index_fast_result_branches_on_fast_result_id_and_positive", using: :btree
+
+  create_table "fast_result_sites", force: :cascade do |t|
+    t.integer "fast_result_id", limit: 4,                         null: false
+    t.integer "branch",         limit: 4,                         null: false
+    t.integer "position",       limit: 4,                         null: false
+    t.decimal "probability",              precision: 7, scale: 6, null: false
+  end
+
+  add_index "fast_result_sites", ["fast_result_id"], name: "index_fast_result_sites_on_fast_result_id", using: :btree
+
+  create_table "fast_results", force: :cascade do |t|
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.boolean  "has_positive"
+    t.integer  "run_report_id", limit: 4, null: false
+  end
+
+  add_index "fast_results", ["run_report_id"], name: "index_fast_results_on_run_report_id", using: :btree
 
   create_table "fasta_files", force: :cascade do |t|
     t.string   "representable_as_fasta_type", limit: 255
@@ -66,44 +87,64 @@ ActiveRecord::Schema.define(version: 20160322164710) do
 
   add_index "fasta_files", ["representable_as_fasta_id", "representable_as_fasta_type"], name: "fasta_filex_polymorphic", using: :btree
 
+  create_table "group_identifier_links", force: :cascade do |t|
+    t.integer "group_id",      limit: 4, null: false
+    t.integer "identifier_id", limit: 4, null: false
+  end
+
+  add_index "group_identifier_links", ["group_id", "identifier_id"], name: "index_group_identifier_links_on_group_id_and_identifier_id", unique: true, using: :btree
+  add_index "group_identifier_links", ["identifier_id"], name: "index_group_identifier_links_on_identifier_id", using: :btree
+
   create_table "groups", force: :cascade do |t|
     t.integer "avg_sequence_length", limit: 4
     t.integer "batch_id",            limit: 4
     t.integer "user_id",             limit: 4
+    t.boolean "preprocessing_done",            default: false, null: false
   end
 
   add_index "groups", ["batch_id"], name: "index_groups_on_batch_id", using: :btree
   add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
 
-  create_table "groups_identifiers", id: false, force: :cascade do |t|
-    t.integer "group_id",      limit: 4
-    t.integer "identifier_id", limit: 4
-  end
-
-  add_index "groups_identifiers", ["group_id", "identifier_id"], name: "index_groups_identifiers_on_group_id_and_identifier_id", unique: true, using: :btree
-  add_index "groups_identifiers", ["identifier_id"], name: "index_groups_identifiers_on_identifier_id", using: :btree
-
   create_table "identifiers", force: :cascade do |t|
-    t.string "name",     limit: 255
+    t.string "name",     limit: 255, null: false
     t.string "codename", limit: 10
   end
 
-  create_table "run_reports", force: :cascade do |t|
-    t.string   "program",            limit: 20
-    t.string   "version",            limit: 255
-    t.string   "params",             limit: 255
-    t.date     "start"
-    t.date     "finish"
-    t.integer  "runtime",            limit: 4
-    t.text     "directory_snapshot", limit: 65535
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.boolean  "successful"
-    t.integer  "group_id",           limit: 4
-    t.string   "exec",               limit: 255
+  add_index "identifiers", ["codename"], name: "index_identifiers_on_codename", unique: true, using: :btree
+  add_index "identifiers", ["name"], name: "index_identifiers_on_name", unique: true, using: :btree
+
+  create_table "profile_group_links", force: :cascade do |t|
+    t.integer "group_id",   limit: 4, null: false
+    t.integer "profile_id", limit: 4, null: false
   end
 
-  add_index "run_reports", ["group_id"], name: "index_run_reports_on_group_id", using: :btree
+  add_index "profile_group_links", ["group_id"], name: "index_profile_group_links_on_group_id", using: :btree
+  add_index "profile_group_links", ["profile_id", "group_id"], name: "index_profile_group_links_on_profile_id_and_group_id", unique: true, using: :btree
+
+  create_table "profile_reports", force: :cascade do |t|
+    t.integer  "group_id",   limit: 4, null: false
+    t.integer  "profile_id", limit: 4, null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "profile_tool_links", force: :cascade do |t|
+    t.integer "profile_id", limit: 4, null: false
+    t.integer "tool_id",    limit: 4, null: false
+  end
+
+  add_index "profile_tool_links", ["profile_id"], name: "index_profile_tool_links_on_profile_id", using: :btree
+  add_index "profile_tool_links", ["tool_id", "profile_id"], name: "index_profile_tool_links_on_tool_id_and_profile_id", unique: true, using: :btree
+
+  create_table "profiles", force: :cascade do |t|
+    t.string   "name",        limit: 255,   null: false
+    t.text     "description", limit: 65535
+    t.integer  "user_id",     limit: 4,     null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "profiles", ["user_id", "name"], name: "index_profiles_on_user_id_and_name", using: :btree
 
   create_table "text_files", force: :cascade do |t|
     t.string   "textifilable_type", limit: 20,  null: false
@@ -118,6 +159,36 @@ ActiveRecord::Schema.define(version: 20160322164710) do
   end
 
   add_index "text_files", ["textifilable_id", "textifilable_type"], name: "index_text_files_on_textifilable_id_and_textifilable_type", using: :btree
+
+  create_table "tool_reports", force: :cascade do |t|
+    t.string   "program",            limit: 20
+    t.string   "version",            limit: 255
+    t.string   "params",             limit: 255
+    t.date     "start"
+    t.date     "finish"
+    t.integer  "runtime",            limit: 4
+    t.text     "directory_snapshot", limit: 65535
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "successful"
+    t.integer  "profile_report_id",  limit: 4
+    t.string   "exec",               limit: 255
+    t.integer  "tool_id",            limit: 4,     null: false
+  end
+
+  add_index "tool_reports", ["profile_report_id"], name: "index_tool_reports_on_profile_report_id", using: :btree
+  add_index "tool_reports", ["tool_id"], name: "index_tool_reports_on_tool_id", using: :btree
+
+  create_table "tools", force: :cascade do |t|
+    t.string   "name",        limit: 150,   null: false
+    t.text     "description", limit: 65535
+    t.string   "class_name",  limit: 80,    null: false
+    t.string   "type",        limit: 50,    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "tools", ["type"], name: "index_tools_on_type", using: :btree
 
   create_table "trees", force: :cascade do |t|
     t.binary  "newick",        limit: 65535

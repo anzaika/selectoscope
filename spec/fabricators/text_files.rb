@@ -1,14 +1,11 @@
 Fabricator(:text_file) do
-end
-
-Fabricator(:good_fast_output, from: :text_file) do
-  meta 'fast_result'
-  file do
-    File.open(File.join(Rails.root,
-                        'spec',
-                        'fixtures',
-                        'good_fast',
-                        'output.out'))
+  transient :content
+  textifilable { Fabricate(:tool_run_report) }
+  file do |attrs|
+    f = Tempfile.new(Faker::Lorem.word)
+    content = attrs[:content] || Faker::Lorem.paragraphs(5).join("\n")
+    f.write(content)
+    f.rewind
+    File.open(f.path)
   end
-  textifilable { Fabricate(:fast_result) }
 end

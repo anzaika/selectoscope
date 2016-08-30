@@ -1,13 +1,3 @@
-# == Schema Information
-#
-# Table name: trees
-#
-#  id            :integer          not null, primary key
-#  newick        :binary(65535)
-#  treeable_id   :integer          not null
-#  treeable_type :string(20)       not null
-#
-
 require 'rails_helper'
 
 RSpec.describe Tree, type: :model do
@@ -20,3 +10,17 @@ RSpec.describe Tree, type: :model do
   #   end
   # end
 end
+
+# == Schema Information
+#
+# Table name: trees
+#
+#  id            :integer          not null, primary key
+#  newick        :binary(65535)
+#  treeable_id   :integer          not null
+#  treeable_type :string(20)       not null
+#
+# Indexes
+#
+#  index_trees_on_treeable_id_and_treeable_type  (treeable_id,treeable_type)
+#

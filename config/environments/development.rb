@@ -1,5 +1,3 @@
-Rack::Utils.multipart_part_limit = 0
-
 Rails.application.configure do
   config.cache_classes = false
   config.eager_load = false
@@ -10,12 +8,17 @@ Rails.application.configure do
   config.active_record.migration_error = :page_load
   config.assets.debug = true
   config.assets.raise_runtime_errors = true
-  config.logger = Logger.new(STDOUT)
-  config.logger.level = Logger.const_get('DEBUG')
-  config.log_level    = :debug
+
+  # config.action_view.logger = nil
+  # config.logger.level = Logger.const_get("DEBUG")
+  config.log_level = :debug
   config.active_record.raise_in_transactional_callbacks = true
 
-  BetterErrors::Middleware.allow_ip!('172.20.0.1')
+  config.assets.digest = false
+  config.assets.compress = false
+  config.enable_anon_caching = false
+
+  BetterErrors::Middleware.allow_ip!("172.20.0.1")
   config.load_mini_profiler = true
-  require 'rbtrace'
+  require "rbtrace"
 end

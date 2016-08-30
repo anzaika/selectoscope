@@ -1,0 +1,6 @@
+- root = "fasta_file#{rand(10000000000)}"
+.alignment-wrap{style: "overflow: scroll;"}
+  %div{ id: root }
+
+:javascript
+  window.AlignmentViewer.build(#{fasta_file.id}, "#{root}", 'fasta_files');

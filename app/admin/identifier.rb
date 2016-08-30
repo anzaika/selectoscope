@@ -2,7 +2,7 @@ ActiveAdmin.register Identifier do
   permit_params :id,
                 :name
 
-  index do
+  index download_links: false do
     selectable_column
     column :name
     column :codename

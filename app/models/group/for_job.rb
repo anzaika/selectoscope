@@ -1,13 +1,3 @@
-# == Schema Information
-#
-# Table name: groups
-#
-#  id                  :integer          not null, primary key
-#  avg_sequence_length :integer
-#  batch_id            :integer
-#  user_id             :integer
-#
-
 class Group::ForJob < ActiveType::Record[Group]
 
   def alignment
@@ -34,3 +24,19 @@ class Group::ForJob < ActiveType::Record[Group]
   # end
 
 end
+
+# == Schema Information
+#
+# Table name: groups
+#
+#  id                  :integer          not null, primary key
+#  avg_sequence_length :integer
+#  batch_id            :integer
+#  user_id             :integer
+#  preprocessing_done  :boolean          default(FALSE), not null
+#
+# Indexes
+#
+#  index_groups_on_batch_id  (batch_id)
+#  index_groups_on_user_id   (user_id)
+#

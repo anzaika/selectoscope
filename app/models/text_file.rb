@@ -1,3 +1,20 @@
+class TextFile < ActiveRecord::Base
+  has_attached_file :file,
+                    path: ":rails_root/storage/text_files/:id/:basename.:extension",
+                    url:  "/text_file/:id/:filename"
+
+  do_not_validate_attachment_file_type :file
+  belongs_to :textifilable, polymorphic: true
+
+  def web_view
+    File.open(file.path).read.split("\n").join("</br>").html_safe
+  end
+
+  def raw
+    File.open(file.path).read
+  end
+end
+
 # == Schema Information
 #
 # Table name: text_files
@@ -13,16 +30,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
-
-class TextFile < ActiveRecord::Base
-  has_attached_file :file,
-                    path: ":rails_root/storage/text_files/:id/:basename.:extension",
-                    url:  "/text_file/:id/:filename"
-
-  do_not_validate_attachment_file_type :file
-  belongs_to :textifilable, polymorphic: true
-
-  def web_view
-    File.open(file.path).read.split("\n").join("</br>").html_safe
-  end
-end
+# Indexes
+#
+#  index_text_files_on_textifilable_id_and_textifilable_type  (textifilable_id,textifilable_type)
+#

@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: fasta_files
-#
-#  id                          :integer          not null, primary key
-#  representable_as_fasta_type :string(255)
-#  representable_as_fasta_id   :integer
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
-#  file_file_name              :string(255)
-#  file_content_type           :string(255)
-#  file_file_size              :integer
-#  file_updated_at             :datetime
-#
-
 require "rails_helper"
 
 RSpec.describe FastaFile, type: :model do
@@ -27,3 +12,22 @@ RSpec.describe FastaFile, type: :model do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: fasta_files
+#
+#  id                          :integer          not null, primary key
+#  representable_as_fasta_type :string(255)
+#  representable_as_fasta_id   :integer
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  file_file_name              :string(255)
+#  file_content_type           :string(255)
+#  file_file_size              :integer
+#  file_updated_at             :datetime
+#
+# Indexes
+#
+#  fasta_filex_polymorphic  (representable_as_fasta_id,representable_as_fasta_type)
+#
