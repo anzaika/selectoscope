@@ -1,7 +1,4 @@
 class ToolForAlignment < Tool
-  # @param fasta [Bio::Alignment]
-  # @param rprr_id [Integer] id of RunProfileRunReport
-  # @return Bio::Alignment
   def execute(rprr_id)
     ExecuteToolForAlignment.new(rprr_id)
   end

@@ -1,2 +1,6 @@
-- alignment = run_profile_run_report.alignment
+- alignment = profile_report.alignment
 = render alignment if alignment
+
+- tree = profile_report.tree
+- if tree
+  = render(partial: "trees/tree", locals: {tree: tree.newick, width: 600, compact: false})

@@ -7,9 +7,9 @@ end
 #
 # Table name: profile_tool_links
 #
-#  id             :integer          not null, primary key
+#  id         :integer          not null, primary key
 #  profile_id :integer          not null
-#  tool_id        :integer          not null
+#  tool_id    :integer          not null
 #
 # Indexes
 #

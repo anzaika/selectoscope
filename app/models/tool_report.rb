@@ -50,7 +50,7 @@ end
 
 # == Schema Information
 #
-# Table name: tool_run_reports
+# Table name: tool_reports
 #
 #  id                 :integer          not null, primary key
 #  program            :string(20)
@@ -69,6 +69,6 @@ end
 #
 # Indexes
 #
-#  index_tool_run_reports_on_profile_report_id_and_tool_id  (profile_report_id,tool_id) UNIQUE
-#  index_tool_run_reports_on_tool_id                        (tool_id)
+#  index_tool_reports_on_profile_report_id_and_tool_id  (profile_report_id,tool_id) UNIQUE
+#  index_tool_reports_on_tool_id                        (tool_id)
 #

@@ -24,9 +24,9 @@ end
 #
 # Table name: profile_reports
 #
-#  id             :integer          not null, primary key
-#  group_id       :integer          not null
+#  id         :integer          not null, primary key
+#  group_id   :integer          not null
 #  profile_id :integer          not null
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
