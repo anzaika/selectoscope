@@ -6,15 +6,15 @@ class PipelineJob
                   timeout:   600.minutes,
                   backtrace: true
 
-
-
-  def perform(rprr_id)
+  def perform(profile_report_id)
     # check_group_preprocessing_done(rprr_id)
-    jid = AlignmentJob.perform_async(rprr_id)
-    # at(20, "Alignment complete")
-    # job_status(interval: 5, jid: jid) &&
-    #   jid = PhymlJob.perform_async(rprr_id)
-    # at(40, "Gblocks complete")
+    jid = AlignmentJob.perform_async(profile_report_id)
+    at(20, "Alignment complete")
+
+    job_status(interval: 5, jid: jid) &&
+      jid = TreeJob.perform_async(profile_report_id)
+    at(40, "Tree complete")
+
     # job_status(interval: 10, jid: jid) &&
     #   jid = CodemlJob.perform_async(rprr_id)
     # at(60, "PhyML complete")
