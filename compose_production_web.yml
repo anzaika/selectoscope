@@ -1,12 +1,13 @@
-web:
-  extends:
-    file: compose_common.yml
-    service: web
-  image: 'anzaika/selectoscope'
-  user: 'prod_user'
-  volumes:
-    - "./log:/opt/app/log"
-    - "./production_data/storage:/opt/app/storage"
-  restart: always
-  env_file:
-    - 'production.env'
+version: '2'
+services:
+  web:
+    extends:
+      file: compose_common.yml
+      service: web
+    user: 'prod_user'
+    volumes:
+      - "./data/log:/opt/app/log"
+      - "./data/storage:/opt/app/storage"
+    restart: always
+    env_file:
+      - 'production.env'
