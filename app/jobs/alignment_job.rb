@@ -6,8 +6,7 @@ class AlignmentJob
                   timeout:   60.minutes,
                   backtrace: true
 
-  def perform(rprr_id)
-    rprr = ProfileReport.find(rprr_id)
-    rprr.tool_for_alignment.execute(rprr_id)
+  def perform(profile_report_id)
+    ProfileReport.find(profile_report_id).execute_tool_for_alignment
   end
 end

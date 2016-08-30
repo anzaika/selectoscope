@@ -3,18 +3,11 @@ require "rails_helper"
 RSpec.describe Guidance do
   describe "::run" do
     it "runs" do
-      tool = Fabricate(:tool)
-      result = Guidance.run(fasta_string, tool.id)
-      expect(result.successful).to be true
+      guidance_tool = Fabricate(:tool_for_alignment, class_name: "Guidance")
+      profile = Fabricate(:profile, tool_for_alignment_id: guidance_tool.id)
+      profile_report = Fabricate(:profile_report, profile: profile)
+      
+      Guidance.run(profile_report.id)
     end
   end
-end
-
-def fasta_string
-  # nucs = %w(A T G C)
-  # counts = Array.new(4) { 3 * Faker::Number.number(1).to_i }
-  # counts = Array.new(4) { 3 }
-  seqs = Array.new(4) { Bio::Sequence::NA.new("atgttttga") }
-  names = Array.new(4) { Faker::Lorem.word }
-  Bio::Alignment.new(names.zip(seqs).to_h).output_fasta
 end

@@ -50,7 +50,7 @@ end
 
 group.profiles.each do |profile|
   panel "Run Profile: #{profile.name}" do
-    rprr = ProfileReport.where(group_id: group.id, profile_id: profile.id).first
-    render rprr if rprr
+    report = ProfileReport.where(group_id: group.id, profile_id: profile.id).first
+    report && render(report)
   end
 end

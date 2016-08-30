@@ -1,5 +1,9 @@
 class RunBase
 
+  def initialize(profile_report)
+    @profile_report = profile_report
+  end
+
   def v
     @v ||= Vault.new
   end

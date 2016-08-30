@@ -1,9 +1,10 @@
 module Guidance
   # @param fasta_string [String]
-  def self.run(fasta_string, tool_id)
-    run = Guidance::Run.new(fasta_string)
+  def self.run(profile_report_id)
+    profile_report = ProfileReport.find(profile_report_id)
+    run = Guidance::Run.new(profile_report)
     run.execute
-    report = Guidance::Report.new(run, tool_id)
+    report = Guidance::Report.new(run, profile_report)
     report.save
   end
 end

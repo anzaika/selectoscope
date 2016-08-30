@@ -16,7 +16,7 @@ class Group < ActiveRecord::Base
   validates :fasta_file, presence: true
 
   after_create :submit_process_job
-  
+
 
   def name
     "Group " + id.to_s
@@ -47,10 +47,18 @@ class Group < ActiveRecord::Base
     TransformIdentifiers.new(id).transform
   end
 
-  def profile(profile_id)
-    rprr = profile_reports.find_by_profile_id(profile_id)
-    rprr.destroy if rprr
-    ProfileReport.create(profile_id: profile_id, group_id: id).run_pipeline
+  def execute_pipeline_with_profile(profile_id)
+    report = profile_reports.find_by_profile_id(profile_id)
+    report.destroy if report
+    ProfileReport.create(profile_id: profile_id, group_id: id).execute_pipeline
+  end
+
+  def execute_pipeline_for_all_profiles
+    profiles.pluck(:id).each{|pr_id| execute_pipeline_with_profile(pr_id) }
+  end
+
+  def enigma
+    Identifier::Enigma.new(id)
   end
 end
 

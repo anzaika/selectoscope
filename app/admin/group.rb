@@ -60,7 +60,7 @@ ActiveAdmin.register Group do
 
   member_action :run_all_profiles, method: :post do
     resource.profiles.pluck(:id).each do |pid|
-      SubmitPipelineJob.perform_async(resource.id, pid)
+      resource.execute_pipeline_for_all_profiles
     end
     redirect_to request.referrer, notice: "Full stack job submitted."
   end

@@ -18,9 +18,9 @@ module Phyml
     end
 
     def copy_encoded_alignment
-      fasta = @g.alignment.to_molphy_string
-      encoded = Identifier::Enigma.new(@g.id).encode_string(fasta)
-      @v.write_to_file(encoded, ALIGNMENT)
+      fasta = @profile_report.alignment.to_molphy_string
+      encoded = @profile_report.group.enigma.encode_string(fasta)
+      v.write_to_file(encoded, ALIGNMENT)
     end
   end
 end

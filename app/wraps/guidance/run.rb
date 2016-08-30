@@ -5,11 +5,6 @@ module Guidance
     FASTA = "fasta.fasta".freeze
     OUTPUT = "output".freeze
 
-    # @param fasta_string [String]
-    def initialize(fasta_string)
-      @fasta_string = fasta_string
-    end
-
     def version
       ""
     end
@@ -22,7 +17,15 @@ module Guidance
     end
 
     def setup_files
-      v.write_to_file(@fasta_string, FASTA)
+      v.write_to_file(encoded_fasta_string, FASTA)
+    end
+
+    def encoded_fasta_string
+      @profile_report
+        .group
+        .enigma
+        .encode_string(
+          @profile_report.group.fasta_file.to_fasta_string)
     end
   end
 end

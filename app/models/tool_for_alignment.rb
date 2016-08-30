@@ -1,6 +1,6 @@
 class ToolForAlignment < Tool
-  def execute(rprr_id)
-    ExecuteToolForAlignment.new(rprr_id)
+  def execute(profile_report_id)
+    class_name.constantize.run(profile_report_id)
   end
 end
 

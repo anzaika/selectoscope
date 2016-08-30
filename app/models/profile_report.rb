@@ -8,15 +8,25 @@ class ProfileReport < ActiveRecord::Base
   delegate :tool_for_tree, to: :profile
   delegate :tool_for_selection, to: :profile
 
-  has_many :tool_run_reports, dependent: :nullify
+  has_many :tool_reports, dependent: :nullify
 
   has_one :alignment, as: :alignable, dependent: :destroy
   has_one :tree, as: :treeable, dependent: :destroy
   # has_one :codeml_result, dependent: :destroy
   # has_one :fast_result, dependent: :destroy
 
-  def run_pipeline
+  # after_create :execute_pipeline
+
+  def execute_pipeline
     PipelineJob.perform_async(id)
+  end
+
+  def execute_tool_for_alignment
+    tool_for_alignment.execute(id)
+  end
+
+  def execute_tool_for_tree
+    tool_for_tree.execute(id)
   end
 end
 

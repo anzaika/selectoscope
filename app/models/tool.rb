@@ -17,6 +17,10 @@ class Tool < ActiveRecord::Base
   def self.types
     %w(ToolForAlignment ToolForTree ToolForSelection)
   end
+
+  def execute(profile_report_id)
+    class_name.constantize.run(profile_report_id)
+  end
 end
 
 # == Schema Information
