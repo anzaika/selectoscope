@@ -17,7 +17,6 @@ class Group < ActiveRecord::Base
 
   after_create :submit_process_job
 
-
   def name
     "Group " + id.to_s
   end
