@@ -23,14 +23,14 @@ RSpec.describe FastOutput::Output do
     end
 
     describe "#tree" do
-      it "should return a PhylogeneticTree" do
-        expect(o.tree.class).to eq(PhylogeneticTree)
+      it "should return a Tree" do
+        expect(o.tree.class).to eq(Tree)
       end
     end
 
     describe "#tree_with_positive" do
-      it "should return a PhylogeneticTree" do
-        expect(o.tree_with_positive.class).to eq(PhylogeneticTree)
+      it "should return a Tree" do
+        expect(o.tree_with_positive.class).to eq(Tree)
       end
     end
   end

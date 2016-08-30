@@ -20,12 +20,12 @@ module FastOutput
       @sites ||= output_parser.parse_sites
     end
 
-    # @return [PhylogeneticTree]
+    # @return [Tree]
     def tree
       @tree ||= stdout_parser.parse_tree
     end
 
-    # @return [PhylogeneticTree]
+    # @return [Tree]
     def tree_with_positive
       @tree_positive ||= create_tree_with_positive
     end

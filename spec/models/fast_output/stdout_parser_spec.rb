@@ -20,10 +20,10 @@ RSpec.describe FastOutput::StdoutParser do
     it "should respond" do
       expect(parser(output)).to respond_to(:parse_tree)
     end
-    it "should return a PhylogeneticTree object" do
-      expect(parser(output).parse_tree.class).to eq(PhylogeneticTree)
+    it "should return a Tree object" do
+      expect(parser(output).parse_tree.class).to eq(Tree)
     end
-    it "should return a PhylogeneticTree object with correct content" do
+    it "should return a Tree object with correct content" do
       expect(parser(output).parse_tree.newick.include?("(9_Burkholderia_multivorans_ATCC_17616_JGI,8_Burkholderia_multivorans_ATCC_17616")).to be true
     end
   end

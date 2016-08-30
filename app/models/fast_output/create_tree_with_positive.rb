@@ -1,8 +1,8 @@
 module FastOutput
   class CreateTreeWithPositive
-    # @param fast_tree [PhylogeneticTree] A tree from fast run
+    # @param fast_tree [Tree] A tree from fast run
     # @param branches [Array<FastOutput::Branch>]
-    # @return [PhylogeneticTree]
+    # @return [Tree]
     def initialize(fast_tree, branches)
       @fast_tree = fast_tree
       @branches = branches
@@ -14,7 +14,7 @@ module FastOutput
         branch_num = v.split("*").last.to_i
         @branches[branch_num].positive? ? "-" : ""
       end
-      PhylogeneticTree.new(tree)
+      Tree.new(tree)
     end
 
     # def run
