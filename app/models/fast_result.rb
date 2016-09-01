@@ -1,6 +1,5 @@
 class FastResult < ActiveRecord::Base
-  belongs_to :run_report
-  has_one :group, through: :run_report
+  belongs_to :profile_report
   has_many :fast_result_branches, dependent: :destroy
   has_many :fast_result_sites, dependent: :destroy
   has_one :tree, as: :treeable, dependent: :destroy
@@ -14,7 +13,7 @@ class FastResult < ActiveRecord::Base
   private
 
   def parse_output
-    out = FastOutput::Output.new(run_report)
+    out = FastOutput::Output.new(profile_report.tool_reports.last)
     return nil unless out
     create_branches(out)
     create_sites(out)

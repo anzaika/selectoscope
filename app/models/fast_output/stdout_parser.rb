@@ -9,7 +9,8 @@ module FastOutput
                       .index("Annotated Newick tree (*N mark the internal branch N)")
       return nil unless tree_row
       tree = @text.split("\n")[tree_row + 1]
-      Tree.new(tree)
+      Tree.new(newick: tree)
+      
     end
   end
 end

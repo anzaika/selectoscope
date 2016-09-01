@@ -15,9 +15,10 @@ class PipelineJob
       jid = TreeJob.perform_async(profile_report_id)
     at(40, "Tree complete")
 
-    # job_status(interval: 10, jid: jid) &&
-    #   jid = CodemlJob.perform_async(rprr_id)
-    # at(60, "PhyML complete")
+    job_status(interval: 10, jid: jid) &&
+      jid = SelectionJob.perform_async(profile_report_id)
+    at(60, "PhyML complete")
+    
     # job_status(interval: 10, jid: jid) &&
     #   jid = FastcodemlJob.perform_async(rprr_id)
     # at(80, "CodeML complete")

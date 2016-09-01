@@ -1,5 +1,6 @@
 ActiveAdmin.register ToolReport do
   filter :program
+  config.per_page = 40
 
   index do
     selectable_column

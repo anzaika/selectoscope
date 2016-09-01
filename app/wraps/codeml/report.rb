@@ -7,10 +7,9 @@ module Codeml
 
     def run_successful?
       @run_successful ||=
-        Dir.exist?(@run.path_to_output) &&
-        FileTest.exist?(File.join(@run.path_to_output) &&
-        FileTest.exist?(v.path_to_stdout) &&
-        FileTest.exist?(v.path_to_stderr)
+        FileTest.exist?(@run.path_to_output) &&
+        FileTest.exist?(@v.path_to_stdout) &&
+        FileTest.exist?(@v.path_to_stderr)
     end
 
     def save_tool_results
@@ -21,7 +20,7 @@ module Codeml
       TextFile.create(
         file:         File.open(@run.path_to_output),
         meta:         "codeml_output",
-        textifilable: @profile_report
+        textifilable: @tool_report
       )
 
       TextFile.create(

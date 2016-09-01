@@ -14,7 +14,7 @@ module FastOutput
         branch_num = v.split("*").last.to_i
         @branches[branch_num].positive? ? "-" : ""
       end
-      Tree.new(tree)
+      Tree.new(newick: tree)
     end
 
     # def run

@@ -29,7 +29,7 @@ class Profile < ActiveRecord::Base
   end
 
   def tool_for_selection
-    tools.for_tree.limit(1).first
+    tools.for_selection.limit(1).first
   end
 
   # @param group_id [Integer]

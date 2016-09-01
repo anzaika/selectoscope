@@ -26,6 +26,10 @@ class ProfileReport < ActiveRecord::Base
   def execute_tool_for_tree
     tool_for_tree.execute(id)
   end
+
+  def execute_tool_for_selection
+    tool_for_selection.execute(id)
+  end
 end
 
 # == Schema Information

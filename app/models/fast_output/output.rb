@@ -1,7 +1,7 @@
 module FastOutput
   class Output
-    def initialize(run_report)
-      @report = run_report
+    def initialize(tool_report)
+      @report = tool_report
       read_logs
     end
 

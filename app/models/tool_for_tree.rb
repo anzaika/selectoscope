@@ -1,7 +1,4 @@
 class ToolForTree < Tool
-  def execute(profile_report_id)
-    class_name.constantize.run(profile_report_id)
-  end
 end
 
 # == Schema Information
