@@ -44,15 +44,15 @@ end
 #
 # Table name: codeml_results
 #
-#  id       :integer          not null, primary key
-#  k        :float(24)
-#  w0       :float(24)
-#  w1       :float(24)
-#  p0       :float(24)
-#  p1       :float(24)
-#  group_id :integer
+#  id                :integer          not null, primary key
+#  k                 :float(24)
+#  w0                :float(24)
+#  w1                :float(24)
+#  p0                :float(24)
+#  p1                :float(24)
+#  profile_report_id :integer
 #
 # Indexes
 #
-#  index_codeml_results_on_group_id  (group_id)
+#  index_codeml_results_on_profile_report_id  (profile_report_id)
 #

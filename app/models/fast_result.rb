@@ -64,13 +64,13 @@ end
 #
 # Table name: fast_results
 #
-#  id            :integer          not null, primary key
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  has_positive  :boolean
-#  run_report_id :integer          not null
+#  id                :integer          not null, primary key
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  has_positive      :boolean
+#  profile_report_id :integer
 #
 # Indexes
 #
-#  index_fast_results_on_run_report_id  (run_report_id)
+#  index_fast_results_on_profile_report_id  (profile_report_id)
 #

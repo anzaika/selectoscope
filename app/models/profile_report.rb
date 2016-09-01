@@ -12,10 +12,8 @@ class ProfileReport < ActiveRecord::Base
 
   has_one :alignment, as: :alignable, dependent: :destroy
   has_one :tree, as: :treeable, dependent: :destroy
-  # has_one :codeml_result, dependent: :destroy
-  # has_one :fast_result, dependent: :destroy
-
-  # after_create :execute_pipeline
+  has_one :codeml_result, dependent: :destroy
+  has_one :fast_result, dependent: :destroy
 
   def execute_pipeline
     PipelineJob.perform_async(id)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160830175700) do
+ActiveRecord::Schema.define(version: 20160901034407) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "alignable_id",   limit: 4
@@ -35,15 +35,15 @@ ActiveRecord::Schema.define(version: 20160830175700) do
   add_index "batches", ["user_id"], name: "index_batches_on_user_id", using: :btree
 
   create_table "codeml_results", force: :cascade do |t|
-    t.float   "k",        limit: 24
-    t.float   "w0",       limit: 24
-    t.float   "w1",       limit: 24
-    t.float   "p0",       limit: 24
-    t.float   "p1",       limit: 24
-    t.integer "group_id", limit: 4
+    t.float   "k",                 limit: 24
+    t.float   "w0",                limit: 24
+    t.float   "w1",                limit: 24
+    t.float   "p0",                limit: 24
+    t.float   "p1",                limit: 24
+    t.integer "profile_report_id", limit: 4
   end
 
-  add_index "codeml_results", ["group_id"], name: "index_codeml_results_on_group_id", using: :btree
+  add_index "codeml_results", ["profile_report_id"], name: "index_codeml_results_on_profile_report_id", using: :btree
 
   create_table "fast_result_branches", force: :cascade do |t|
     t.integer "fast_result_id", limit: 4,                           null: false
@@ -66,13 +66,13 @@ ActiveRecord::Schema.define(version: 20160830175700) do
   add_index "fast_result_sites", ["fast_result_id"], name: "index_fast_result_sites_on_fast_result_id", using: :btree
 
   create_table "fast_results", force: :cascade do |t|
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.boolean  "has_positive"
-    t.integer  "run_report_id", limit: 4, null: false
+    t.integer  "profile_report_id", limit: 4
   end
 
-  add_index "fast_results", ["run_report_id"], name: "index_fast_results_on_run_report_id", using: :btree
+  add_index "fast_results", ["profile_report_id"], name: "index_fast_results_on_profile_report_id", using: :btree
 
   create_table "fasta_files", force: :cascade do |t|
     t.string   "representable_as_fasta_type", limit: 255
@@ -192,8 +192,8 @@ ActiveRecord::Schema.define(version: 20160830175700) do
 
   create_table "trees", force: :cascade do |t|
     t.binary  "newick",        limit: 65535
-    t.integer "treeable_id",   limit: 4,     null: false
-    t.string  "treeable_type", limit: 20,    null: false
+    t.integer "treeable_id",   limit: 4
+    t.string  "treeable_type", limit: 20
   end
 
   add_index "trees", ["treeable_id", "treeable_type"], name: "index_trees_on_treeable_id_and_treeable_type", using: :btree

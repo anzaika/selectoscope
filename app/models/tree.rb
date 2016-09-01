@@ -38,8 +38,8 @@ end
 #
 #  id            :integer          not null, primary key
 #  newick        :binary(65535)
-#  treeable_id   :integer          not null
-#  treeable_type :string(20)       not null
+#  treeable_id   :integer
+#  treeable_type :string(20)
 #
 # Indexes
 #
