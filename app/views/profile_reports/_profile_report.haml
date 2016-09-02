@@ -4,3 +4,7 @@
 - tree = profile_report.tree
 - if tree
   = render(partial: "trees/tree", locals: {tree: tree.newick, width: 600, compact: false})
+
+- if profile_report.fast_result
+  = profile_report.fast_result.branches.inspect
+  = profile_report.fast_result.sites.inspect
