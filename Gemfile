@@ -9,7 +9,7 @@ gem "mysql2"
 gem "jbuilder", "~> 2.4"
 gem "uglifier", "~> 2.7"
 gem "devise", "~> 3.5"
-gem "sidekiq", "~> 4.1"
+gem "sidekiq", "~> 4.2"
 gem "sidekiq-failures", "~> 0.4"
 gem "sinatra", require: nil
 gem "sidekiq-status"
