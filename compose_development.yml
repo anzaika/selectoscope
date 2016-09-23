@@ -12,6 +12,9 @@ services:
     links:
       - db
       - redis
+    depends_on:
+      - db
+      - redis
 
   sidekiq:
     extends:
@@ -27,11 +30,16 @@ services:
     links:
       - db
       - redis
+    depends_on:
+      - db
+      - redis
 
   redis:
     extends:
       file: compose_common.yml
       service: redis
+    depends_on:
+      - db
 
   db:
     extends:
