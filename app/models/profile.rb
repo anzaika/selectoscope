@@ -1,54 +1,23 @@
 class Profile < ActiveRecord::Base
-  has_many :profile_group_links, dependent: :destroy
-  has_many :groups, through: :profile_group_links
-  has_many :profile_tool_links, dependent: :destroy
-  has_many :tools, through: :profile_tool_links
   belongs_to :user
 
+  has_many :profile_group_links, dependent: :destroy
   accepts_nested_attributes_for :profile_group_links
-  accepts_nested_attributes_for :profile_tool_links
+  has_many :groups, through: :profile_group_links
 
-  attr_accessor :tool_for_alignment_id
-  attr_accessor :tool_for_tree_id
-  attr_accessor :tool_for_selection_id
+  has_many :profile_reports, dependent: :destroy
+
+  has_one :tree, as: :treeable
 
   validates :name, presence: true, uniqueness: {scope: :user_id}
   validates :user_id, presence: true
-  validates :tool_for_alignment_id, presence: true
-  validates :tool_for_tree_id, presence: true
   validates :tool_for_selection_id, presence: true
 
-  after_create :create_profile_tool_links
-
-  def tool_for_alignment
-    tools.for_alignment.limit(1).first
-  end
-
-  def tool_for_tree
-    tools.for_tree.limit(1).first
-  end
-
-  def tool_for_selection
-    tools.for_selection.limit(1).first
-  end
-
-  # @param group_id [Integer]
-  def execute_for_group(group_id)
-    ProfileReport.create(group_id: group_id, profile_id: id).run_pipeline
-  end
-
-  private
-
-  def create_profile_tool_links
-    ProfileToolLink.create(
-      profile_id: id, tool_id: tool_for_alignment_id
-    )
-    ProfileToolLink.create(
-      profile_id: id, tool_id: tool_for_tree_id
-    )
-    ProfileToolLink.create(
-      profile_id: id, tool_id: tool_for_selection_id
-    )
+  # @param job [Symbol]
+  # @return [Tool]
+  def tool_for(job)
+    id = self.send("tool_for_#{job}_id")
+    id ? Tool.find(id) : nil
   end
 end
 
@@ -56,12 +25,16 @@ end
 #
 # Table name: profiles
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)      not null
-#  description :text(65535)
-#  user_id     :integer          not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id                    :integer          not null, primary key
+#  name                  :string(255)      not null
+#  description           :text(65535)
+#  user_id               :integer          not null
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  tool_for_alignment_id :integer
+#  tool_for_filtering_id :integer
+#  tool_for_tree_id      :integer
+#  tool_for_selection_id :integer
 #
 # Indexes
 #
