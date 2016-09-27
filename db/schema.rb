@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160926172550) do
+ActiveRecord::Schema.define(version: 20160927180012) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "alignable_id",   limit: 4
@@ -155,6 +155,26 @@ ActiveRecord::Schema.define(version: 20160926172550) do
   end
 
   add_index "text_files", ["textifilable_id", "textifilable_type"], name: "index_text_files_on_textifilable_id_and_textifilable_type", using: :btree
+
+  create_table "tool_profile_params", force: :cascade do |t|
+    t.string   "key",             limit: 255, null: false
+    t.string   "value",           limit: 255, null: false
+    t.integer  "tool_profile_id", limit: 4,   null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "tool_profile_params", ["tool_profile_id"], name: "index_tool_profile_params_on_tool_profile_id", using: :btree
+
+  create_table "tool_profiles", force: :cascade do |t|
+    t.string   "name",        limit: 255,   null: false
+    t.text     "description", limit: 65535
+    t.integer  "tool_id",     limit: 4,     null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "tool_profiles", ["tool_id"], name: "index_tool_profiles_on_tool_id", using: :btree
 
   create_table "tool_reports", force: :cascade do |t|
     t.string   "program",            limit: 20
