@@ -6,7 +6,6 @@ ActiveAdmin.register Tool do
                 :type
 
   filter :name
-  filter :type, as: :select, collection: Tool.types
 
   index do
     selectable_column
@@ -37,7 +36,6 @@ ActiveAdmin.register Tool do
       column span: 1 do
         inputs "Base" do
           input :name
-          input :type, as: :select, collection: Tool.types
           input :class_name
         end
         actions

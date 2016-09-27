@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901034407) do
+ActiveRecord::Schema.define(version: 20160926172550) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "alignable_id",   limit: 4
@@ -128,20 +128,16 @@ ActiveRecord::Schema.define(version: 20160901034407) do
     t.datetime "updated_at",           null: false
   end
 
-  create_table "profile_tool_links", force: :cascade do |t|
-    t.integer "profile_id", limit: 4, null: false
-    t.integer "tool_id",    limit: 4, null: false
-  end
-
-  add_index "profile_tool_links", ["profile_id"], name: "index_profile_tool_links_on_profile_id", using: :btree
-  add_index "profile_tool_links", ["tool_id", "profile_id"], name: "index_profile_tool_links_on_tool_id_and_profile_id", unique: true, using: :btree
-
   create_table "profiles", force: :cascade do |t|
-    t.string   "name",        limit: 255,   null: false
-    t.text     "description", limit: 65535
-    t.integer  "user_id",     limit: 4,     null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "name",                  limit: 255,   null: false
+    t.text     "description",           limit: 65535
+    t.integer  "user_id",               limit: 4,     null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "tool_for_alignment_id", limit: 4
+    t.integer  "tool_for_filtering_id", limit: 4
+    t.integer  "tool_for_tree_id",      limit: 4
+    t.integer  "tool_for_selection_id", limit: 4
   end
 
   add_index "profiles", ["user_id", "name"], name: "index_profiles_on_user_id_and_name", using: :btree
@@ -183,12 +179,12 @@ ActiveRecord::Schema.define(version: 20160901034407) do
     t.string   "name",        limit: 150,   null: false
     t.text     "description", limit: 65535
     t.string   "class_name",  limit: 80,    null: false
-    t.string   "type",        limit: 50,    null: false
+    t.string   "job",         limit: 50,    null: false
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
 
-  add_index "tools", ["type"], name: "index_tools_on_type", using: :btree
+  add_index "tools", ["job"], name: "index_tools_on_job", using: :btree
 
   create_table "trees", force: :cascade do |t|
     t.binary  "newick",        limit: 65535
