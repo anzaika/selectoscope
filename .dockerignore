@@ -3,3 +3,4 @@ data/*
 spec/*
 log/*
 storage/*
+vendor/cache
