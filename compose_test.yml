@@ -7,23 +7,37 @@ services:
     container_name: guard
     working_dir: /opt/app
     privileged: true
-    user: 'root'
+    user: 'dev_user'
     environment:
       - RAILS_ENV=test
-    volumes:
-      - ".:/opt/app"
-      - "/home/anzaika/fast/selectoscope_test_storage:/opt/app/storage"
     tmpfs:
       - /tmp:rw,uid=1000,gid=1000
       - /opt/app/tmp:rw,uid=1000,gid=1000
+    volumes:
+      - "./.bundle:/opt/app/.bundle"
+      - "selectoscope-app-sync:/opt/app/app:rw"
+      - "selectoscope-spec-sync:/opt/app/spec:rw"
+    # volumes:
+    #   - "./.bundle:/opt/app/.bundle"
+    #   - "./bin:/opt/app/bin"
+    #   - "./app:/opt/app/app"
+    #   - "./spec:/opt/app/spec"
+    #   - "./config:/opt/app/config"
     links:
       - test_db
+    # command: ['./bin/start_guard']
 
   test_db:
     image: "mysql:5.7"
-    volumes:
-      - "/home/anzaika/fast/selectoscope_test_database:/var/lib/mysql"
+    tmpfs:
+      - /var/lib/mysql:rw
     environment:
       - MYSQL_ROOT_PASSWORD=1234
     ports:
       - "3306"
+
+volumes:
+  selectoscope-app-sync:
+    external: true
+  selectoscope-spec-sync:
+    external: true

@@ -1,0 +1,27 @@
+options:
+  compose-file-path: 'compose_test.yml'
+  verbose: true
+
+syncs:
+
+  selectoscope-app-sync:
+    sync_args: '--delete' # delete files on the container if they are deleted on the host
+    sync_host_ip: 'localhost'
+    sync_host_port: 10872
+    src: './app'
+    dest: '/opt/app/app'
+    sync_strategy: 'rsync'
+    sync_user: 'dev_user'
+    sync_userid: '1000'
+    sync_group: 'runners'
+
+  selectoscope-spec-sync:
+    sync_args: '--delete' # delete files on the container if they are deleted on the host
+    sync_host_ip: 'localhost'
+    sync_host_port: 10873
+    src: './spec'
+    dest: '/opt/app/spec'
+    sync_strategy: 'rsync'
+    sync_user: 'dev_user'
+    sync_userid: '1000'
+    sync_group: 'runners'
