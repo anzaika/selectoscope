@@ -1,10 +1,13 @@
 class ToolProfile < ActiveRecord::Base
   belongs_to :tool
   has_many :tool_profile_params, dependent: :destroy
+  validates :name,
+    presence: true,
+    message: "Please provide a name for this Tool profile"
 
-  def hi
+  def to_s
+    tool_profile_params.map(&:to_s).join(" ")
   end
-
 end
 
 # == Schema Information
