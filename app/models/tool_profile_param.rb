@@ -1,5 +1,5 @@
 class ToolProfileParam < ActiveRecord::Base
-  KEY_REGEX = /\A-{1,2}[a-zA-Z-_\d]*\z/
+  KEY_REGEX = /\A-{1,2}[a-zA-Z\-_\d]*\z/
 
   belongs_to :tool
   validates_format_of :key,
