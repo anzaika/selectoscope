@@ -39,6 +39,8 @@ services:
     mem_limit: 4G
     volumes:
       - "./config/mysql/config:/etc/mysql"
+      - "./config/mysql/initialize:/var/tmp/mysql"
       - "./data/database:/var/lib/mysql"
     environment:
+      # - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_ROOT_PASSWORD=1234

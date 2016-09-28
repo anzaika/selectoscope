@@ -1,4 +1,4 @@
 #!/bin/bash
+docker-compose -f compose_development.yml run db /var/tmp/mysql/setup.sh
 docker-compose -f compose_development.yml build
-docker-compose -f compose_development.yml run db /var/tmp/setup.sh
 docker-compose -f compose_development.yml run web rake db:setup

@@ -5,13 +5,32 @@ Selectoscope is a web application which combines a number of popular tools used 
 
 #Development
 
-Make sure you have [Docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/) installed on your system.
+Make sure you have [Docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/) installed and running on your system.
+This commands should return something like this:
 
 ```
-mkdir ~/projects/selectoscope
-git clone https://github.com/anzaika/selectoscope.git ~/projects/selectoscope
+> docker -v
+Docker version 1.12.1, build 6f9534c, experimental
+> docker-compose -v
+docker-compose version 1.8.0, build f3628c7
+```
+
+Download code and initialize containers and database:
 
 ```
+git clone https://github.com/anzaika/selectoscope.git selectoscope
+cd selectoscope
+./bin/initialize
+```
+
+Start the server:
+
+```
+docker-compose -f compose_development.yml up
+```
+
+##MacOS
+
 
 #Installation
 
