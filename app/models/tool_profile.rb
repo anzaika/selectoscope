@@ -1,8 +1,7 @@
 class ToolProfile < ActiveRecord::Base
   belongs_to :tool
   has_many :tool_profile_params, dependent: :destroy
-  validates :name,
-    presence: true,
+  validates_presence_of :name,
     message: "Please provide a name for this Tool profile"
 
   def to_s
