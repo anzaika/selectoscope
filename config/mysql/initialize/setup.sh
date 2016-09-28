@@ -2,6 +2,7 @@
 set -e
 set -x
 
+chown 999:999 /var/lib/mysql
 service mysql start
 until mysqladmin ping &>/dev/null; do
   echo -n "."; sleep 1
