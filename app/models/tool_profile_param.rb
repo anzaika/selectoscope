@@ -1,5 +1,14 @@
 class ToolProfileParam < ActiveRecord::Base
+  KEY_REGEX = /\A-{1,2}[a-zA-Z-_\d]*\z/
+
   belongs_to :tool
+  validates_format_of :key,
+    with: KEY_REGEX,
+    message: "Keys should be like: -v or --something-something"
+
+  def to_s
+    key + " " + value
+  end
 end
 
 # == Schema Information
