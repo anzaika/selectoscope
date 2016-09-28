@@ -446,6 +446,7 @@ DEPENDENCIES
   sidekiq-statistic
   sidekiq-status
   sinatra
+  spring
   spring-commands-rspec
   stackprof
   table_print

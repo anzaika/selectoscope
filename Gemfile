@@ -45,6 +45,7 @@ gem "rerun"
 gem "table_print"
 
 group :development, :test do
+  gem "spring"
   gem "guard-rspec", require: false
   gem "pry-rails"
   gem "pry-rescue"
