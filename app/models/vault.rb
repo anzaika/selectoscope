@@ -33,7 +33,7 @@ class Vault
     File.join(@dir, filename)
   end
 
-  def run(exec, arguments)
+  def execute(exec, arguments)
     Open3.popen3("cd #{@dir} && #{exec} #{arguments}") do |i, o, e, _t|
       i.puts "y\r\n"
       File.open(@o, "w") {|f| f << o.read }
@@ -42,7 +42,7 @@ class Vault
   end
 
   def file_list
-    Dir.entries(@dir).select {|f| !File.directory? f }.join(", ")
+    Dir.glob("#{@dir}/**/*")
   end
 
   def destroy

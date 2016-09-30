@@ -5,6 +5,7 @@ RSpec.describe Vault do
     it "creates a temporary directory" do
       v = Vault.new
       expect{Vault.new}.to change{Dir['/tmp/*'].count}.by(1)
+
     end
   end
 
@@ -19,11 +20,11 @@ RSpec.describe Vault do
     end
   end
 
-  describe "#run" do
+  describe "#execute" do
     it "should run a block of code inside the temp directory" do
       v = Vault.new
       file = File.join(v.dir, "hello.txt")
-      v.run('touch', file)
+      v.execute('touch', file)
       files = Dir[File.join(v.dir, "/*")]
       expect(files).to include(file)
     end
