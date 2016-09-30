@@ -4,7 +4,7 @@ services:
     build: .
     command: bundle exec unicorn -p 8080 -c config/unicorn.rb
     ports:
-      - "3010:8080"
+      - "3011:8080"
     volumes:
       - "./data/storage:/opt/app/storage"
       - "./data/log:/opt/app/log"
@@ -42,5 +42,4 @@ services:
       - "./config/mysql/initialize:/var/tmp/mysql"
       - "./data/database:/var/lib/mysql"
     environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      # - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_ROOT_PASSWORD=1234
