@@ -17,7 +17,7 @@ class Profile < ActiveRecord::Base
   # @return [Tool]
   def tool_for(job)
     id = self.send("tool_for_#{job}_id")
-    id ? Tool.find(id) : nil
+    id ? Tool.find_by_id(id) : nil
   end
 end
 
