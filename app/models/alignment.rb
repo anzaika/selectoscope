@@ -1,7 +1,6 @@
 class Alignment < ActiveRecord::Base
   belongs_to :alignable, polymorphic: true
   has_one :fasta_file, as: :representable_as_fasta, dependent: :destroy
-  
 
   delegate :to_fasta_string, to: :fasta_file
   delegate :to_bioruby_alignment_object, to: :fasta_file

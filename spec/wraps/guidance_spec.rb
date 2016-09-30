@@ -1,13 +1,16 @@
 require "rails_helper"
 
 RSpec.describe Guidance do
-  describe "::run" do
-    it "runs" do
-      guidance_tool = Fabricate(:tool_for_alignment, class_name: "Guidance")
-      profile = Fabricate(:profile, tool_for_alignment_id: guidance_tool.id)
-      profile_report = Fabricate(:profile_report, profile: profile)
-      
-      Guidance.run(profile_report.id)
+  describe "execute" do
+    it "returns a string" do
+      fasta = Helpers.fasta
+      out = Guidance.new.execute({input: fasta})
+      expect(out.class).to eq(String)
+    end
+    it "returns a path to resulting alignment" do
+      fasta = Helpers.fasta
+      out = Guidance.new.execute({input: fasta})
+      expect(FileTest.exist?(out)).to eq(true)
     end
   end
 end

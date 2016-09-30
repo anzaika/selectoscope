@@ -1,17 +1,20 @@
 class ProfileExecutor
+
+  attr_reader :group, :profile, :report
+
   def initialize(args)
     @group = Group.find(args.fetch(:group_id))
     @profile = Profile.find(args.fetch(:profile_id))
     @errors = []
   end
 
+  # TODO: do not start if group pre-processing is not over
   def run
     steps = [
       ->{ recreate_profile_report },
-      ->{ run_alignment_tool      },
-      ->{ run_filtering_tool      },
-      ->{ run_tree_tool           },
-      ->{ run_selection_tool      }
+      ->{ run_alignment_tool      }
+      # ->{ run_tree_tool           },
+      # ->{ run_selection_tool      }
     ]
 
     steps.each { |step| break unless step.call }
@@ -35,14 +38,30 @@ class ProfileExecutor
   end
 
   def run_alignment_tool
-    @profile.tool_for(:alignment).execute(@report.id)
+    if @profile.tool_for(:alignment)
+      alignment = AlignmentToolExecutor.new({profile_executor: self}).execute
+      stop("no alignment") unless alignment
+    else
+      fasta_file = FastaFile.create(file: File.open(@group.fasta_file.file.path), )
+      alignment = Alignment.create(fasta_file: fasta_file)
+    end
+    @report.alignment = alignment
+    @report.save
   end
 
   def run_filtering_tool
   end
 
   def run_tree_tool
-    @profile.tool_for(:tree).execute(@report.id)
+    if @profile.tool_for(:tree)
+      tree = TreeToolExecutor.new({profile_executor: self}).execute
+      stop("no tree") unless tree
+    else
+      fasta_file = FastaFile.create(file: File.open(@group.fasta_file.file.path), )
+      alignment = Alignment.create(fasta_file: fasta_file)
+    end
+    @report.alignment = alignment
+    @report.save
   end
 
   def run_selection_tool
