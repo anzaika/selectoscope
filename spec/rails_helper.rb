@@ -9,6 +9,7 @@ require "fabrication"
 require "database_cleaner"
 require_relative "support/database_cleaner"
 require_relative "support/capybara"
+require_relative "support/helpers"
 
 require "sidekiq/testing"
 Sidekiq::Testing.inline!
