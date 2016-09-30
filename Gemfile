@@ -18,6 +18,7 @@ gem "transaction_retry"
 gem "responsive_active_admin"
 gem "paper_trail", "~> 4.1"
 gem "active_type"
+gem "rubyzip"
 
 gem "rollbar"
 gem "oj"
