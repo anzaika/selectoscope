@@ -2,6 +2,7 @@ require "open3"
 
 class Vault
   attr_reader :dir
+  include Util::Tar
 
   STDOUT = "stdout.out".freeze
   STDERR = "stderr.out".freeze
@@ -47,5 +48,12 @@ class Vault
 
   def destroy
     FileUtils.remove_entry(@dir)
+  end
+
+  # TODO: temp implementation, needs fixing
+  def archive
+    io = tar(@dir)
+    gz = gzip(io)
+    File.open("/opt/app/log/demo.tar.gz", "wb") {|f| f << gz}
   end
 end
