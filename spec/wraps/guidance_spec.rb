@@ -2,15 +2,10 @@ require "rails_helper"
 
 RSpec.describe Guidance do
   describe "execute" do
-    it "returns a string" do
-      fasta = Helpers.fasta
+    it "returns an OpenStruct with alignment" do
+      fasta = Helpers.fixed_fasta
       out = Guidance.new.execute({input: fasta})
-      expect(out.class).to eq(String)
-    end
-    it "returns a path to resulting alignment" do
-      fasta = Helpers.fasta
-      out = Guidance.new.execute({input: fasta})
-      expect(FileTest.exist?(out)).to eq(true)
+      expect(out.alignment.class).to eq(String)
     end
   end
 end
