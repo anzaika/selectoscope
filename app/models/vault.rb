@@ -42,7 +42,7 @@ class Vault
     end
   end
 
-  def file_list
+  def ls
     Dir.glob("#{@dir}/**/*")
   end
 
