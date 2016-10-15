@@ -1,9 +1,9 @@
-module Phyml
+module Raxml
   class Run < RunBase
-    PROGRAM = "PhyML".freeze
-    EXEC = "phyml".freeze
-    ALIGNMENT = "aligned.phylip".freeze
-    OUTPUT = "aligned.phylip_phyml_tree".freeze
+    PROGRAM = "RAxML".freeze
+    EXEC = "raxml".freeze
+    ALIGNMENT = "aligned.fasta".freeze
+    OUTPUT = "tree.newick".freeze
 
     def version
       ""

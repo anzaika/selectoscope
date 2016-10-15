@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160927180012) do
+ActiveRecord::Schema.define(version: 20161015112953) do
 
   create_table "alignments", force: :cascade do |t|
     t.integer  "alignable_id",   limit: 4
@@ -189,7 +189,7 @@ ActiveRecord::Schema.define(version: 20160927180012) do
     t.boolean  "successful"
     t.integer  "profile_report_id",  limit: 4
     t.string   "exec",               limit: 255
-    t.integer  "tool_id",            limit: 4,     null: false
+    t.integer  "tool_id",            limit: 4
   end
 
   add_index "tool_reports", ["profile_report_id"], name: "index_tool_reports_on_profile_report_id", using: :btree

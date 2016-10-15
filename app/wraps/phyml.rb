@@ -1,9 +1,20 @@
-module Phyml
-  def self.run(profile_report_id)
-    profile_report = ProfileReport.find(profile_report_id)
-    run = Phyml::Run.new(profile_report)
-    run.execute
-    report = Phyml::Report.new(run, profile_report)
-    report.save
+class Phyml
+  PROGRAM = "PhyML".freeze
+  EXEC = "phyml".freeze
+  INPUT = "aligned.phylip".freeze
+  OUTPUT = "aligned.phylip_phyml_tree".freeze
+
+  attr_reader :vault, :args
+
+  def initialize
+    @vault = Vault.new
+    @report = ToolReport.new(program: PROGRAM, exec: EXEC, start: Time.now)
+  end
+
+  def execute(args)
+    @input = args.fetch(:input)
+    Preparer.new({vault: @vault, input: @input}).execute
+    Runner.new({vault: @vault, report: @report}).execute
+    Outputter.new({vault: @vault, report: @report}).execute
   end
 end

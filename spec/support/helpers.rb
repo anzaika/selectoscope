@@ -14,4 +14,9 @@ module Helpers
   def self.fixed_fasta
     4.times.map{|i| ">#{i}\natgatttta" }.join("\n")
   end
+
+  def self.phylip_string
+     Bio::Alignment::MultiFastaFormat
+      .new(self.fasta).alignment.output_phylip
+  end
 end

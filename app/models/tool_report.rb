@@ -65,7 +65,7 @@ end
 #  successful         :boolean
 #  profile_report_id  :integer
 #  exec               :string(255)
-#  tool_id            :integer          not null
+#  tool_id            :integer
 #
 # Indexes
 #
