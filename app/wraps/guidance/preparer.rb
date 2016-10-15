@@ -9,7 +9,8 @@ class Guidance
     end
 
     def execute
-      @vault.write_to_file(@input, Guidance::INPUT)
+      @vault.write_to_file(@input, INPUT)
     end
+
   end
 end

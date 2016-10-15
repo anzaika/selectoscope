@@ -26,12 +26,12 @@ class Guidance
     end
 
     def resulting_alignment
-      run_successful? ? Guidance::Silencer.new({vault: @vault}).execute : nil
+      run_successful? ? Silencer.new({vault: @vault}).execute : nil
     end
 
     def run_successful?
-      FileTest.exist?(@vault.path_to(Guidance::ALIGNMENT)) &&
-      FileTest.exist?(@vault.path_to(Guidance::SCORES))
+      FileTest.exist?(@vault.path_to(ALIGNMENT)) &&
+      FileTest.exist?(@vault.path_to(SCORES))
     end
   end
 end
