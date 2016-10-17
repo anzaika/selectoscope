@@ -1,9 +1,7 @@
-module Fastcodeml
-  def self.run(profile_report_id)
-    profile_report = ProfileReport.find(profile_report_id)
-    run = Fastcodeml::Run.new(profile_report)
-    run.execute
-    report = Fastcodeml::Report.new(run, profile_report)
-    report.save
-  end
+class Fastcodeml < Wrapper
+  PROGRAM   = "fastcodeml".freeze
+  EXECUTABLE = "fast".freeze
+  INPUT_ALIGNMENT = "aligned.phy".freeze
+  INPUT_TREE      = "tree.nwk".freeze
+  OUTPUT    = "output.out".freeze
 end

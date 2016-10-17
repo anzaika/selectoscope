@@ -9,8 +9,12 @@ class Tool < ActiveRecord::Base
   validates :name, uniqueness: true, presence: true
   validates :class_name, uniqueness: true, presence: true
 
-  def execute(profile_report_id)
-    class_name.constantize.run(profile_report_id)
+  def wrapper
+    class_name.constantize
+  end
+
+  def execute(args)
+    wrapper.new.execute(args)
   end
 end
 

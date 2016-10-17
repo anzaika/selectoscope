@@ -40,13 +40,13 @@ RSpec.describe Phyml::Outputter do
       it "returns OpenStruct with tree present" do
         simulate_successful_run(v)
         o = Phyml::Outputter.new(vault: v, report: ToolReport.new).execute
-        expect(o.tree).to be_present
+        expect(o.output).to be_present
       end
 
       it "returns OpenStruct with tree of String class" do
         simulate_successful_run(v)
         o = Phyml::Outputter.new(vault: v, report: ToolReport.new).execute
-        expect(o.tree.class).to eq(String)
+        expect(o.output.class).to eq(String)
       end
     end
 

@@ -5,7 +5,6 @@ RSpec.describe Vault do
     it "creates a temporary directory" do
       v = Vault.new
       expect{Vault.new}.to change{Dir['/tmp/*'].count}.by(1)
-
     end
   end
 
@@ -34,6 +33,14 @@ RSpec.describe Vault do
     it "removes a temporary directory" do
       v = Vault.new
       expect{v.destroy}.to change{Dir['/tmp/*'].count}.by(-1)
+    end
+  end
+
+  describe "archive" do
+    it "returns a tgz archive with directory contents" do
+      pending
+      v = Vault.new
+      puts v.archive.inspect
     end
   end
 end
