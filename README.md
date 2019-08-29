@@ -1,3 +1,5 @@
+**Warning**: This project is not currently actively developed. It is unlikely that it is usable in the near future.
+
 Selectoscope
 ================
 
