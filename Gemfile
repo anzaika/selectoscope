@@ -8,7 +8,7 @@ gem "cancancan", "~> 1.13"
 gem "mysql2"
 gem "jbuilder", "~> 2.4"
 gem "uglifier", "~> 2.7"
-gem "devise", "~> 3.5"
+gem "devise", "~> 4.7"
 gem "sidekiq", "~> 4.1"
 gem "sidekiq-failures", "~> 0.4"
 gem "sinatra", require: nil
